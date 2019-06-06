@@ -25,7 +25,7 @@ NAME = libft.a
 
 all: $(NAME)
 $(NAME):
-	gcc -c $(FLAGS) $(SOURCE)
+	gcc -g -c $(FLAGS) $(SOURCE)
 	mkdir $(OBJDIR)
 	mv $(OBJS) $(OBJDIR)
 	make -C ft_ctime/ all

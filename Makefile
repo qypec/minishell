@@ -13,7 +13,7 @@ all:
 	# mv $(OBJS) $(OBJDIR)
 	# ar rc $(NAME) $(OBJDIR)/$(OBJS) libft/$(OBJDIR)/*.o
 	# ranlib $(NAME)
-	gcc main.c -L. -lft -o minishell
+	gcc -g main.c -L. -lft -o minishell
 
 clean:
 	make -C libft/ clean

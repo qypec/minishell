@@ -101,5 +101,6 @@ char				*ft_strnglue(char *str, const char *left, const char *right,
 						size_t n);
 char				*ft_stradd(char *str, char c);
 char				*ft_strnadd(char *str, char c, size_t n);
+char				*ft_realloc(char *str, size_t size);
 
 #endif
