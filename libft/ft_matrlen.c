@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_matrlen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/13 20:53:16 by yquaro           ###   ########.fr       */
+/*   Created: 2019/06/13 20:24:22 by yquaro            #+#    #+#             */
+/*   Updated: 2019/06/13 20:27:06 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+# include "includes/libft.h"
 
-# include <unistd.h>
-# include "libft/includes/libft.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <stdio.h>
+size_t					ft_matrlen(const char **matr)
+{
+	size_t				len;
 
-# define		BUFF_SIZE					9
-
-# define		GIT_BRANCH_NAME_FILE		".git/HEAD"
-# define		BUFF_BRANCH_NAME_SIZE		30
-
-char				**g_envv;
-
-void				display_prompt(void);
-void				init_envv(const char **envv);
-
-
-# endif
+	len = 0;
+	while (*matr != NULL)
+	{
+		len++;
+		matr++;
+	}
+	return (len);
+}

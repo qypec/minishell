@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 12:05:21 by yquaro            #+#    #+#             */
-/*   Updated: 2019/05/20 17:27:08 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/13 22:14:09 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,13 @@ void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-int					ft_height(char *s, char c);
 int					ft_abs(int num);
 int					ft_pow(int num, int power);
 int					ft_isspace(int c);
 int					ft_numblen(int n);
 char				**ft_matrixfree(char ***ret);
 char				**ft_strswap(char **matrix, int first, int second);
-void				ft_putmatrix(char **str);
+void				ft_putmatrix(char **matr);
 char				*ft_strncut(char *str, int n, char *choice);
 char				*ft_strencut(char *str, int n, char *choice);
 char				*ft_addsymb(char *str, char c, int num);
@@ -102,5 +101,7 @@ char				*ft_strnglue(char *str, const char *left, const char *right,
 char				*ft_stradd(char *str, char c);
 char				*ft_strnadd(char *str, char c, size_t n);
 char				*ft_realloc(char *str, size_t size);
+size_t				ft_matrlen(const char **matr);
+char				**ft_matrdup(const char **matr);
 
 #endif

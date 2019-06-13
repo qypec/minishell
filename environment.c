@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_height.c                                        :+:      :+:    :+:   */
+/*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/05 19:57:17 by yquaro            #+#    #+#             */
-/*   Updated: 2019/05/01 19:04:17 by yquaro           ###   ########.fr       */
+/*   Created: 2019/06/13 20:23:35 by yquaro            #+#    #+#             */
+/*   Updated: 2019/06/13 22:52:09 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+# include "minishell.h"
 
-int		ft_height(char *s, char c)
+void					init_envv(const char **envv)
 {
-	int i;
-	int y;
-
-	i = 0;
-	y = 0;
-	while (s[i] == c)
-		i++;
-	while (s[i++] != '\0')
-	{
-		if (s[i] == c)
-		{
-			y++;
-			while (s[i] == c)
-				i++;
-		}
-	}
-	i--;
-	if (s[i - 1] != c)
-		y++;
-	return (y);
+	g_envv = NULL;
+	g_envv = ft_matrdup(envv); // мб стоит выделить побольше памяти чем надо изначально для setenv
 }
+
+void					free_envv(void)
+{
+	ft_matrixfree(&g_envv);
+}
+
+// void					check_env_path(const char *line)
+// {
+	
+// }
+

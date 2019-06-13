@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_matrdup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/13 20:53:16 by yquaro           ###   ########.fr       */
+/*   Created: 2019/06/13 20:30:01 by yquaro            #+#    #+#             */
+/*   Updated: 2019/06/13 21:10:08 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-# include <unistd.h>
-# include "libft/includes/libft.h"
+# include "includes/libft.h"
 # include <stdio.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <stdio.h>
+char					**ft_matrdup(const char **matr)
+{
+	char				**new;
+	int					i;
 
-# define		BUFF_SIZE					9
-
-# define		GIT_BRANCH_NAME_FILE		".git/HEAD"
-# define		BUFF_BRANCH_NAME_SIZE		30
-
-char				**g_envv;
-
-void				display_prompt(void);
-void				init_envv(const char **envv);
-
-
-# endif
+	i = 0;
+	new = (char **)ft_memalloc(sizeof(char *) * (ft_matrlen(matr) + 1));
+	while (matr[i] != NULL)
+	{
+		new[i] = ft_strdup(matr[i]);
+		i++;
+	}
+	new[i] = NULL;
+	return (new);
+}

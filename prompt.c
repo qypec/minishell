@@ -1,4 +1,4 @@
-# include "header.h"
+# include "minishell.h"
 
 void					display_git_prompt(char *branch_name)
 {

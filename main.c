@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/13 20:13:09 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/13 22:51:53 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,39 +23,43 @@
 	// 	wait(NULL);
 
 
-void					check_for_semicolon(char *line) // rename to parse_command
-{
-	char				**cmd;
-
-	cmd = ft_strsplit(line, ';');
-	ft_strdel(&line);
-	while (cmd != NULL)
-		parse_command(cmd++);
-}
-
 void					parse_command(char *cmd) // move to check_for semicolon when hashtable is ready
 {
+	write(1, cmd, ft_strlen(cmd));
+	write(1, "\n", 1);
 	// if (i = check_hashtable(cmd) == 0)
 	// 	check_env_path();
 	// else
 	// 	launch_builtin(i);
-	if (ft_strncmp(buff, "cd", 3) == 0)								// restruct for hashtabs
-		cmd_cd();
-	else if (ft_strncmp(buff, "echo", 5) == 0)
-		cmd_echo();
-	else if (ft_strncmp(buff, "exit", 5) == 0)
+	// if (ft_strncmp(cmd, "cd", 3) == 0)								// restruct for hashtabs
+	// 	cmd_cd();
+	// else if (ft_strncmp(cmd, "echo", 5) == 0)
+	// 	cmd_echo();
+	// else if (ft_strncmp(cmd, "exit", 5) == 0)
+	// {
+	// 	write(1, "See you!\n", 9);
+	// 	exit(0);
+	// }
+	// else if (ft_strncmp(cmd, "env", 4) == 0)
+	// 	cmd_env();
+	// else if (ft_strncmp(cmd, "setenv", 7) == 0)
+	// 	cmd_setenv();
+	// else if (ft_strncmp(cmd, "unsetenv", 9) == 0)
+	// 	cmd_unsetenv();
+	// else
+	// 	check_env_path(cmd);
+}
+
+void					check_for_semicolon(const char *line) // rename to parse_command
+{
+	char				**cmd;
+
+	cmd = ft_strsplit(line, ';');
+	while (*cmd != NULL)
 	{
-		write(1, "See you!\n", 9);
-		exit(0);
+		parse_command(*cmd);
+		cmd++;
 	}
-	else if (ft_strncmp(buff, "env", 4) == 0)
-		cmd_env();
-	else if (ft_strncmp(buff, "setenv", 7) == 0)
-		cmd_setenv();
-	else if (ft_strncmp(buff, "unsetenv", 9) == 0)
-		cmd_unsetenv();
-	else
-		check_env_path(cmd);
 }
 
 void 					handle_ctrl_c(int sig) 
@@ -90,20 +94,19 @@ void					get_input(void)
 		buff[i++] = symb;
 	}
 	buff[i] = '\0';
-	check_for_semicolon(buff);
+	check_for_semicolon((const char *)buff);
 	ft_strdel(&buff);
 }
 
-# include <curses.h>
+// # include <curses.h>
 
 int							main(int argc, char **argv, char **envv)
 {
-	// init_envv();
-	// ft_putmatrix(envv);
+	init_envv((const char **)envv);
     display_prompt();
     while (1)
     {
-    	get_input(envv);
+    	get_input();
     	display_prompt();
     }
 
