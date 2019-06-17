@@ -5,33 +5,36 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/06/09 14:21:08 by yquaro            #+#    #+#              #
-#    Updated: 2019/06/13 21:16:44 by yquaro           ###   ########.fr        #
+#    Created: 2019/06/13 21:16:45 by yquaro            #+#    #+#              #
+#    Updated: 2019/06/18 02:30:49 by yquaro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS = -Wall -Wextra -Werror
-SOURCE = main.c prompt.c environment.c
-OBJS = *.o
-OBJDIR = .obj
-NAME = minishel.a
+# (ar rc)
+# The c option makes you create a library if it is not available,
+# and the r (replace) option replaces old object files with new versions.
 
-all:
-	make -C libft/ re
-	mv libft/libft.a libft.a
-	# gcc -c $(SOURCE)  # не забыть про ФЛАГИ!!!!!
-	# mkdir $(OBJDIR)
-	# mv $(OBJS) $(OBJDIR)
-	# ar rc $(NAME) $(OBJDIR)/$(OBJS) libft/$(OBJDIR)/*.o
-	# ranlib $(NAME)
-	gcc -g $(SOURCE) -L. -lft -o minishell
+# (ranlib)
+# Adds a character index to the archive
 
-clean:
-	make -C libft/ clean
-	rm -r libft.a
+CC = gcc
+CFLAGS = -g -Wall -Wextra -Werror
+SOURCES = environment.c main.c prompt.c
+OBJECTS = environment.o main.o prompt.o
+EXECUTABLE = minishell
 
-fclean: clean
-	make -C libft/ fclean
-	rm -r minishell
+LIBNAME = libft.a
+
+all: $(EXECUTABLE)
+$(EXECUTABLE):
+	@make -C libft/ all
+	$(CC) $(SOURCES) -L. -lft -o $(EXECUTABLE) # НЕ ЗАБЫТЬ ФЛАГИ!!!!
+	
+clean: fclean
+
+fclean:
+	@make -C libft/ fclean
+	@rm $(EXECUTABLE)
+	@rm $(LIBNAME)
 
 re: fclean all

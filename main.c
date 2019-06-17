@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/13 22:51:53 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/18 02:10:00 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void					parse_command(char *cmd) // move to check_for semicolon when hashtable 
 {
 	write(1, cmd, ft_strlen(cmd));
 	write(1, "\n", 1);
-	// if (i = check_hashtable(cmd) == 0)
+	// if ((i = check_hashtable(cmd)) == 0)
 	// 	check_env_path();
 	// else
 	// 	launch_builtin(i);
@@ -35,7 +35,7 @@ void					parse_command(char *cmd) // move to check_for semicolon when hashtable 
 	// 	cmd_cd();
 	// else if (ft_strncmp(cmd, "echo", 5) == 0)
 	// 	cmd_echo();
-	// else if (ft_strncmp(cmd, "exit", 5) == 0)
+	// if (ft_strncmp(cmd, "exit", 5) == 0)
 	// {
 	// 	write(1, "See you!\n", 9);
 	// 	exit(0);

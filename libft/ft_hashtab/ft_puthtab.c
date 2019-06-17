@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_matrdup.c                                       :+:      :+:    :+:   */
+/*   ft_puthtab.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/13 20:30:01 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/18 00:45:22 by yquaro           ###   ########.fr       */
+/*   Created: 2019/06/15 19:40:07 by yquaro            #+#    #+#             */
+/*   Updated: 2019/06/18 00:13:43 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "includes/libft.h"
+# include "ft_hashtab.h"
+# include <stdio.h>
 
-char					**ft_matrdup(const char **matr)
+void					ft_puthtab(ht_list **htab)
 {
-	char				**new;
 	int					i;
+	ht_list				*tmp;
 
 	i = 0;
-	new = (char **)ft_memalloc(sizeof(char *) * (ft_matrlen(matr) + 1));
-	while (matr[i] != NULL)
+	while (i < g_htabsize)
 	{
-		new[i] = ft_strdup(matr[i]);
+		if (htab[i] == NULL)
+		{
+			i++;
+			continue ;
+		}
+		printf("[%d] key: |%s| value: |%s|\n", i, htab[i]->key, (char *)htab[i]->value);
+		tmp = htab[i];
+		while (tmp->next != NULL)
+		{
+			tmp = tmp->next;
+			printf("-> [%d] key: |%s| value: |%s|\n", i, tmp->key, (char *)tmp->value);
+		}
 		i++;
 	}
-	new[i] = NULL;
-	return (new);
+	printf("\n");
 }

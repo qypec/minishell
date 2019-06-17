@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pow.c                                           :+:      :+:    :+:   */
+/*   ft_math.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/08 13:55:46 by yquaro            #+#    #+#             */
-/*   Updated: 2019/05/01 19:04:27 by yquaro           ###   ########.fr       */
+/*   Created: 2019/06/12 09:44:01 by qypec             #+#    #+#             */
+/*   Updated: 2019/06/12 10:56:16 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#ifndef FT_MATH_H
+# define FT_MATH_H
 
-int		ft_pow(int num, int power)
-{
-	int tot;
+# include "../includes/libft.h"
 
-	tot = num;
-	if (power < 0)
-		return (-1);
-	if (power == 0)
-		return (1);
-	if (power == 1)
-		return (num);
-	while (power-- != 1)
-		tot *= num;
-	return (tot);
-}
+int								ft_abs(int num);
+int								ft_pow(int num, int power);
+
+#endif

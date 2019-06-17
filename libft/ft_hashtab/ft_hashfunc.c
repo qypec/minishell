@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnglue.c                                      :+:      :+:    :+:   */
+/*   ft_hashfunc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/05 18:59:24 by yquaro            #+#    #+#             */
-/*   Updated: 2019/05/05 19:01:28 by yquaro           ###   ########.fr       */
+/*   Created: 2019/06/15 18:11:40 by yquaro            #+#    #+#             */
+/*   Updated: 2019/06/15 22:12:47 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+# include "ft_hashtab.h"
 
-char	*ft_strnglue(char *str, const char *left, const char *right, size_t n)
+int        ft_hashfunc(const char *str)
 {
-	int i;
-	int	counter;
+	int			i;
+	long long	hash;
+	int			p;
+	long long	p_pow;
 
-	if (str == NULL || left == NULL || right == NULL)
-		return (NULL);
+	p_pow = 1;
 	i = 0;
-	counter = n;
-	while (left[i] != '\0')
+	hash = 0;
+	p = 16;
+	while (str[i] != '\0')
 	{
-		str[counter] = left[i];
+		hash += (str[i] - 'a' + 1) * p_pow;
+		p_pow *= p;
 		i++;
-		counter++;
 	}
-	i = 0;
-	while (right[i] != '\0')
-	{
-		str[counter] = right[i];
-		i++;
-		counter++;
-	}
-	str[counter] = '\0';
-	return (str);
+	hash = ft_abs(hash) % g_htabsize;
+	return (hash);
 }

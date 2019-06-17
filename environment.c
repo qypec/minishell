@@ -23,8 +23,8 @@ void					free_envv(void)
 	ft_matrixfree(&g_envv);
 }
 
-// void					check_env_path(const char *line)
-// {
-	
-// }
+void					check_env_path(const char *line)
+{
+		
+}
 

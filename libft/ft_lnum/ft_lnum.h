@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_lnum.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/23 19:18:31 by yquaro            #+#    #+#             */
-/*   Updated: 2019/05/01 19:04:24 by yquaro           ###   ########.fr       */
+/*   Created: 2019/06/12 16:32:08 by yquaro            #+#    #+#             */
+/*   Updated: 2019/06/13 15:57:15 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#ifndef FT_CTIME_H
+# define FT_CTIME_H
 
-void	*ft_memalloc(size_t size)
+# include "../includes/libft.h"
+
+# define	DOUBLE_POW_CONST	52
+
+typedef struct					s_lnum
 {
-	void *arr;
+	short						sign;
+	long long					mantissa;
+	short						expon;
+}								t_lnum;
 
-	arr = malloc(size);
-	if (arr == NULL)
-		return (NULL);
-	else
-		return (ft_memset(arr, 0, size));
-}
+#endif

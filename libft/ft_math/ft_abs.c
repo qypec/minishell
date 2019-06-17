@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/08 14:33:56 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/12 17:58:27 by yquaro           ###   ########.fr       */
+/*   Created: 2018/12/08 13:38:22 by yquaro            #+#    #+#             */
+/*   Updated: 2019/06/12 10:58:27 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "ft_math.h"
 
-int		ft_isspace(int c)
+int		ft_abs(int num)
 {
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (1);
-	return (0);
+	if (num == -2147483648)
+		return (-1);
+	else if (num < 0)
+		return (-num);
+	else
+		return (num);
 }
