@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_matrdup.c                                       :+:      :+:    :+:   */
+/*   ft_mapnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/13 20:30:01 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/18 04:33:19 by yquaro           ###   ########.fr       */
+/*   Created: 2019/06/18 17:04:28 by yquaro            #+#    #+#             */
+/*   Updated: 2019/06/18 19:59:47 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "includes/libft.h"
+# include "ft_map.h"
 
-char					**ft_matrdup(const char **matr)
+t_map					*ft_mapnew(void *hashfunc_ptr)
 {
-	char				**new;
+	t_map				*map;
 	int					i;
 
 	i = 0;
-	new = (char **)ft_memalloc(sizeof(char *) * (ft_matrlen(matr) + 1));
-	while (matr[i] != NULL)
-	{
-		new[i] = ft_strdup(matr[i]);
-		i++;
-	}
-	new[i] = NULL;
-	return (new);
+	if ((map = (t_map *)malloc(sizeof(t_map))) == NULL)
+		return (NULL);
+	if (hashfunc_ptr != NULL)
+		map->hashfunc = hashfunc_ptr;
+	else
+		map->hashfunc = DEFAULT_HASHFUNC;
+	map->size = DEFAULT_MAP_SIZE;
+	map->content_size = 0;
+	map->head = (ht_list **)malloc(sizeof(ht_list *) * map->size);
+	while (i < map->size)
+		map->head[i++] = NULL;
+	return (map);
 }

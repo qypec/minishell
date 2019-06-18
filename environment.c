@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:23:35 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/13 22:52:09 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/18 04:58:15 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,21 @@
 void					init_envv(const char **envv)
 {
 	g_envv = NULL;
-	g_envv = ft_matrdup(envv); // мб стоит выделить побольше памяти чем надо изначально для setenv
+	char				**new;
+	int					i;
+	int					len;
+
+	i = 0;
+	len = ft_matrlen(envv) + 1 + EXTRA_MEMORY_FOR_SETENV;
+	g_envv = (char **)ft_memalloc(sizeof(char *) * len);
+	while (envv[i] != NULL)
+	{
+		g_envv[i] = ft_strdup(envv[i]);
+		i++;
+	}
+	while (i < len)
+		g_envv[i++] = NULL;
+	g_envvlen = len;
 }
 
 void					free_envv(void)

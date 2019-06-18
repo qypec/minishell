@@ -6,7 +6,7 @@
 #    By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/13 21:16:45 by yquaro            #+#    #+#              #
-#    Updated: 2019/06/18 02:30:49 by yquaro           ###   ########.fr        #
+#    Updated: 2019/06/18 05:50:25 by yquaro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,16 +19,15 @@
 
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror
-SOURCES = environment.c main.c prompt.c
-OBJECTS = environment.o main.o prompt.o
+SOURCES = environment.c main.c prompt.c envpath.c
+OBJECTS = environment.o main.o prompt.o envpath.o
 EXECUTABLE = minishell
 
 LIBNAME = libft.a
 
-all: $(EXECUTABLE)
-$(EXECUTABLE):
+all:
 	@make -C libft/ all
-	$(CC) $(SOURCES) -L. -lft -o $(EXECUTABLE) # НЕ ЗАБЫТЬ ФЛАГИ!!!!
+	$(CC) -g $(SOURCES) -L. -lft -o $(EXECUTABLE) # НЕ ЗАБЫТЬ ФЛАГИ!!!!
 	
 clean: fclean
 

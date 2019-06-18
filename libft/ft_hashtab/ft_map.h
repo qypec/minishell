@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hashtab.h                                       :+:      :+:    :+:   */
+/*   ft_map.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/14 13:54:23 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/17 23:49:51 by yquaro           ###   ########.fr       */
+/*   Created: 2019/06/18 19:58:10 by yquaro            #+#    #+#             */
+/*   Updated: 2019/06/18 21:12:37 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_HASHTAB
-# define FT_HASHTAB
+#ifndef FT_MAP
+# define FT_MAP
 
 # include							"../includes/libft.h"
 # include							<stdarg.h>
 
-# define DEFAULT_HASHTABLE_SIZE		100
+# define DEFAULT_MAP_SIZE			3
 # define DEFAULT_HASHFUNC			&ft_hashfunc
 
 typedef struct						s_htablist
@@ -26,19 +26,25 @@ typedef struct						s_htablist
 	struct s_htablist				*next;
 }									ht_list;
 
-int									g_htabsize;
-void								*g_hashfunc;
+typedef struct						s_map
+{
+	ht_list							**head;
+	int								size;
+	int								content_size;
+	void							*hashfunc;
+}									t_map;
 
 ht_list								*ht_listnew(const char *key, const void *value);
 void								ht_listdelone(ht_list **head, ht_list **list);
 void								ht_listdel(ht_list **head);
 
-int									ft_hashfunc(const char *str);
+int									ft_hashfunc(const char *str, int size);
 
-ht_list								**ft_htabnew(void *format, ...);
-void								ft_htabadd(ht_list **htab, const char *key, const void *value);
-void								ft_htabdelone(ht_list **htab, const char *key);
-void								ft_htabfree(ht_list ***htab);
-void								ft_puthtab(ht_list **htab);
+t_map								*ft_mapnew(void *hashfunc_ptr);
+int									ft_ismapitem(ht_list *htab, const char *key);
+void							 	ft_mapinsert(t_map *map, const char *key, const void *value);
+void								ft_mapdelone(t_map *map, const char *key);
+void								ft_mapdel(t_map **map);
+void								ft_putmap(t_map *map);
 
 #endif

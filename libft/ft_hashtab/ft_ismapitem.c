@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_htabdelone.c                                    :+:      :+:    :+:   */
+/*   ft_ismapitem.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/16 00:19:28 by qypec             #+#    #+#             */
-/*   Updated: 2019/06/18 00:13:28 by yquaro           ###   ########.fr       */
+/*   Created: 2019/06/18 04:45:31 by yquaro            #+#    #+#             */
+/*   Updated: 2019/06/18 19:57:05 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_hashtab.h"
+# include "ft_map.h"
 
-void					ft_htabdelone(ht_list **htab, const char *key)
+int						ft_ishtabitem(ht_list *htab, const char *key)
 {
 	int					hash;
 	int					(*hash_func)(const char *);
@@ -20,18 +20,16 @@ void					ft_htabdelone(ht_list **htab, const char *key)
 
 	hash_func = g_hashfunc;
 	hash = hash_func(key);
-	if (htab[hash] == NULL)
-		return ;
-	tmp = htab[hash];
+	if (&htab[hash] == NULL)
+		return (0);
+	tmp = &htab[hash];
 	while (tmp != NULL)
 	{
 		if (ft_strcmp((const char *)tmp->key, key) == 0)
-		{
-			ht_listdelone(&(htab[hash]), &tmp);
-			return ;
-		}
+			return (hash);
 		if (tmp->next == NULL)
-			return ;
+			break ;
 		tmp = tmp->next;
 	}
+	return (0);
 }

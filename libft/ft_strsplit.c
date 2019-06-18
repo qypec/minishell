@@ -6,11 +6,21 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 14:13:16 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/13 22:48:41 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/18 08:09:26 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
+
+static size_t			strlen_c(const char *str, char c)
+{
+	int					i;
+
+	i = 0;
+	while (str[i] != c && str[i] != '\0')
+		i++;
+	return (i);
+}
 
 static size_t			ft_height(const char *str, char c)
 {
@@ -23,7 +33,7 @@ static size_t			ft_height(const char *str, char c)
 			height++;
 		str++;
 	}
-	return (height + 1);
+	return (height);
 }
 
 char				**ft_strsplit(char const *str, char c)
@@ -39,9 +49,7 @@ char				**ft_strsplit(char const *str, char c)
 	matr = (char **)malloc(sizeof(char *) * (ft_height(str, c) + 1));
 	while (str[len] != '\0')
 	{
-		while (str[len] != c)
-			if (str[len++] == '\0')
-				break ;
+		len = strlen_c(str ,c);
 		if ((matr[i] = (char *)malloc(sizeof(char) * len)) == NULL)
 		{
 			ft_matrixfree(&matr);
