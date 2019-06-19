@@ -6,32 +6,43 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 16:30:10 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/18 19:59:55 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/19 22:01:28 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "ft_map.h"
 
-void					ht_listdelone(ht_list **head, ht_list **list)
+static void				del(ht_list **list)
 {
-	ht_list				*tmp;
-
-	if (*list == NULL)
-		return ;
-	tmp = *head;
-	if (*head == *list && (*list)->next != NULL)
-		*head = (*head)->next;
-	if (tmp != *list)
-	{
-		while (tmp->next != *list)
-			tmp = tmp->next;
-		tmp->next = (*list)->next;
-	}
 	(*list)->next = NULL;
 	(*list)->key = NULL;
 	(*list)->value = NULL;
 	free(*list);
 	list = NULL;
+}
+
+void					ht_listdelone(ht_list **head, ht_list **list)
+{
+	ht_list				*tmp;
+	ht_list				*lst;
+
+	if (*list == NULL)
+		return ;
+	tmp = *head;
+	lst = *list;
+	if (tmp == lst)
+	{
+		del(list);
+		*list = tmp->next;
+		return ;
+	}
+	if (tmp->next != NULL)
+	{
+		while (tmp->next != lst)
+			tmp = tmp->next;
+		tmp->next = lst->next;
+	}
+	del(&lst);
 }
 
 void					ht_listdel(ht_list **head)

@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 17:03:51 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/18 20:59:27 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/19 18:01:34 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void					ft_putmap(t_map *map)
 			tmp = &(map->head[i]);
 			while ((*tmp)->next != NULL)
 			{
-				*tmp = (*tmp)->next;
+				tmp = &((*tmp)->next);
 				printf("-> [%d] key: |%s| value: |%s|\n", i, (*tmp)->key, (char *)(*tmp)->value);
 			}
 		}

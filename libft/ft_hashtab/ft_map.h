@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 19:58:10 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/18 21:12:37 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/19 18:28:23 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include							"../includes/libft.h"
 # include							<stdarg.h>
 
-# define DEFAULT_MAP_SIZE			3
+# define DEFAULT_MAP_SIZE			100
 # define DEFAULT_HASHFUNC			&ft_hashfunc
 
 typedef struct						s_htablist

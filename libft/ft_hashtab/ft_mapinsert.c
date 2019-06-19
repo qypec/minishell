@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 08:04:48 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/18 21:30:04 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/19 18:13:27 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void					ft_mapinsert(t_map *map, const char *key, const void *value)
 		}
 		if ((*tmp)->next == NULL)
 			break ;
-		*tmp = (*tmp)->next;
+		tmp = &((*tmp)->next);
 	}
 	(*tmp)->next = ht_listnew(key, value);
 	map->content_size++;
