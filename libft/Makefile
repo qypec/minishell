@@ -6,7 +6,7 @@
 #    By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/20 19:26:56 by yquaro            #+#    #+#              #
-#    Updated: 2019/06/18 02:26:52 by yquaro           ###   ########.fr        #
+#    Updated: 2019/06/23 13:34:10 by yquaro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ $(NAME): $(OBJECTS)
 	@make -C ft_ctime/ all
 	@make -C ft_alloc/ all
 	@make -C ft_math/ all
-	@make -C ft_hashtab/ all
+	@make -C ft_map/ all
 	@ar rc $(NAME) $(OBJECTS)
 	@ranlib $(NAME)
 	@mv $(NAME) lib/$(NAME)
@@ -74,7 +74,7 @@ fclean:
 	@make -C ft_ctime/ fclean
 	@make -C ft_alloc/ fclean
 	@make -C ft_math/ fclean
-	@make -C ft_hashtab/ fclean
+	@make -C ft_map/ fclean
 	@make -C lib/ fclean
 	@rm *.o
 

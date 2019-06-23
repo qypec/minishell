@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 19:49:21 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/19 18:20:57 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 15:16:07 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void					ft_mapdelone(t_map *map, const char *key)
 	{
 		if (ft_strcmp((const char *)(*tmp)->key, key) == 0)
 		{
-			ht_listdelone(&(map->head[hash]), tmp);
+			map->head[hash] = ht_listdelone(map->head[hash], *tmp);
 			return ;
 		}
 		if ((*tmp)->next == NULL)

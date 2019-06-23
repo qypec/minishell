@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 12:05:21 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/18 20:01:20 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 13:33:42 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "../ft_ctime/ft_ctime.h"
 # include "../ft_math/ft_math.h"
 # include "../ft_alloc/ft_alloc.h"
-# include "../ft_hashtab/ft_map.h"
+# include "../ft_map/ft_map.h"
 
 typedef struct		s_list
 {

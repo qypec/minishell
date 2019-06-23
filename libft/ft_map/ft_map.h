@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 19:58:10 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 13:14:41 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 15:16:37 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct						s_map
 }									t_map;
 
 ht_list								*ht_listnew(const char *key, const void *value);
-void								ht_listdelone(ht_list **head, ht_list **list);
+ht_list								*ht_listdelone(ht_list *head, ht_list *dellist);
 void								ht_listdel(ht_list **head);
 
 int									ft_hashfunc(const char *str, int size);

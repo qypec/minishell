@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 14:13:16 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 13:04:07 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 16:16:28 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char				**ft_strsplit(char const *str, char c)
 	len = get_height(str, c) + 1;
 	matr = (char **)malloc(sizeof(char *) * len);
 	i = 0;
-	while (i <= len)
+	while (i < len)
 		matr[i++] = NULL;
 	if ((matr = fill(matr, str, c)) == NULL)
 	{

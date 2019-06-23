@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 13:19:38 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 16:22:39 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ int							main(int argc, char **argv, char **envv)
 {
 	init_envv((const char **)envv);
 	init_htab_envpath();
+	// ft_putmap(g_envv);
 	ft_putmap(g_envvpath);
+	ft_mapdel(&g_envvpath);
+	ft_mapdel(&g_envv);
     // display_prompt();
     // while (1)
     // {

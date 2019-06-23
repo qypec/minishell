@@ -6,35 +6,36 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 16:30:10 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 13:12:30 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 15:41:31 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "ft_map.h"
 
-static void				del(ht_list **list)
+static void				default_del(ht_list *list)
 {
-	(*list)->next = NULL;
-	(*list)->key = NULL;
-	(*list)->value = NULL;
-	free(*list);
+	list->next = NULL;
+	ft_strdel(&(list->key));
+	ft_strdel((char **)&(list->value));
+	free(list);
 	list = NULL;
 }
 
-void					ht_listdelone(ht_list **head, ht_list **list)
+ht_list					*ht_listdelone(ht_list *head, ht_list *dellist)
 {
 	ht_list				*tmp;
 	ht_list				*lst;
 
-	if (*list == NULL)
-		return ;
-	tmp = *head;
-	lst = *list;
+	if (dellist == NULL)
+		return (NULL);
+	tmp = head;
+	lst = dellist;
 	if (tmp == lst)
 	{
-		del(list);
-		*list = tmp->next;
-		return ;
+		head = head->next;
+		default_del(lst);
+		lst = head;
+		return (lst);
 	}
 	if (tmp->next != NULL)
 	{
@@ -42,7 +43,8 @@ void					ht_listdelone(ht_list **head, ht_list **list)
 			tmp = tmp->next;
 		tmp->next = lst->next;
 	}
-	del(&lst);
+	default_del(lst);
+	return (head);
 }
 
 void					ht_listdel(ht_list **head)
@@ -52,22 +54,13 @@ void					ht_listdel(ht_list **head)
 	if (*head == NULL)
 		return ;
 	tmp = *head;
-	if (tmp->next == NULL)
+	while (tmp->next != NULL)
 	{
-		ht_listdelone(head, &tmp);
-		return ;
+		if ((*head = ht_listdelone(*head, tmp)) == NULL)
+			return ;
+		tmp = (*head);
 	}
-	tmp = tmp->next;
-	while (tmp != NULL)
-	{
-		ht_listdelone(head, &tmp);
-		tmp = (*head)->next;
-	}
-	(*head)->next = NULL;
-	(*head)->key = NULL;
-	(*head)->value = NULL;
-	free(*head);
-	head = NULL;
+	default_del(*head);
 }
 
 ht_list					*ht_listnew(const char *key, const void *value)
@@ -76,7 +69,7 @@ ht_list					*ht_listnew(const char *key, const void *value)
 
 	if ((list = (ht_list *)malloc(sizeof(ht_list))) == NULL)
 		return (NULL);
-	list->key = (char *)ft_strdup(key);
+	list->key = (char *)key;
 	list->value = (void *)value;
 	list->next = NULL;
 	return (list);
