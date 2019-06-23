@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 20:28:33 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 22:18:33 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <dirent.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 # define		BUFF_SIZE					9
 

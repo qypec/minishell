@@ -10,7 +10,7 @@ void					display_git_prompt(char *branch_name)
 
 void					display_default_prompt(void)
 {
-	write(1, "\033[0;32m(mini)\033[0m", 18);
+	write(1, "\033[0;32m(mini)\033[0m ", 19);
 }
 
 char					*parse_branch_name(const char *buff)
@@ -57,7 +57,11 @@ void				display_prompt(void)
 {
 	char			*branch_name;
 	
-	// нужно написать быстрый чекер на измененный файл .git/HEAD
+	if (access(GIT_BRANCH_NAME_FILE, 0))
+	{
+		display_default_prompt();
+		return ;
+	}
 	branch_name = get_git_branch_name();
 	if (branch_name == NULL)
 	{

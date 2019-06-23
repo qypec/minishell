@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 17:52:10 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 20:12:42 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 22:20:15 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void					bust(const char *cmd_name, int flag)
 {
+	struct stat		buff;
+
 	if (flag == COMMAND_NOT_FOUND)
 	{
 		ft_putstr("[0;31m(mini): command not found : ");
@@ -21,7 +23,10 @@ void					bust(const char *cmd_name, int flag)
 	}
 	else if (flag == NO_SUCH_DIR)
 	{
-		ft_putstr("cd: no such file or directory: ");
+		if (stat(cmd_name, &buff) < 0)
+			ft_putstr("cd: no such file or directory: ");
+		else if (S_ISREG(buff.st_mode))
+			ft_putstr("cd: not a directory: ");
 		ft_putendl(cmd_name);
 	}
 }
