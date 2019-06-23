@@ -6,16 +6,16 @@
 #    By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/14 13:54:33 by yquaro            #+#    #+#              #
-#    Updated: 2019/06/18 17:05:01 by yquaro           ###   ########.fr        #
+#    Updated: 2019/06/21 15:43:34 by yquaro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 CFLAGS = -g -c -Wall -Wextra -Werror
-SOURCES = ft_hashfunc.c ft_htabadd.c ft_mapnew.c ft_putmap.c ht_list.c \
-			ft_htabdelone.c ft_htabfree.c ft_ishtabitem.c
-OBJECTS = ft_hashfunc.o ft_htabadd.o ft_mapnew.o ft_putmap.o ht_list.o \
-			ft_htabdelone.o ft_htabfree.o ft_ishtabitem.o
+SOURCES = ft_hashfunc.c ft_mapinsert.c ft_mapnew.c ft_putmap.c ht_list.c \
+			ft_mapdelone.c ft_mapdel.c ft_ismapitem.c
+OBJECTS = ft_hashfunc.o ft_mapinsert.o ft_mapnew.o ft_putmap.o ht_list.o \
+			ft_mapdelone.o ft_mapdel.o ft_ismapitem.o
 
 NAME = libhashtab.a
 

@@ -6,23 +6,42 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 14:13:16 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/18 08:09:26 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 13:04:07 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
+# include <stdio.h>
 
-static size_t			strlen_c(const char *str, char c)
+static char				**fill(char **matr, const char *str, char c)
 {
 	int					i;
+	int					size;
+	int					tmp_i;
+	int					counter;
 
-	i = 0;
-	while (str[i] != c && str[i] != '\0')
-		i++;
-	return (i);
+	i = -1;
+	counter = 0;
+	while (str[++i] != '\0')
+	{
+		size = 0;
+		tmp_i = i;
+		while (str[tmp_i] != c && str[tmp_i] != '\0')
+		{
+			size++;
+			tmp_i++;
+		}
+		if ((matr[counter] = (char *)ft_memalloc(sizeof(char) * (size + 1))) == NULL)
+			return (NULL);
+		tmp_i = 0;
+		while (str[i] != c && str[i] != '\0')
+			matr[counter][tmp_i++] = str[i++];
+		matr[counter++][tmp_i] = '\0';
+	}
+	return (matr);
 }
 
-static size_t			ft_height(const char *str, char c)
+static size_t			get_height(const char *str, char c)
 {
 	size_t				height;
 
@@ -33,7 +52,7 @@ static size_t			ft_height(const char *str, char c)
 			height++;
 		str++;
 	}
-	return (height);
+	return (height + 1);
 }
 
 char				**ft_strsplit(char const *str, char c)
@@ -44,21 +63,15 @@ char				**ft_strsplit(char const *str, char c)
 
 	if (str == NULL)
 		return (NULL);
-	len = 0;
+	len = get_height(str, c) + 1;
+	matr = (char **)malloc(sizeof(char *) * len);
 	i = 0;
-	matr = (char **)malloc(sizeof(char *) * (ft_height(str, c) + 1));
-	while (str[len] != '\0')
+	while (i <= len)
+		matr[i++] = NULL;
+	if ((matr = fill(matr, str, c)) == NULL)
 	{
-		len = strlen_c(str ,c);
-		if ((matr[i] = (char *)malloc(sizeof(char) * len)) == NULL)
-		{
-			ft_matrixfree(&matr);
-			return (NULL);
-		}
-		ft_strncpy(matr[i++], str, len);
-		str = str + len + 1;
-		len = 0;
+		ft_matrixfree(&matr);
+		exit(-1);
 	}
-	matr[i] = NULL;
 	return (matr);
 }

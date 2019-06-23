@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 16:30:10 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/19 22:01:28 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 13:12:30 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ ht_list					*ht_listnew(const char *key, const void *value)
 
 	if ((list = (ht_list *)malloc(sizeof(ht_list))) == NULL)
 		return (NULL);
-	list->key = (char *)key;
+	list->key = (char *)ft_strdup(key);
 	list->value = (void *)value;
 	list->next = NULL;
 	return (list);

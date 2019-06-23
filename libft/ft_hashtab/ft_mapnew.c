@@ -6,13 +6,13 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 17:04:28 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/19 18:28:17 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 13:17:21 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "ft_map.h"
 
-t_map					*ft_mapnew(void *hashfunc_ptr)
+t_map					*ft_mapnew(void *hashfunc_ptr, int size)
 {
 	t_map				*map;
 	int					i;
@@ -24,7 +24,10 @@ t_map					*ft_mapnew(void *hashfunc_ptr)
 		map->hashfunc = hashfunc_ptr;
 	else
 		map->hashfunc = DEFAULT_HASHFUNC;
-	map->size = DEFAULT_MAP_SIZE;
+	if (size == 0)
+		map->size = DEFAULT_MAP_SIZE;
+	else
+		map->size = size;
 	map->content_size = 0;
 	map->head = (ht_list **)malloc(sizeof(ht_list *) * map->size);
 	while (i < map->size)

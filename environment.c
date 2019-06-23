@@ -6,39 +6,69 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:23:35 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/18 04:58:15 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 13:18:15 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-void					init_envv(const char **envv)
+static char				*get_value(const char *envv)
 {
-	g_envv = NULL;
-	char				**new;
 	int					i;
 	int					len;
+	int					start;
+	char				*value;
 
 	i = 0;
-	len = ft_matrlen(envv) + 1 + EXTRA_MEMORY_FOR_SETENV;
-	g_envv = (char **)ft_memalloc(sizeof(char *) * len);
-	while (envv[i] != NULL)
+	len = 0;
+	while (envv[i] != '=' && envv[i] != '\0')
+		i++;
+	start = ++i;
+	while (envv[i++] != '\0')
+		len++;
+	value = (char *)malloc(sizeof(char) * (len + 1));
+	i = 0;
+	while (envv[start] != '\0')
+		value[i++] = envv[start++];
+	value[i] = '\0';
+	return (value);
+}
+
+static char				*get_key(const char *envv)
+{
+	int					i;
+	int					len;
+	char				*key;
+
+	i = 0;
+	len = 0;
+	while (envv[i] != '=' && envv[i] != '\0')
 	{
-		g_envv[i] = ft_strdup(envv[i]);
+		len++;
 		i++;
 	}
-	while (i < len)
-		g_envv[i++] = NULL;
-	g_envvlen = len;
+	key = (char *)malloc(sizeof(char) * (len + 1));
+	ft_strncpy(key, envv, len);
+	return (key);
 }
 
-void					free_envv(void)
+void					init_envv(const char **envv)
 {
-	ft_matrixfree(&g_envv);
+	char				*key;
+	char				*value;
+
+	g_envv = ft_mapnew(NULL, 100);
+	while (*envv != NULL)
+	{
+		key = get_key(*envv);
+		value = get_value(*envv);
+		ft_mapinsert(g_envv, key, value);
+		envv++;
+	}
 }
 
-void					check_env_path(const char *line)
-{
+// void					check_env_path(const char *line)
+// {
 		
-}
+// }
 

@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 19:57:50 by yquaro            #+#    #+#             */
-/*   Updated: 2019/05/01 19:04:29 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/21 17:21:18 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	ft_putmatrix(char **str)
 	i = 0;
 	while (str[i] != NULL)
 	{
-		ft_putendl(str[i]);
+		ft_putchar('|');
+		ft_putstr(str[i]);
+		ft_putendl("|");
 		i++;
 	}
 }
