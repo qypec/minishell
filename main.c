@@ -6,23 +6,26 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 18:48:37 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 20:23:30 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-void					parse_command(const char *line)
+void					parse_command(char *line)
 {
 	char				**level;
 	char				**cmd;
+	int					flag;
 
 	level = ft_strsplit(line, ';');
 	while (*level != NULL)
 	{
 		cmd = ft_strsplit(*level, ' ');
-		// if (is_builtin_launch((const char **)cmd) == 0)
+		if ((flag = is_builtin_launch((const char **)cmd)) == 0)
 			check_envpath((const char **)cmd);
+		else if (flag == -1)
+			cmd_exit(line, level, cmd);
 		level++;
 		ft_matrixfree(&cmd);
 	}
@@ -62,7 +65,7 @@ void					get_input(void)
 		buff[i++] = symb;
 	}
 	buff[i] = '\0';
-	parse_command((const char *)buff);
+	parse_command(buff);
 	ft_strdel(&buff);
 }
 
