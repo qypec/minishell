@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 03:51:36 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 21:59:27 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 22:45:15 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int						is_builtin_launch(const char **cmd)
 		return (-1);
 	// else if (ft_strcmp("echo", cmd[0]) == 0)
 	// 	cmd_echo(cmd);
-	// else if (ft_strcmp("env", cmd[0]) == 0)
-	// 	cmd_env(cmd);
+	else if (ft_strcmp("env", cmd[0]) == 0)
+		cmd_env();
 	// else if (ft_strcmp("setenv", cmd[0]) == 0)
 	// 	cmd_setenv(cmd);
 	// else if (ft_strcmp("unsetenv", cmd[0]) == 0)

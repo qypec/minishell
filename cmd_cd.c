@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:03:05 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 22:41:08 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 23:20:05 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,36 @@ static const char		*find_home(const char **envv)
 	return (NULL);
 }
 
-void					cmd_cd(const char **cmd)
+static void				fill_pwd_and_oldpwd(const char *cmd)
 {
 	int					pwd_number;
 	int					oldpwd_number;
+	int					len;
+	char				dir[PATH_MAX];
 
+	pwd_number = find_((const char **)g_envv, "PWD");
+	oldpwd_number = find_((const char **)g_envv, "OLDPWD");
+	ft_strdel(&g_envv[oldpwd_number]);
+	len = ft_strlen("OLDPWD") + ft_strlen(g_envv[pwd_number] + 3) + 1;
+	if ((g_envv[oldpwd_number] = (char *)ft_memalloc(sizeof(char) * len)) == NULL)
+	{
+		printf("exit error : cmd_cd.c->fill_pwd_and_oldpwd\n");
+		exit(-1);
+	}
+	ft_strglue(&g_envv[oldpwd_number], "OLDPWD", g_envv[pwd_number] + 3);
+	ft_strdel(&g_envv[pwd_number]);
+	getcwd(dir, PATH_MAX);
+	len = ft_strlen("PWD=") + ft_strlen(dir) + ft_strlen("/") + ft_strlen(cmd) + 1;
+	if ((g_envv[pwd_number] = (char *)ft_memalloc(sizeof(char) * len)) == NULL)
+	{
+		printf("exit error : cmd_cd.c->fill_pwd_and_oldpwd\n");
+		exit(-1);
+	}
+	ft_strglue(&g_envv[pwd_number], "PWD=", dir);
+}
+
+void					cmd_cd(const char **cmd)
+{
 	if (cmd[1] == NULL)
 		chdir(find_home((const char **)g_envv));
 	else
@@ -52,10 +77,6 @@ void					cmd_cd(const char **cmd)
 			return ;
 		}
 	}
-	pwd_number = find_((const char **)g_envv, "PWD");
-	oldpwd_number = find_((const char **)g_envv, "OLDPWD");
-	ft_strdel(&g_envv[oldpwd_number]);
-	g_envv[oldpwd_number] = ft_strdup(g_envv[pwd_number]);
-	ft_strdel(&g_envv[pwd_number]);
-	g_envv[pwd_number] = ft_strdup(cmd[1]);
+	if (ft_strcmp(cmd[1], ".") != 0)
+		fill_pwd_and_oldpwd(cmd[1]);
 }

@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putmatrix.c                                     :+:      :+:    :+:   */
+/*   cmd_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/17 19:57:50 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 22:52:36 by yquaro           ###   ########.fr       */
+/*   Created: 2019/06/23 22:44:52 by yquaro            #+#    #+#             */
+/*   Updated: 2019/06/23 22:45:32 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+# include "minishell.h"
 
-void	ft_putmatrix(char **str)
+void					cmd_env(void)
 {
-	int i;
-
-	i = 0;
-	while (str[i] != NULL)
-	{
-		ft_putendl(str[i]);
-		i++;
-	}
+	ft_putmatrix(g_envv);
 }
