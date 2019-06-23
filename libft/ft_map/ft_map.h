@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 19:58:10 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 15:16:37 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 18:09:58 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int									ft_hashfunc(const char *str, int size);
 
 t_map								*ft_mapnew(void *hashfunc_ptr, int size);
 int									ft_ismapitem(t_map *map, const char *key);
+const char							*ft_getvalue(const t_map *map, const char *key);
 void							 	ft_mapinsert(t_map *map, const char *key, const void *value);
 void								ft_mapdelone(t_map *map, const char *key);
 void								ft_mapdel(t_map **map);

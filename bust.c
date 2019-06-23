@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_matrdup.c                                       :+:      :+:    :+:   */
+/*   bust.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/13 20:30:01 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 16:59:14 by yquaro           ###   ########.fr       */
+/*   Created: 2019/06/23 17:52:10 by yquaro            #+#    #+#             */
+/*   Updated: 2019/06/23 17:56:47 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "includes/libft.h"
+# include "minishell.h"
 
-char					**ft_matrdup(const char **matr)
+void					bust(const char *cmd_name, int flag)
 {
-	char				**new;
-	int					i;
-
-	i = 0;
-	if ((new = (char **)malloc(sizeof(char *) * (ft_matrlen(matr) + 1))) == NULL)
-		return (NULL);
-	while (matr[i] != NULL)
+	if (flag == COMMAND_NOT_FOUND)
 	{
-		new[i] = ft_strdup(matr[i]);
-		i++;
+		ft_putstr("[0;31m(mini): command not found : ");
+		ft_putendl(cmd_name);
 	}
-	new[i] = NULL;
-	return (new);
 }

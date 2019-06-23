@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:23:35 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 15:56:29 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 16:59:58 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,9 @@ static char				*get_key(const char *envv)
 
 void					init_envv(const char **envv)
 {
-	char				*key;
-	char				*value;
-
-	g_envv = ft_mapnew(NULL, 100);
-	while (*envv != NULL)
+	if ((g_envv = ft_matrdup(envv)) == NULL)
 	{
-		key = get_key(*envv);
-		value = get_value(*envv);
-		ft_mapinsert(g_envv, key, value);
-		envv++;
+		printf("exit error : environment.c->init_env\n");
+		exit(-1);
 	}
 }
-
-// void					check_env_path(const char *line)
-// {
-		
-// }
-

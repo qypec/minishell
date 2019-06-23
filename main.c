@@ -6,34 +6,28 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 16:22:39 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/23 18:48:37 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
+void					parse_command(const char *line)
+{
+	char				**level;
+	char				**cmd;
 
-	// char * cmd [] = {"ls", (char *)	 0};
-	// pid_t			p;
-
-	// p = fork();
-	// if (p == 0)
-	// 	execve("/bin/ls", cmd, envv);
-	// else
-	// 	wait(NULL);
-
-// void					parse_command(const char *line)
-// {
-// 	char				**cmd;
-
-// 	cmd = ft_strsplit(line, ';');
-// 	while (*cmd != NULL)
-// 	{
-// 		if ((i = is_builtin_launch(cmd)) == 0)
-// 			check_env_path(cmd);
-// 		cmd++;
-// 	}
-// }
+	level = ft_strsplit(line, ';');
+	while (*level != NULL)
+	{
+		cmd = ft_strsplit(*level, ' ');
+		// if (is_builtin_launch((const char **)cmd) == 0)
+			check_envpath((const char **)cmd);
+		level++;
+		ft_matrixfree(&cmd);
+	}
+	// ft_matrixfree(&level);
+}
 
 void 					handle_ctrl_c(int sig) 
 {
@@ -59,13 +53,16 @@ void					get_input(void)
 		if (buff_counter <= i)
 		{
 			if ((buff = ft_realloc(buff, buff_counter + BUFF_SIZE)) == NULL)
+			{
+				printf("error exit : main.c->get_input");
 				exit(1);
+			}
 			buff_counter += BUFF_SIZE;
 		}
 		buff[i++] = symb;
 	}
 	buff[i] = '\0';
-	// parse_command((const char *)buff);
+	parse_command((const char *)buff);
 	ft_strdel(&buff);
 }
 
@@ -73,25 +70,26 @@ int							main(int argc, char **argv, char **envv)
 {
 	init_envv((const char **)envv);
 	init_htab_envpath();
-	// ft_putmap(g_envv);
-	ft_putmap(g_envvpath);
-	ft_mapdel(&g_envvpath);
-	ft_mapdel(&g_envv);
-    // display_prompt();
-    // while (1)
-    // {
-    // 	get_input();
-    // 	display_prompt();
-    // }
+    display_prompt();
+    while (1)
+    {
+    	get_input();
+    	display_prompt();
+    }
 
 
-	// char * env [] = {"HOME = / usr / home", "LOGNAME = home", (char *) 0};
-	// char * cmd [] = {"pwd", (char *) 0};
 	// pid_t p;
+	// char * cmd [] = {"ls", (char *)	 0};
+
+	// p = fork();
+	// if (p == 0)
+	// 	execve("/bin/ls", cmd, envv);
+	// else
+	// 	wait(NULL);
+	// printf("hello");
 
  //   	printf("process: pid = %d ppid = %d\n\n\n", getpid(), getppid());
 
-	// display_prompt();
 
     return (0);
 }
