@@ -6,7 +6,7 @@
 #    By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/13 21:16:45 by yquaro            #+#    #+#              #
-#    Updated: 2019/06/23 22:51:32 by yquaro           ###   ########.fr        #
+#    Updated: 2019/06/24 17:51:50 by yquaro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,9 @@
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror
 SOURCES = environment.c main.c prompt.c envpath.c builtin.c bust.c cmd_cd.c \
-			cmd_exit.c cmd_env.c
+			cmd_exit.c cmd_env.c git_prompt.c
 OBJECTS = environment.o main.o prompt.o envpath.o builtin.o bust.o cmd_cd.o \
-			cmd_exit.o cmd_env.o
+			cmd_exit.o cmd_env.o git_prompt.o
 EXECUTABLE = minishell
 
 LIBNAME = libft.a

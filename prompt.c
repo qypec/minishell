@@ -13,51 +13,11 @@ void					display_default_prompt(void)
 	write(1, "\033[0;32m(mini)\033[0m ", 19);
 }
 
-char					*parse_branch_name(const char *buff)
-{
-	int			counter;
-	int			len;
-	int			i;
-	char		*result;
-
-	i = 0;
-	counter = ft_strlen(buff);
-	while (buff[counter--] != '/')
-		i++;
-	if ((result = (char *)ft_memalloc(sizeof(char) * (i - 1))) == NULL)
-		exit(1);
-	i = 0;
-	counter++;
-	while (buff[++counter] != '\n' && buff[counter] != '\0')
-		result[i++] = buff[counter];
-	result[i] = '\0';
-	return (result);
-}
-
-char				*get_git_branch_name(void)
-{
-	int			fd;
-	char		*buff;
-	char		*result;
-	int			i;
-
-	i = 1;
-	if ((fd = open(GIT_BRANCH_NAME_FILE, O_RDONLY)) < 0)
-		return (NULL); // file not exist
-	if ((buff = (char *)ft_memalloc(sizeof(char) * BUFF_BRANCH_NAME_SIZE)) == NULL)
-		exit(1);
-	while (read(fd, buff, BUFF_BRANCH_NAME_SIZE) > 0)
-		buff = ft_realloc(buff, BUFF_BRANCH_NAME_SIZE * (i++));
-	result = parse_branch_name(buff);
-	ft_strdel(&buff);
-	return (result);
-}
-
 void				display_prompt(void)
 {
 	char			*branch_name;
 	
-	if (access(GIT_BRANCH_NAME_FILE, 0))
+	if (!is_gitzone())
 	{
 		display_default_prompt();
 		return ;

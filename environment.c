@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:23:35 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 16:59:58 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/24 20:11:12 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,24 @@ static char				*get_key(const char *envv)
 
 void					init_envv(const char **envv)
 {
-	if ((g_envv = ft_matrdup(envv)) == NULL)
+	int					len;
+	int					i;
+	int					j;
+	int					envvlen;
+
+	envvlen = ft_matrlen(envv);
+	len = envvlen + 10 + 1;
+	g_envvlen = envvlen;
+	if ((g_envv = (char **)malloc(sizeof(char *) * len)) == NULL)
 	{
-		printf("exit error : environment.c->init_env\n");
+		printf("error exit : environment.c->init_envv\n");
 		exit(-1);
 	}
+	add_gitdirpath_to_envv(envv);
+	i = 0;
+	j = 1;
+	while (envv[i] != NULL)
+		g_envv[j++] = ft_strdup(envv[i++]);
+	while (j < len)
+		g_envv[j++] = NULL;
 }

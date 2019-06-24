@@ -6,20 +6,20 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:03:05 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 23:20:05 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/24 17:06:41 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-static const int		find_(const char **envv, const char *envvname)
+int						find_(const char **envv, const char *envvname)
 {
 	int					i;
 
 	i = 0;
 	while (envv[i] != NULL)
 	{
-		if (ft_strncmp(envvname, envv[i], 3) == 0)
+		if (ft_strncmp(envvname, envv[i], ft_strlen(envvname)) == 0)
 			return (i);
 		i++;
 	}
