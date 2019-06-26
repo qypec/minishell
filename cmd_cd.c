@@ -3,38 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:03:05 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/24 17:06:41 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/27 01:59:07 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-int						find_(const char **envv, const char *envvname)
+static int				tilde_treatment(const char *path)
 {
-	int					i;
+	char				*fullpath;
+	int					home_number;
+	int					len_1;
+	int					len;
 
-	i = 0;
-	while (envv[i] != NULL)
+	home_number = find_((const char **)g_envv, "HOME");
+	len = ft_strlen(g_envv[home_number] + ft_strlen("HOME=")) + \
+			(ft_strlen(path) - 1);
+	if ((fullpath = (char *)ft_memalloc(sizeof(char) * (len + 1))) == NULL)
 	{
-		if (ft_strncmp(envvname, envv[i], ft_strlen(envvname)) == 0)
-			return (i);
-		i++;
+		printf("error exit : cmd_cd.c->tilde_treatment\n");
+		exit(-1);
 	}
-	return (-1);
-}
-
-static const char		*find_home(const char **envv)
-{
-	while (*envv != NULL)
+	ft_strglue(&fullpath, g_envv[home_number] + ft_strlen("HOME="), path + 1);
+	if (chdir(fullpath) == -1)
 	{
-		if (ft_strncmp("HOME", *envv, 4) == 0)
-			return (*envv);
-		envv++;
+		bust(fullpath, NO_SUCH_DIR);
+		ft_strdel(&fullpath);
+		return (-1);	
 	}
-	return (NULL);
+	ft_strdel(&fullpath);
+	return (0);
 }
 
 static void				fill_pwd_and_oldpwd(const char *cmd)
@@ -67,15 +68,23 @@ static void				fill_pwd_and_oldpwd(const char *cmd)
 
 void					cmd_cd(const char **cmd)
 {
+	int					home_number;
+
 	if (cmd[1] == NULL)
-		chdir(find_home((const char **)g_envv));
-	else
 	{
-		if (chdir(cmd[1]) == -1)
-		{
-			bust(cmd[1], NO_SUCH_DIR);
+		home_number = find_((const char **)g_envv, "HOME");
+		chdir((const char *)g_envv[home_number]);
+		return ;
+	}
+	if (cmd[1][0] == '~' && cmd[1][1] != '~')
+	{
+		if (tilde_treatment(cmd[1]) == -1)
 			return ;
-		}
+	}
+	else if (chdir(cmd[1]) == -1)
+	{
+		bust(cmd[1], NO_SUCH_DIR);
+		return ;
 	}
 	if (ft_strcmp(cmd[1], ".") != 0)
 		fill_pwd_and_oldpwd(cmd[1]);

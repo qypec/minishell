@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:23:35 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/24 20:11:12 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/27 01:35:12 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
+
+int						find_(const char **envv, const char *envvname)
+{
+	int					i;
+
+	i = 0;
+	while (envv[i] != NULL)
+	{
+		if (ft_strncmp(envvname, envv[i], ft_strlen(envvname)) == 0)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
 
 static char				*get_value(const char *envv)
 {
