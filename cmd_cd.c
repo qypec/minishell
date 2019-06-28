@@ -6,37 +6,37 @@
 /*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:03:05 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/27 01:59:07 by qypec            ###   ########.fr       */
+/*   Updated: 2019/06/27 03:15:43 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-static int				tilde_treatment(const char *path)
-{
-	char				*fullpath;
-	int					home_number;
-	int					len_1;
-	int					len;
+// static int				tilde_treatment(const char *path)
+// {
+// 	char				*fullpath;
+// 	int					home_number;
+// 	int					len_1;
+// 	int					len;
 
-	home_number = find_((const char **)g_envv, "HOME");
-	len = ft_strlen(g_envv[home_number] + ft_strlen("HOME=")) + \
-			(ft_strlen(path) - 1);
-	if ((fullpath = (char *)ft_memalloc(sizeof(char) * (len + 1))) == NULL)
-	{
-		printf("error exit : cmd_cd.c->tilde_treatment\n");
-		exit(-1);
-	}
-	ft_strglue(&fullpath, g_envv[home_number] + ft_strlen("HOME="), path + 1);
-	if (chdir(fullpath) == -1)
-	{
-		bust(fullpath, NO_SUCH_DIR);
-		ft_strdel(&fullpath);
-		return (-1);	
-	}
-	ft_strdel(&fullpath);
-	return (0);
-}
+// 	home_number = find_((const char **)g_envv, "HOME");
+// 	len = ft_strlen(g_envv[home_number] + ft_strlen("HOME=")) + \
+// 			(ft_strlen(path) - 1);
+// 	if ((fullpath = (char *)ft_memalloc(sizeof(char) * (len + 1))) == NULL)
+// 	{
+// 		printf("error exit : cmd_cd.c->tilde_treatment\n");
+// 		exit(-1);
+// 	}
+// 	ft_strglue(&fullpath, g_envv[home_number] + ft_strlen("HOME="), path + 1);
+// 	if (chdir(fullpath) == -1)
+// 	{
+// 		bust(fullpath, NO_SUCH_DIR);
+// 		ft_strdel(&fullpath);
+// 		return (-1);	
+// 	}
+// 	ft_strdel(&fullpath);
+// 	return (0);
+// }
 
 static void				fill_pwd_and_oldpwd(const char *cmd)
 {
@@ -76,12 +76,7 @@ void					cmd_cd(const char **cmd)
 		chdir((const char *)g_envv[home_number]);
 		return ;
 	}
-	if (cmd[1][0] == '~' && cmd[1][1] != '~')
-	{
-		if (tilde_treatment(cmd[1]) == -1)
-			return ;
-	}
-	else if (chdir(cmd[1]) == -1)
+	if (chdir(cmd[1]) == -1)
 	{
 		bust(cmd[1], NO_SUCH_DIR);
 		return ;
