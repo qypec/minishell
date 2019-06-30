@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/30 19:53:52 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/30 22:10:40 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,22 @@ void					parse_command(char *line)
 	char				**level;
 	char				**cmd;
 	int					flag;
+	int					i;
 
 	level = ft_strsplit(line, ';');
-	while (*level != NULL)
+	i = 0;
+	while (level[i] != NULL)
 	{
-		cmd = ft_strsplit(*level, ' ');
+		cmd = ft_strsplit(level[i], ' ');
 		cmd = manage_expansions(cmd);
 		if ((flag = is_builtin_launch((const char **)cmd)) == 0)
 			check_envpath((const char **)cmd);
 		else if (flag == -1)
 			cmd_exit(line, level, cmd);
-		level++;
+		i++;
 		ft_matrixfree(&cmd);
 	}
-	// ft_matrixfree(&level);
+	ft_matrixfree(&level);
 }
 
 void 					handle_ctrl_c(int sig)
