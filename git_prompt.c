@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:18:47 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/24 21:08:43 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/30 20:03:40 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int						is_gitzone(void)
 	int					gitdir_number;
 	int					size_gitdir_without_name;
 
-	pwd_number = find_((const char **)g_envv, "PWD");
+	pwd_number = find_((const char **)g_envv, "PWD=");
 	gitdir_number = find_((const char **)g_envv, NAME_GIT_ENVVAR);
 	size_gitdir_without_name = ft_strlen(g_envv[gitdir_number] + \
 								ft_strlen(NAME_GIT_ENVVAR));
@@ -97,9 +97,9 @@ void				add_gitdirpath_to_envv(const char **envv)
 
 	if (gitdir_exist() == 1)
 	{
-		if ((i = find_((const char **)envv, "PWD")) == -1)
+		if ((i = find_((const char **)envv, "PWD=")) == -1)
 		{
-			printf("error exit : environment.c->init_envv\n");
+			printf("error exit : git_prompt.c->%d\n", __LINE__);
 			exit(-1);
 		}
 		g_envv[0] = (char *)ft_memalloc(sizeof(char) * \

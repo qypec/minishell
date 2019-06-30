@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/27 04:08:13 by qypec            ###   ########.fr       */
+/*   Updated: 2019/06/30 19:53:52 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void					parse_command(char *line)
 	// ft_matrixfree(&level);
 }
 
-void 					handle_ctrl_c(int sig) 
+void 					handle_ctrl_c(int sig)
 {
 	write(1, "\n", 1);
 	display_prompt();

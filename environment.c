@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:23:35 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/27 02:42:44 by qypec            ###   ########.fr       */
+/*   Updated: 2019/06/30 20:13:02 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 int						find_(const char **envv, const char *envvname)
 {
 	int					i;
+	int					len;
 
 	i = 0;
+	len = ft_strlen(envvname);
 	while (envv[i] != NULL)
 	{
-		if (ft_strncmp(envvname, envv[i], ft_strlen(envvname)) == 0)
+		if (ft_strncmp(envv[i], envvname, len) == 0)
 			return (i);
 		i++;
 	}
