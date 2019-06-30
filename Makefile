@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qypec <qypec@student.42.fr>                +#+  +:+       +#+         #
+#    By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/13 21:16:45 by yquaro            #+#    #+#              #
-#    Updated: 2019/06/27 03:14:23 by qypec            ###   ########.fr        #
+#    Updated: 2019/06/30 23:01:18 by yquaro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,9 @@
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror
 SOURCES = environment.c main.c prompt.c envpath.c builtin.c bust.c cmd_cd.c \
-			cmd_exit.c cmd_env.c git_prompt.c manage_expansions.c
+			cmd_exit.c cmd_env.c git_prompt.c manage_expansions.c cmd_unsetenv.c
 OBJECTS = environment.o main.o prompt.o envpath.o builtin.o bust.o cmd_cd.o \
-			cmd_exit.o cmd_env.o git_prompt.o manage_expansions.o
+			cmd_exit.o cmd_env.o git_prompt.o manage_expansions.o cmd_unsetenv.o
 EXECUTABLE = minishell
 
 LIBNAME = libft.a

@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 22:44:52 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/24 18:38:57 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/30 23:20:26 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,12 @@
 
 void					cmd_env(void)
 {
-	ft_putmatrix(g_envv);
+	int					i;
+
+	i = 0;
+	while (g_envv[i] != NULL || g_envv[i + 1] != NULL)
+	{
+		ft_putendl(g_envv[i]);
+		i++;
+	}
 }

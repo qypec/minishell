@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:23:35 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/30 20:13:02 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/30 23:16:43 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void					init_envv(const char **envv)
 	int					envvlen;
 
 	envvlen = ft_matrlen(envv);
-	len = envvlen + 10 + 1;
+	len = envvlen + 2;
 	g_envvlen = envvlen;
 	if ((g_envv = (char **)malloc(sizeof(char *) * len)) == NULL)
 	{

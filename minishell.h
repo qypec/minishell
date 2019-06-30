@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/30 20:03:31 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/30 23:01:24 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ char					**manage_expansions(char **cmd);
 void					cmd_cd(const char **cmd);
 void					cmd_exit(char *line, char **level, char **cmd);
 void					cmd_env(void);
+void					cmd_unsetenv(const char *varname);
 
 # endif

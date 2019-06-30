@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:18:47 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/30 20:03:40 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/06/30 23:08:06 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ int						is_gitzone(void)
 	int					gitdir_number;
 	int					size_gitdir_without_name;
 
-	pwd_number = find_((const char **)g_envv, "PWD=");
-	gitdir_number = find_((const char **)g_envv, NAME_GIT_ENVVAR);
+	if ((pwd_number = find_((const char **)g_envv, "PWD=")) == -1)
+		return (0);
+	if ((gitdir_number = find_((const char **)g_envv, NAME_GIT_ENVVAR)) == -1)
+		return (0);
 	size_gitdir_without_name = ft_strlen(g_envv[gitdir_number] + \
 								ft_strlen(NAME_GIT_ENVVAR));
 	if (ft_strncmp((const char *)(g_envv[pwd_number] + ft_strlen("PWD=")), \
