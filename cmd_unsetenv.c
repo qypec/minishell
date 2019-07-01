@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 22:43:03 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/01 17:40:13 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/01 20:22:28 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@ static int				is_forbidden_variable(const char *varname)
 {
 	if (ft_strcmp(varname, "PATH") == 0)
 		return (1);
-	// else if (ft_strncmp(varname, NAME_GIT_ENVVAR, \
-	// 				ft_strlen(NAME_GIT_ENVVAR) - 1) == 0)
-	// 	return (1);
 	return (0);
 }
 

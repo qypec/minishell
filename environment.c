@@ -6,11 +6,27 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:23:35 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/01 17:34:21 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/01 20:26:21 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
+
+static void				set_shellvar(int i)
+{
+	char				dir[PATH_MAX];
+	int					len;
+
+	getcwd(dir, PATH_MAX);
+	len = ft_strlen("SHELL=") + ft_strlen(dir) + ft_strlen("/minishell") + 1;
+	if ((g_envv[i] = (char *)ft_memalloc(sizeof(char) * len)) == NULL)
+	{
+		printf("error exit : environment.c->%d\n", __LINE__);
+		exit(-1);
+	}
+	ft_strglue(&g_envv[i], "SHELL=", dir);
+	ft_strglue(&g_envv[i], "/minishell", "\0");
+}
 
 int						find_(const char **envv, const char *envvname)
 {
@@ -89,7 +105,15 @@ void					init_envv(const char **envv)
 	i = 0;
 	j = 1;
 	while (envv[i] != NULL)
+	{
+		if (ft_strncmp("SHELL", envv[i], ft_strlen("SHELL")) == 0)
+		{
+			set_shellvar(j++);
+			i++;
+			continue ;
+		}
 		g_envv[j++] = ft_strdup(envv[i++]);
+	}
 	while (j < len)
 		g_envv[j++] = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/01 18:43:45 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/01 19:59:31 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,5 @@ int							main(int argc, char **argv, char **envv)
     	get_input();
     	display_prompt();
     }
-
-
-	// pid_t p;
-	// char * cmd [] = {"ls", (char *)	 0};
-
-	// p = fork();
-	// if (p == 0)
-	// 	execve("/bin/ls", cmd, envv);
-	// else
-	// 	wait(NULL);
-	// printf("hello");
-
- //   	printf("process: pid = %d ppid = %d\n\n\n", getpid(), getppid());
-
-
     return (0);
 }
