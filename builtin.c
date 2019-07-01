@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 03:51:36 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/30 22:57:25 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/01 13:21:00 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int						is_builtin_launch(const char **cmd)
 	// 	cmd_echo(cmd);
 	else if (ft_strcmp("env", cmd[0]) == 0)
 		cmd_env();
-	// else if (ft_strcmp("setenv", cmd[0]) == 0)
-	// 	cmd_setenv(cmd);
+	else if (ft_strcmp("setenv", cmd[0]) == 0)
+		cmd_setenv(cmd);
 	else if (ft_strcmp("unsetenv", cmd[0]) == 0)
 		cmd_unsetenv(cmd[1]);
 	else

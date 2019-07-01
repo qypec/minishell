@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/30 23:01:24 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/01 13:40:18 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ void					cmd_cd(const char **cmd);
 void					cmd_exit(char *line, char **level, char **cmd);
 void					cmd_env(void);
 void					cmd_unsetenv(const char *varname);
+void					cmd_setenv(const char **cmd);
 
 # endif
