@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 02:12:32 by qypec             #+#    #+#             */
-/*   Updated: 2019/06/30 20:14:32 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/01 18:52:32 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ static char				*preprocessoring(char *cmd)
 			j = ft_strlen(result);
 		}
 		else
-			result[j++] = cmd[i];
-		i++;
+			result[j++] = cmd[i++];
 	}
 	return (result);
 }

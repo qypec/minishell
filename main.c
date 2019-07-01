@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/30 22:10:40 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/01 18:43:45 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void					get_input(void)
 	{
 		if (symb == '\n')
 			break ;
-		if (buff_counter <= i)
+		if (i == buff_counter - 1)
 		{
 			if ((buff = ft_realloc(buff, buff_counter + BUFF_SIZE)) == NULL)
 			{

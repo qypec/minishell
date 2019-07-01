@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_unsetenv.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 22:43:03 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/01 12:24:10 by qypec            ###   ########.fr       */
+/*   Updated: 2019/07/01 17:40:13 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static void				new_genvv(char **tmp, int var_number)
 		g_envv[j++] = ft_strdup(tmp[i++]);
 	}
 	g_envv[j] = NULL;
-
 }
 
 void					cmd_unsetenv(const char *varname)
@@ -64,5 +63,5 @@ void					cmd_unsetenv(const char *varname)
 	tmp = ft_matrdup((const char **)g_envv);
 	ft_matrixfree(&g_envv);
 	new_genvv(tmp, var_number);
-
+	ft_matrixfree(&tmp);
 }
