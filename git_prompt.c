@@ -106,7 +106,6 @@ void				add_gitdirpath_to_envv(const char **envv)
 		}
 		g_envv[0] = (char *)ft_memalloc(sizeof(char) * \
 				(ft_strlen(envv[i] + 4) + ft_strlen(NAME_GIT_ENVVAR) + 1));
-		g_envvlen++;
 		ft_strglue(&g_envv[0], NAME_GIT_ENVVAR, envv[i] + 4);
 	}
 	else

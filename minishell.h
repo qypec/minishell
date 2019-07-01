@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/01 13:40:18 by qypec            ###   ########.fr       */
+/*   Updated: 2019/07/01 20:35:36 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@
 # define				NAME_GIT_ENVVAR				"GITDIR="
 
 char					**g_envv;
-int						g_envvlen;
 t_map					*g_envvpath;
+
+
 
 void					display_prompt(void);
 char					*get_git_branch_name(void);
@@ -57,5 +58,6 @@ void					cmd_exit(char *line, char **level, char **cmd);
 void					cmd_env(void);
 void					cmd_unsetenv(const char *varname);
 void					cmd_setenv(const char **cmd);
+void					cmd_echo(const char **cmd);
 
 # endif

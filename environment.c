@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:23:35 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/01 20:26:21 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/01 20:31:13 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void					init_envv(const char **envv)
 
 	envvlen = ft_matrlen(envv);
 	len = envvlen + 1 + 1; // gitditpath_envv = +1
-	g_envvlen = envvlen;
 	if ((g_envv = (char **)malloc(sizeof(char *) * len)) == NULL)
 	{
 		printf("error exit : environment.c->init_envv\n");
