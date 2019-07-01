@@ -6,7 +6,7 @@
 /*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 13:21:48 by qypec             #+#    #+#             */
-/*   Updated: 2019/07/01 13:40:58 by qypec            ###   ########.fr       */
+/*   Updated: 2019/07/01 17:11:42 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static char				*change(const char *name, const char *value, int var_number)
 	char				*result;
 
 	ft_strdel(&g_envv[var_number]);
-	len = ft_strlen(name) + ft_strlen('=') + ft_strlen(value) + 1;
-	if ((result = (char **)ft_memalloc(sizoef(char *) * len)) == NULL)
+	len = ft_strlen(name) + ft_strlen("=") + ft_strlen(value) + 1;
+	if ((result = (char *)ft_memalloc(sizeof(char) * len)) == NULL)
 	{
 		printf("error exit : cmd_setenv.c->%d\n", __LINE__);
 		exit(-1);
@@ -41,6 +41,7 @@ void					cmd_setenv(const char **cmd)
 	}
 	if (cmd[1] == NULL)
 		cmd_env();
-	var_number = find_((const char **)g_envv, cmd[1]))
+	var_number = find_((const char **)g_envv, cmd[1]);
 	g_envv[var_number] = change(cmd[1], cmd[2], var_number);
+	// ft_matrixfree(&tmp);
 }
