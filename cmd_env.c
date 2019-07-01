@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 22:44:52 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/30 23:20:26 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/01 12:23:13 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,5 @@
 
 void					cmd_env(void)
 {
-	int					i;
-
-	i = 0;
-	while (g_envv[i] != NULL || g_envv[i + 1] != NULL)
-	{
-		ft_putendl(g_envv[i]);
-		i++;
-	}
+	ft_putmatrix(g_envv);
 }

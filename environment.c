@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:23:35 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/30 23:16:43 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/01 12:11:11 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void					init_envv(const char **envv)
 	int					envvlen;
 
 	envvlen = ft_matrlen(envv);
-	len = envvlen + 2;
+	len = envvlen + 1;
 	g_envvlen = envvlen;
 	if ((g_envv = (char **)malloc(sizeof(char *) * len)) == NULL)
 	{
