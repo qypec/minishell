@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lstadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/05 13:51:33 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/16 00:38:54 by qypec            ###   ########.fr       */
+/*   Created: 2019/07/02 21:29:25 by yquaro            #+#    #+#             */
+/*   Updated: 2019/07/02 21:53:49 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+# include "ft_list.h"
 
-void	ft_lstdelone(t_list **alst, void (*del)(void*, size_t))
+void				ft_lstadd(t_list **alst, t_list *new)
 {
-	if (alst == NULL)
+	if (alst == NULL || new == NULL)
 		return ;
-	if (del != NULL)
-		del((*alst)->content, (*alst)->content_size);
-	free(*alst);
-	*alst = NULL;
+	else
+	{
+		new->next = *alst;
+		*alst = new;
+	}
 }

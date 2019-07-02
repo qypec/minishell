@@ -6,7 +6,7 @@
 #    By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/20 19:26:56 by yquaro            #+#    #+#              #
-#    Updated: 2019/06/23 13:34:10 by yquaro           ###   ########.fr        #
+#    Updated: 2019/07/02 22:00:59 by yquaro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,7 @@ CC = gcc
 CFLAGS = -g -c -Wall -Wextra -Werror
 SOURCES = ft_addsymb.c ft_addsymbend.c ft_atoi.c ft_bzero.c ft_matrdup.c \
 			ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
-			ft_isspace.c ft_itoa.c ft_lstadd.c ft_lstdel.c ft_lstdelone.c \
-			ft_lstiter.c ft_lstmap.c ft_lstnew.c ft_matrixfree.c ft_memccpy.c \
+			ft_isspace.c ft_itoa.c ft_matrixfree.c ft_memccpy.c \
 			ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c \
 			ft_numblen.c ft_putchar.c ft_putchar_fd.c ft_putendl.c \
 			ft_putendl_fd.c	ft_putmatrix.c ft_putnbr.c ft_putnbr_fd.c \
@@ -36,8 +35,7 @@ SOURCES = ft_addsymb.c ft_addsymbend.c ft_atoi.c ft_bzero.c ft_matrdup.c \
 			ft_matrlen.c
 OBJECTS = ft_addsymb.o ft_addsymbend.o ft_atoi.o ft_bzero.o ft_matrdup.o \
 			ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o ft_isprint.o \
-			ft_isspace.o ft_itoa.o ft_lstadd.o ft_lstdel.o ft_lstdelone.o \
-			ft_lstiter.o ft_lstmap.o ft_lstnew.o ft_matrixfree.o ft_memccpy.o \
+			ft_isspace.o ft_itoa.o ft_matrixfree.o ft_memccpy.o \
 			ft_memchr.o ft_memcmp.o ft_memcpy.o ft_memmove.o ft_memset.o \
 			ft_numblen.o ft_putchar.o ft_putchar_fd.o ft_putendl.o \
 			ft_putendl_fd.o	ft_putmatrix.o ft_putnbr.o ft_putnbr_fd.o \
@@ -65,6 +63,7 @@ $(NAME): $(OBJECTS)
 	@make -C ft_alloc/ all
 	@make -C ft_math/ all
 	@make -C ft_map/ all
+	@make -C ft_list/ all
 	@ar rc $(NAME) $(OBJECTS)
 	@ranlib $(NAME)
 	@mv $(NAME) lib/$(NAME)
@@ -75,6 +74,7 @@ fclean:
 	@make -C ft_alloc/ fclean
 	@make -C ft_math/ fclean
 	@make -C ft_map/ fclean
+	@make -C ft_list/ fclean
 	@make -C lib/ fclean
 	@rm *.o
 

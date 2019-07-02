@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ht_list.c                                          :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/14 16:30:10 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/02 21:40:00 by yquaro           ###   ########.fr       */
+/*   Created: 2019/07/02 21:36:46 by yquaro            #+#    #+#             */
+/*   Updated: 2019/07/02 21:49:04 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_map.h"
+# include "ft_list.h"
 
-static void				default_del(ht_list *list)
+static void				default_del(t_list *list)
 {
 	list->next = NULL;
-	ft_strdel(&(list->key));
-	ft_strdel((char **)&(list->value));
+	ft_strdel(&(list->content));
 	free(list);
 	list = NULL;
 }
 
-ht_list					*ht_listdelone(ht_list *head, ht_list *dellist)
+t_list					*ft_lstdelone(t_list *head, t_list *dellist)
 {
-	ht_list				*tmp;
-	ht_list				*lst;
+	t_list				*tmp;
+	t_list				*lst;
 
 	if (dellist == NULL)
 		return (NULL);
@@ -45,32 +44,4 @@ ht_list					*ht_listdelone(ht_list *head, ht_list *dellist)
 	}
 	default_del(lst);
 	return (head);
-}
-
-void					ht_listdel(ht_list **head)
-{
-	ht_list				*tmp;
-
-	if (*head == NULL)
-		return ;
-	tmp = *head;
-	while (tmp->next != NULL)
-	{
-		if ((*head = ht_listdelone(*head, tmp)) == NULL)
-			return ;
-		tmp = (*head);
-	}
-	default_del(*head);
-}
-
-ht_list					*ht_listnew(const char *key, const void *value)
-{
-	ht_list				*list;
-
-	if ((list = (ht_list *)malloc(sizeof(ht_list))) == NULL)
-		return (NULL);
-	list->key = (char *)key;
-	list->value = (void *)value;
-	list->next = NULL;
-	return (list);
 }

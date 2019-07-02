@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/02 20:34:05 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/02 22:08:40 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void					parse_command(char *line)
 	i = 0;
 	while (level[i] != NULL)
 	{
-		// cmd = screening((const char *)level[i]);
-		cmd = ft_strsplit(level[i], ' ');
+		cmd = screening((const char *)level[i]);
+		// cmd = ft_strsplit(level[i], ' ');
 		cmd = manage_expansions(cmd);
 		if ((flag = is_builtin_launch((const char **)cmd)) == 0)
 			check_envpath((const char **)cmd);
@@ -51,8 +51,12 @@ void					get_input(void)
 
 	i = 0;
 	signal(SIGINT, handle_ctrl_c);
-	buff = (char *)ft_memalloc(sizeof(char) * BUFF_SIZE);
 	buff_counter = BUFF_SIZE;
+	if ((buff = (char *)ft_memalloc(sizeof(char) * buff_counter)) == NULL)
+	{
+		printf("error exit : main.c->%d\n", __LINE__);
+		exit(-1);
+	}
 	while (read(0, &symb, 1) > 0)
 	{
 		if (symb == '\n')

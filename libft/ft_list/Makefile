@@ -6,23 +6,21 @@
 #    By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/14 13:54:33 by yquaro            #+#    #+#              #
-#    Updated: 2019/07/02 21:27:34 by yquaro           ###   ########.fr        #
+#    Updated: 2019/07/02 21:42:13 by yquaro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 CFLAGS = -g -c -Wall -Wextra -Werror
-SOURCES = ft_hashfunc.c ft_mapinsert.c ft_mapnew.c ft_putmap.c ht_list.c \
-			ft_mapdelone.c ft_ismapitem.c ft_getvalue.c ft_mapdel.c
-OBJECTS = ft_hashfunc.o ft_mapinsert.o ft_mapnew.o ft_putmap.o ht_list.o \
-			ft_mapdelone.o ft_ismapitem.o ft_getvalue.o ft_mapdel.o
+SOURCES = ft_lstadd.c ft_lstdel.c ft_lstdelone.c ft_lstnew.c
+OBJECTS = ft_lstadd.o ft_lstdel.o ft_lstdelone.o ft_lstnew.o
 
-NAME = libhashtab.a
+NAME = liblist.a
 
 all: $(SOURCES) print_echo $(NAME)
 	
 print_echo:
-	@echo \*\*\* Compiling ft_hashtab
+	@echo \*\*\* Compiling ft_list
 
 .c.o:
 	$(CC) $(CFLAGS) $< -o $@

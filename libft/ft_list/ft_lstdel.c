@@ -1,24 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd.c                                        :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/05 14:14:15 by yquaro            #+#    #+#             */
-/*   Updated: 2019/05/03 18:28:44 by yquaro           ###   ########.fr       */
+/*   Created: 2019/07/02 21:38:19 by yquaro            #+#    #+#             */
+/*   Updated: 2019/07/02 21:49:55 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+# include "ft_list.h"
 
-void	ft_lstadd(t_list **alst, t_list *new)
+static void				default_del(t_list *list)
 {
-	if (alst == NULL || new == NULL)
+	list->next = NULL;
+	ft_strdel(&(list->content));
+	free(list);
+	list = NULL;
+}
+
+void					ft_lstdel(t_list **head)
+{
+	t_list				*tmp;
+
+	if (*head == NULL)
 		return ;
-	else
+	tmp = *head;
+	while (tmp->next != NULL)
 	{
-		new->next = *alst;
-		*alst = new;
+		if ((*head = ft_lstdelone(*head, tmp)) == NULL)
+			return ;
+		tmp = (*head);
 	}
+	default_del(*head);
 }

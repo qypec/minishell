@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/05 14:49:39 by yquaro            #+#    #+#             */
-/*   Updated: 2019/05/01 19:04:22 by yquaro           ###   ########.fr       */
+/*   Created: 2019/07/02 21:30:23 by yquaro            #+#    #+#             */
+/*   Updated: 2019/07/02 21:46:58 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+# include "ft_list.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
+t_list				*ft_lstnew(const char *content)
 {
-	if (lst == NULL || f == NULL)
-		return ;
-	else
-	{
-		ft_lstiter(lst->next, f);
-		(*f)(lst);
-	}
+	t_list				*list;
+
+	if ((list = (t_list *)malloc(sizeof(t_list))) == NULL)
+		return (NULL);
+	list->content = ft_strdup(content);
+	list->next = NULL;
+	return (list);
 }
