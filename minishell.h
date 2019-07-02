@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/01 20:35:36 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/02 20:28:29 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void					check_envpath(const char **cmd);
 int						find_(const char **envv, const char *envvname);
 
 char					**manage_expansions(char **cmd);
+int						is_nonscreening_sign(const char *cmd, int i, char sign);
 
 void					cmd_cd(const char **cmd);
 void					cmd_exit(char *line, char **level, char **cmd);

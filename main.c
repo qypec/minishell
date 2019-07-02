@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/01 19:59:31 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/02 20:34:05 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void					parse_command(char *line)
 	i = 0;
 	while (level[i] != NULL)
 	{
+		// cmd = screening((const char *)level[i]);
 		cmd = ft_strsplit(level[i], ' ');
 		cmd = manage_expansions(cmd);
 		if ((flag = is_builtin_launch((const char **)cmd)) == 0)

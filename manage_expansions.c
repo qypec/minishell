@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 02:12:32 by qypec             #+#    #+#             */
-/*   Updated: 2019/07/01 18:52:32 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/02 20:36:34 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,15 @@ static char				*preprocessoring(char *cmd)
 	i = 0;
 	while (cmd[i] != '\0')
 	{
-		if (cmd[i] == '$')
+		if (is_nonscreening_sign((const char *)cmd, i, '$'))
 		{
 			result = manage_dollarsign((const char *)cmd, result, &i, &size);
 			j = ft_strlen(result);
 		}
-		else
+		else if (cmd[i] != '\\')
 			result[j++] = cmd[i++];
+		else
+			i++;
 	}
 	return (result);
 }
