@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/02 20:28:29 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/03 20:54:32 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,31 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 
-# define				BUFF_SIZE					9
+# define				MAIN_BUFF_SIZE				9
+
+# define				YES							1
+# define				NO							0
 
 # define				GIT_BRANCH_NAME_FILE		".git/HEAD"
 # define				BUFF_BRANCH_NAME_SIZE		30
 # define				COMMAND_NOT_FOUND			1
 # define				NO_SUCH_DIR					2
 # define				NAME_GIT_ENVVAR				"GITDIR="
+# define				SCREENING_BUFF_SIZE			30
+
+typedef struct			s_buff
+{
+	char				*str;
+	int					i;
+	int					counter;
+}						t_buff;
 
 char					**g_envv;
 t_map					*g_envvpath;
 
-
+t_buff					*init_buff(t_buff *buff);
+t_buff					*buff_reload(t_buff *buff);
+void					buff_del(t_buff **buff);
 
 void					display_prompt(void);
 char					*get_git_branch_name(void);
@@ -53,6 +66,7 @@ int						find_(const char **envv, const char *envvname);
 
 char					**manage_expansions(char **cmd);
 int						is_nonscreening_sign(const char *cmd, int i, char sign);
+char					**screening(const char *str);
 
 void					cmd_cd(const char **cmd);
 void					cmd_exit(char *line, char **level, char **cmd);

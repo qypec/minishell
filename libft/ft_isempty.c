@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd.c                                        :+:      :+:    :+:   */
+/*   ft_isempty.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/02 21:29:25 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/03 12:14:51 by yquaro           ###   ########.fr       */
+/*   Created: 2019/07/03 21:26:11 by yquaro            #+#    #+#             */
+/*   Updated: 2019/07/03 21:29:00 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_list.h"
+# include "includes/libft.h"
 
-void				ft_lstadd(t_list **alst, t_list *new)
+int							ft_isempty(const char *str)
 {
-	if (new == NULL)
-		return ;
-	else
+	int						i;
+
+	i = 0;
+	if (str == NULL)
+		return (1);
+	while (str[i] != '\0')
 	{
-		new->next = *alst;
-		*alst = new;
+		if (str[i] != '\0')
+			return (0);
+		i++;
 	}
+	return (1);
 }

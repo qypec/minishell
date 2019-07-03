@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 03:51:36 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/01 20:29:46 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/03 20:57:43 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int						is_builtin_launch(const char **cmd)
 {
+	if (cmd == NULL)
+		return (1);
 	if (ft_strcmp("cd", cmd[0]) == 0)
 		cmd_cd(cmd);
 	else if (ft_strcmp("exit", cmd[0]) == 0)

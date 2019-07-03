@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 12:05:21 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/02 22:01:29 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/03 21:28:22 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ char				*ft_stradd(char *str, char c);
 char				*ft_strnadd(char *str, char c, size_t n);
 char				**ft_matrdup(const char **matr);
 size_t				ft_matrlen(const char **matr);
+int					ft_isempty(const char *str);
 
 #endif

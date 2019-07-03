@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 21:22:52 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/02 21:46:51 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/03 20:32:08 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct						s_list
 void								ft_lstdel(t_list **head);
 t_list								*ft_lstdelone(t_list *head, t_list *dellist);
 void								ft_lstadd(t_list **alst, t_list *new);
+void								ft_lstpushback(t_list **head, t_list *new);
 t_list								*ft_lstnew(const char *content);
+int									ft_listsize(t_list *head);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/02 22:08:40 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/03 18:44:57 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void					get_input(void)
 
 	i = 0;
 	signal(SIGINT, handle_ctrl_c);
-	buff_counter = BUFF_SIZE;
+	buff_counter = MAIN_BUFF_SIZE;
 	if ((buff = (char *)ft_memalloc(sizeof(char) * buff_counter)) == NULL)
 	{
 		printf("error exit : main.c->%d\n", __LINE__);
@@ -63,12 +63,12 @@ void					get_input(void)
 			break ;
 		if (i == buff_counter - 1)
 		{
-			if ((buff = ft_realloc(buff, buff_counter + BUFF_SIZE)) == NULL)
+			buff_counter += MAIN_BUFF_SIZE;
+			if ((buff = ft_realloc(buff, buff_counter)) == NULL)
 			{
 				printf("error exit : main.c->get_input");
 				exit(1);
 			}
-			buff_counter += BUFF_SIZE;
 		}
 		buff[i++] = symb;
 	}

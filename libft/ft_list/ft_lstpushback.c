@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd.c                                        :+:      :+:    :+:   */
+/*   ft_lstpushback.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/02 21:29:25 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/03 12:14:51 by yquaro           ###   ########.fr       */
+/*   Created: 2019/07/03 15:23:33 by yquaro            #+#    #+#             */
+/*   Updated: 2019/07/03 17:31:37 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "ft_list.h"
 
-void				ft_lstadd(t_list **alst, t_list *new)
+void				ft_lstpushback(t_list **head, t_list *new)
 {
+	t_list			*tmp;
+
 	if (new == NULL)
 		return ;
-	else
+	tmp = *head;
+	if (tmp == NULL)
 	{
-		new->next = *alst;
-		*alst = new;
+		*head = new;
+		return ;
 	}
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	tmp->next = new;
 }

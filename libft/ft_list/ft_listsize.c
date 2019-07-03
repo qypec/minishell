@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd.c                                        :+:      :+:    :+:   */
+/*   ft_listsize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/02 21:29:25 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/03 12:14:51 by yquaro           ###   ########.fr       */
+/*   Created: 2019/07/03 20:30:00 by yquaro            #+#    #+#             */
+/*   Updated: 2019/07/03 20:31:55 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "ft_list.h"
 
-void				ft_lstadd(t_list **alst, t_list *new)
+int					ft_listsize(t_list *head)
 {
-	if (new == NULL)
-		return ;
-	else
+	t_list			*tmp;
+	int				len;
+
+	tmp = head;
+	len = 0;
+	while (tmp != NULL)
 	{
-		new->next = *alst;
-		*alst = new;
+		len++;
+		tmp = tmp->next;
 	}
+	return (len);
 }
