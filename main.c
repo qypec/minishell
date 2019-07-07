@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/03 18:44:57 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/05 16:30:22 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void					parse_command(char *line)
 	while (level[i] != NULL)
 	{
 		cmd = screening((const char *)level[i]);
-		// cmd = ft_strsplit(level[i], ' ');
 		cmd = manage_expansions(cmd);
 		if ((flag = is_builtin_launch((const char **)cmd)) == 0)
 			check_envpath((const char **)cmd);
@@ -48,6 +47,7 @@ void					get_input(void)
 	char		symb;
 	int			i;
 	int			buff_counter;
+	int			ret;
 
 	i = 0;
 	signal(SIGINT, handle_ctrl_c);
@@ -57,7 +57,7 @@ void					get_input(void)
 		printf("error exit : main.c->%d\n", __LINE__);
 		exit(-1);
 	}
-	while (read(0, &symb, 1) > 0)
+	while ((ret = read(0, &symb, 1)) > 0)
 	{
 		if (symb == '\n')
 			break ;
@@ -71,6 +71,12 @@ void					get_input(void)
 			}
 		}
 		buff[i++] = symb;
+	}
+	if (ret == 0)
+	{
+		ft_strdel(&buff);
+		ft_putendl("exit");
+		exit(0);
 	}
 	buff[i] = '\0';
 	parse_command(buff);

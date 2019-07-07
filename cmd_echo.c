@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 20:29:38 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/01 21:15:53 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/05 14:33:34 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,18 @@ static int				get_len(const char **cmd, int i)
 	return (len);
 }
 
+static int				check_arguments(const char **cmd)
+{
+	if (cmd[1] == NULL)
+	{
+		ft_putstr("\n");
+		return (1);
+	}
+	if (ft_strcmp(cmd[1], "-n") == 0 && cmd[2] == NULL)
+		return (1);
+	return (0);
+}
+
 void					cmd_echo(const char **cmd)
 {
 	int					flag_n;
@@ -43,6 +55,8 @@ void					cmd_echo(const char **cmd)
 
 	flag_n = 0;
 	i = 1;
+	if (check_arguments(cmd) == 1)
+		return ;
 	if (ft_strcmp(cmd[i], "-n") == 0)
 	{
 		flag_n = 1;

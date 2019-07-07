@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:25:48 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/30 22:06:12 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/07 05:05:44 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,24 +66,51 @@ void					init_htab_envpath(void)
 	ft_matrixfree(&tmp);
 }
 
+static char				*get_name(const char *str)
+{
+	int					len;
+	int					i;
+	char				*buff;
+
+	i = ft_strlen(str);
+	len = 0;
+	while (str[--i] != '/')
+		len++;
+	if ((buff = (char *)ft_memalloc(sizeof(char) * (len + 1))) == NULL)
+	{
+		printf("error exit : envpath.c->%d", __LINE__);
+		exit(-1);
+	}
+	len = 0;
+	while (str[++i] != '\0')
+		buff[len++] = str[i];
+	buff[len] = '\0';
+	return (buff);
+}
+
+
 void					check_envpath(const char **cmd)
 {
 	pid_t			pid;
-	int				hash;
 	char			*fullname;
-	int				len;
 	const char		*value;
+	char			*buff;
 
 	if ((pid = fork()) == 0)
 	{
-		if ((hash = ft_ismapitem(g_envvpath, cmd[0])) == -1)
+		buff = ft_strdup((char *)cmd[0]);
+		if (cmd[0][0] == '/')
+			buff = get_name(cmd[0]);
+		if (ft_ismapitem(g_envvpath, (const char *)buff) == -1)
 		{
 			bust(cmd[0], COMMAND_NOT_FOUND);
-			return ;
+			exit(0);
 		}
-		value = ft_getvalue(g_envvpath, cmd[0]);
-		len = ft_strlen(cmd[0]) + ft_strlen(value) + 1 + 1;
-		fullname = (char *)ft_memalloc(sizeof(char) * len);
+		ft_strdel((char **)&cmd[0]);
+		cmd[0] = buff;
+		value = ft_getvalue(g_envvpath, (const char *)buff);
+		fullname = (char *)ft_memalloc(sizeof(char) * \
+			(ft_strlen(cmd[0]) + ft_strlen(value) + 1 + 1));
 		ft_strglue(&fullname, value, "/");
 		ft_strglue(&fullname, cmd[0], "\0");
 		execve(fullname, (char **)cmd, g_envv);

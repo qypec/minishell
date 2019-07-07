@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/03 20:54:32 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/03 22:56:58 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdio.h>
 # include <dirent.h>
 # include <limits.h>
+# include <signal.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 
