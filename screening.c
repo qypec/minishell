@@ -6,11 +6,11 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:45:43 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/03 22:43:24 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/07 06:56:13 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 int						is_nonscreening_sign(const char *cmd, int i, char sign)
 {
@@ -42,10 +42,7 @@ static char				**list_to_matr(t_list **head)
 
 	len = ft_listsize(*head);
 	if ((matr = (char **)malloc(sizeof(char *) * (len + 1))) == NULL)
-	{
-		printf("error exit : screening.c->%d\n", __LINE__);
 		exit(-1);
-	}
 	tmp = *head;
 	i = 0;
 	while (i < len)
@@ -63,11 +60,12 @@ static void				parse_quotes(const char *str, int *i, t_list **head)
 	t_buff				*buff;
 
 	*i += 1;
-	buff = init_buff(buff);
+	buff = NULL;
+	buff = init_buff(buff, SCREENING_BUFF_SIZE);
 	while ((!is_quotes(str[*i])) && str[*i] != '\0')
 	{
 		if (buff->i == buff->counter - 1)
-			buff = buff_reload(buff);
+			buff = buff_reload(buff, SCREENING_BUFF_SIZE);
 		buff->str[buff->i] = str[*i];
 		buff->i += 1;
 		*i += 1;
@@ -86,7 +84,8 @@ char					**screening(const char *str)
 
 	i = 0;
 	head = NULL;
-	buff = init_buff(buff);
+	buff = NULL;
+	buff = init_buff(buff, SCREENING_BUFF_SIZE);
 	while (str[i] != '\0')
 	{
 		if (is_quotes(str[i]))
@@ -96,12 +95,12 @@ char					**screening(const char *str)
 			if (!ft_isempty(buff->str))
 				ft_lstpushback(&head, ft_lstnew(buff->str));
 			buff_del(&buff);
-			buff = init_buff(buff);
+			buff = init_buff(buff, SCREENING_BUFF_SIZE);
 			i++;
 			continue ;
 		}
 		if (buff->i == buff->counter - 1)
-			buff = buff_reload(buff);
+			buff = buff_reload(buff, SCREENING_BUFF_SIZE);
 		if (str[i] != '\0')
 		{
 			buff->str[buff->i] = str[i++];

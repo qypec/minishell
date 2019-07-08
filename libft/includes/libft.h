@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 12:05:21 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/03 21:28:22 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/07 05:56:31 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,10 @@ char				*ft_strncut(char *str, int n, char *choice);
 char				*ft_strencut(char *str, int n, char *choice);
 char				*ft_addsymb(char *str, char c, int num);
 char				*ft_addsymbend(char *str, char c, int num);
-void				ft_strglue(char **puthere, const char *left, const char *right);
-char				*ft_strnglue(char *str, const char *left, const char *right, size_t n);
+void				ft_strglue(char **puthere, const char *left, \
+										const char *right);
+char				*ft_strnglue(char *str, const char *left, \
+										const char *right, size_t n);
 char				*ft_stradd(char *str, char c);
 char				*ft_strnadd(char *str, char c, size_t n);
 char				**ft_matrdup(const char **matr);

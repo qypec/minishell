@@ -6,11 +6,11 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 20:29:38 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/05 14:33:34 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/07 06:43:45 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 static int				get_len(const char **cmd, int i)
 {
@@ -49,7 +49,6 @@ void					cmd_echo(const char **cmd)
 {
 	int					flag_n;
 	int					i;
-	int					j;
 	int					len;
 	char				*buff;
 
@@ -62,19 +61,13 @@ void					cmd_echo(const char **cmd)
 		flag_n = 1;
 		i++;
 	}
-	len = get_len(cmd, i) + 1 + 1; // for percent
-	if ((buff = (char *)ft_memalloc(sizeof(char) * len)) == NULL)
-	{
-		printf("error exit : cmd_echo.c->%d\n", __LINE__);
-		exit(-1);
-	}
+	len = get_len(cmd, i) + 1 + 1;
+	buff = (char *)ft_memalloc(sizeof(char) * len);
 	while (cmd[i] != NULL)
-	{
 		if (cmd[i + 1] != NULL)
 			ft_strglue(&buff, cmd[i++], " ");
 		else
 			ft_strglue(&buff, cmd[i++], "\0");
-	}
 	if (flag_n == 1)
 		ft_strglue(&buff, "%", "\0");
 	ft_putendl(buff);

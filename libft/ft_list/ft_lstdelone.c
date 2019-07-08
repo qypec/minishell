@@ -6,11 +6,11 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 21:36:46 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/02 21:49:04 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/07 06:28:23 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_list.h"
+#include "ft_list.h"
 
 static void				default_del(t_list *list)
 {

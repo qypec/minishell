@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 18:59:43 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 18:20:29 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/07 06:30:57 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char			*glue_str(t_cdate *date, char *str)
 	if (ft_strlen(date->day) == 1)
 		ft_strglue(&str, date->month, "  ");
 	else
-	ft_strglue(&str, date->month, " ");
+		ft_strglue(&str, date->month, " ");
 	ft_strglue(&str, date->day, " ");
 	ft_strglue(&str, date->hour, ":");
 	ft_strglue(&str, date->min, ":");

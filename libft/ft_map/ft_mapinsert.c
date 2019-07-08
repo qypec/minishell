@@ -6,14 +6,14 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 08:04:48 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 18:06:34 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/07 06:19:28 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_map.h"
-# include <stdio.h>
+#include "ft_map.h"
 
-void					ft_mapinsert(t_map *map, const char *key, const void *value)
+void					ft_mapinsert(t_map *map, const char *key, \
+										const void *value)
 {
 	int					hash;
 	int					(*hash_func)(const char *, int);
@@ -25,7 +25,6 @@ void					ft_mapinsert(t_map *map, const char *key, const void *value)
 	if (*tmp == NULL)
 	{
 		*tmp = ht_listnew(key, value);
-		map->content_size++;
 		return ;
 	}
 	while (*tmp != NULL)
@@ -40,5 +39,4 @@ void					ft_mapinsert(t_map *map, const char *key, const void *value)
 		tmp = &((*tmp)->next);
 	}
 	(*tmp)->next = ht_listnew(key, value);
-	map->content_size++;
 }

@@ -6,7 +6,7 @@
 #    By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/13 21:16:45 by yquaro            #+#    #+#              #
-#    Updated: 2019/07/03 20:37:00 by yquaro           ###   ########.fr        #
+#    Updated: 2019/07/07 05:12:11 by yquaro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ LIBNAME = libft.a
 
 all:
 	@make -C libft/ all
-	$(CC) -g $(SOURCES) -L. -lft -o $(EXECUTABLE) # НЕ ЗАБЫТЬ ФЛАГИ!!!!
+	$(CC) $(CFLAGS) $(SOURCES) -L. -lft -o $(EXECUTABLE)
 	
 clean: fclean
 

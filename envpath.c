@@ -6,11 +6,11 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:25:48 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/07 05:05:44 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/07 06:55:41 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 static void				collect_executables_to_hashtable(const char **path)
 {
@@ -20,16 +20,14 @@ static void				collect_executables_to_hashtable(const char **path)
 	while (*path != NULL)
 	{
 		if ((dir = opendir(*path)) == NULL)
-		{
-			printf("error exit : envpath.c->collect_executables_to_hashtable\n");
 			exit(-1);
-		}
 		while ((entry = readdir(dir)) != NULL)
 		{
 			if (ft_strcmp((const char *)entry->d_name, ".") == 0 || \
 				ft_strcmp((const char *)entry->d_name, "..") == 0)
 				continue;
-			ft_mapinsert(g_envvpath, (const char *)ft_strdup(entry->d_name), ft_strdup(*path));
+			ft_mapinsert(g_envvpath, (const char *)ft_strdup(entry->d_name), \
+								ft_strdup(*path));
 		}
 		closedir(dir);
 		path++;
@@ -57,10 +55,7 @@ void					init_htab_envpath(void)
 
 	g_envvpath = ft_mapnew(NULL, 2000);
 	if ((pathnumber = find_path((const char **)g_envv)) == -1)
-	{
-		printf("error exit : envpath.c->init_htab_envpath\n");
 		exit(-1);
-	}
 	tmp = ft_strsplit(g_envv[pathnumber] + 5, ':');
 	collect_executables_to_hashtable((const char **)tmp);
 	ft_matrixfree(&tmp);
@@ -77,17 +72,13 @@ static char				*get_name(const char *str)
 	while (str[--i] != '/')
 		len++;
 	if ((buff = (char *)ft_memalloc(sizeof(char) * (len + 1))) == NULL)
-	{
-		printf("error exit : envpath.c->%d", __LINE__);
 		exit(-1);
-	}
 	len = 0;
 	while (str[++i] != '\0')
 		buff[len++] = str[i];
 	buff[len] = '\0';
 	return (buff);
 }
-
 
 void					check_envpath(const char **cmd)
 {

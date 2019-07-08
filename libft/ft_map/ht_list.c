@@ -6,11 +6,11 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 16:30:10 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/02 21:40:00 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/07 06:14:55 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_map.h"
+#include "ft_map.h"
 
 static void				default_del(ht_list *list)
 {

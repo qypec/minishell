@@ -6,13 +6,13 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 20:58:08 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/30 21:58:59 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/07 06:14:31 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "includes/libft.h"
+#include "includes/libft.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+int							ft_strcmp(const char *s1, const char *s2)
 {
 	int i;
 

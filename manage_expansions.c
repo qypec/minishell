@@ -6,11 +6,11 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 02:12:32 by qypec             #+#    #+#             */
-/*   Updated: 2019/07/02 22:02:00 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/07 06:55:59 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 static char				*manage_tildesign(char *result, size_t *size)
 {
@@ -19,32 +19,26 @@ static char				*manage_tildesign(char *result, size_t *size)
 	home_number = find_((const char **)g_envv, "HOME=");
 	*size += ft_strlen(g_envv[home_number] + ft_strlen("HOME="));
 	if ((result = ft_realloc((void *)result, *size)) == NULL)
-	{
-		printf("error exit : manage_expansions.c->manage_tildesign\n");
 		exit(-1);
-	}
-	ft_strglue(&result, (const char *)(g_envv[home_number] + ft_strlen("HOME=")), "\0");
+	ft_strglue(&result, (const char *)(g_envv[home_number] + \
+		ft_strlen("HOME=")), "\0");
 	return (result);
 }
 
-static char				*manage_dollarsign(const char *cmd, char *result, int *i, size_t *size)
+static char				*manage_dollarsign(const char *cmd, char *result, \
+											int *i, size_t *size)
 {
 	int					len;
 	char				*envvar;
 	int					var_number;
 	int					tmp_i;
 
-	len = *i;
 	*i += 1;
 	tmp_i = *i;
 	while (cmd[*i] != ' ' && cmd[*i] != '\0')
 		*i += 1;
-	len = *i - len;
-	if ((envvar = (char *)malloc(sizeof(char) * (len + 1))) == NULL)
-	{
-		printf("error exit : manage_expansions.c->manage_dollarsign\n");
-		exit(-1);
-	}
+	len = *i - (tmp_i - 1);
+	envvar = (char *)malloc(sizeof(char) * (len + 1));
 	ft_strncpy(envvar, cmd + tmp_i, len);
 	ft_strglue(&envvar, "=", "\0");
 	if ((var_number = find_((const char **)g_envv, envvar)) == -1)
@@ -69,11 +63,7 @@ static char				*preprocessoring(char *cmd)
 	int					j;
 
 	size = ft_strlen(cmd) + 1;
-	if ((result = (char *)ft_memalloc(sizeof(char) * size)) == NULL)
-	{
-		printf("error exit : manage_expansions.c->preprocessoring\n");
-		exit(-1);
-	}
+	result = (char *)ft_memalloc(sizeof(char) * size);
 	j = 0;
 	if (cmd[0] == '~')
 	{
@@ -82,7 +72,6 @@ static char				*preprocessoring(char *cmd)
 	}
 	i = 0;
 	while (cmd[i] != '\0')
-	{
 		if (is_nonscreening_sign((const char *)cmd, i, '$'))
 		{
 			result = manage_dollarsign((const char *)cmd, result, &i, &size);
@@ -92,7 +81,7 @@ static char				*preprocessoring(char *cmd)
 			result[j++] = cmd[i++];
 		else
 			i++;
-	}
+	ft_strdel(&cmd);
 	return (result);
 }
 

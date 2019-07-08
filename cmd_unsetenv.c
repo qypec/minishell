@@ -6,11 +6,11 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 22:43:03 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/01 20:22:28 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/07 06:55:27 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 static int				is_forbidden_variable(const char *varname)
 {
@@ -26,10 +26,7 @@ static void				new_genvv(char **tmp, int var_number)
 
 	if ((g_envv = (char **)malloc(sizeof(char *) * \
 				ft_matrlen((const char **)tmp))) == NULL)
-	{
-		printf("error exit : cmd_unsetenv.c->%d\n", __LINE__);
 		exit(-1);
-	}
 	i = 0;
 	j = 0;
 	while (tmp[i] != NULL)
@@ -47,14 +44,15 @@ static void				new_genvv(char **tmp, int var_number)
 void					cmd_unsetenv(const char *varname)
 {
 	int					var_number;
-	int					len;
 	char				**tmp;
 
 	if ((var_number = find_((const char **)g_envv, varname)) == -1)
 		return ;
 	if (is_forbidden_variable(varname))
 	{
-		printf("The variable %s can not be unset\n", varname);
+		ft_putstr("The variable ");
+		ft_putstr(varname);
+		ft_putendl("can not be unset");
 		return ;
 	}
 	tmp = ft_matrdup((const char **)g_envv);

@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 18:43:32 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/01 18:22:13 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/07 06:14:15 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void						ft_strglue(char **puthere, const char *left, \
 											const char *right)
 {
-	int i;
-	int	counter;
-	char *str;
+	int		i;
+	int		counter;
+	char	*str;
 
 	str = *puthere;
 	i = 0;

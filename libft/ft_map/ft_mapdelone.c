@@ -6,11 +6,11 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 19:49:21 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/23 15:16:07 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/07 06:19:53 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_map.h"
+#include "ft_map.h"
 
 void					ft_mapdelone(t_map *map, const char *key)
 {

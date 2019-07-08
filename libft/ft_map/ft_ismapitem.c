@@ -6,11 +6,11 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:45:31 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/21 17:12:01 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/07 06:27:12 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_map.h"
+#include "ft_map.h"
 
 int						ft_ismapitem(t_map *map, const char *key)
 {
