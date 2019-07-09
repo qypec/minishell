@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/07 06:12:44 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/09 13:57:26 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,8 @@
 # define NAME_GIT_ENVVAR "GITDIR="
 # define SCREENING_BUFF_SIZE 30
 
-typedef struct			s_buff
-{
-	char				*str;
-	int					i;
-	int					counter;
-}						t_buff;
-
 char					**g_envv;
 t_map					*g_envvpath;
-
-t_buff					*init_buff(t_buff *buff, int size);
-t_buff					*buff_reload(t_buff *buff, int size);
-void					buff_del(t_buff **buff);
 
 void					display_prompt(void);
 char					*get_git_branch_name(void);

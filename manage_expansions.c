@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   manage_expansions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 02:12:32 by qypec             #+#    #+#             */
-/*   Updated: 2019/07/07 06:55:59 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/09 14:01:28 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int						is_nonscreening_sign(const char *cmd, int i, char sign)
+{
+	if (i != 0)
+	{
+		if (cmd[i] == sign && cmd[i - 1] != '\\')
+			return (1);
+		else
+			return (0);
+	}
+	else if (cmd[i] == sign)
+		return (1);
+	return (0);
+}
 
 static char				*manage_tildesign(char *result, size_t *size)
 {

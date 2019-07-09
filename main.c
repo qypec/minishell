@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/07 06:08:25 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/09 13:59:00 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void					parse_command(char *line)
 	i = 0;
 	while (level[i] != NULL)
 	{
-		cmd = screening((const char *)level[i]);
+		// cmd = screening((const char *)level[i]);
+		cmd = ft_strsplit(level[i], ' ');
 		cmd = manage_expansions(cmd);
 		if ((flag = is_builtin_launch((const char **)cmd)) == 0)
 			check_envpath((const char **)cmd);
@@ -49,25 +50,23 @@ void					get_input(void)
 	int			ret;
 
 	signal(SIGINT, handle_ctrl_c);
-	buff = NULL;
-	buff = init_buff(buff, MAIN_BUFF_SIZE);
+	buff = ft_buffinit(MAIN_BUFF_SIZE);
 	while ((ret = read(0, &symb, 1)) > 0)
 	{
 		if (symb == '\n')
 			break ;
-		if (buff->i == buff->counter - 1)
-			buff = buff_reload(buff, SCREENING_BUFF_SIZE);
+		ft_buffreload(buff);
 		buff->str[(buff->i)++] = symb;
 	}
 	if (ret == 0)
 	{
-		buff_del(&buff);
+		ft_buffdel(&buff);
 		ft_putendl("exit");
 		exit(0);
 	}
 	buff->str[buff->i] = '\0';
 	parse_command(buff->str);
-	buff_del(&buff);
+	ft_buffdel(&buff);
 }
 
 int						main(int argc, char **argv, char **envv)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+         #
+#    By: qypec <qypec@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/20 19:26:56 by yquaro            #+#    #+#              #
-#    Updated: 2019/07/03 21:28:44 by yquaro           ###   ########.fr        #
+#    Updated: 2019/07/09 13:15:12 by qypec            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ $(NAME): $(OBJECTS)
 	@make -C ft_alloc/ all
 	@make -C ft_math/ all
 	@make -C ft_map/ all
+	@make -C ft_buffer/ all
 	@ar rc $(NAME) $(OBJECTS)
 	@ranlib $(NAME)
 	@mv $(NAME) lib/$(NAME)
@@ -75,6 +76,7 @@ fclean:
 	@make -C ft_math/ fclean
 	@make -C ft_map/ fclean
 	@make -C ft_list/ fclean
+	@make -C ft_buffer/ fclean
 	@make -C lib/ fclean
 	@rm *.o
 

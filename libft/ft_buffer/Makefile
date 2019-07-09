@@ -5,27 +5,31 @@
 #                                                     +:+ +:+         +:+      #
 #    By: qypec <qypec@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/06/18 01:54:46 by yquaro            #+#    #+#              #
-#    Updated: 2019/07/09 13:13:10 by qypec            ###   ########.fr        #
+#    Created: 2019/07/09 13:11:11 by qypec             #+#    #+#              #
+#    Updated: 2019/07/09 13:55:19 by qypec            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+CC = gcc
+CFLAGS = -g -c -Wall -Wextra -Werror
+SOURCES = ft_buffinit.c ft_buffdel.c ft_buffreload.c
+OBJECTS = ft_buffinit.o ft_buffdel.o ft_buffreload.o
 
-all:
-	@echo \*\*\* Reassemblage 
-	@ar -x libft.a
-	@ar -x liballoc.a
-	@ar -x libctime.a
-	@ar -x libhashtab.a
-	@ar -x libmath.a
-	@ar -x liblist.a
-	@ar -x libbuff.a
-	@ar rc $(NAME) *.o
+NAME = libbuff.a
+
+all: $(SOURCES) print_echo $(NAME)
+	
+print_echo:
+	@echo \*\*\* Compiling ft_buffer
+
+.c.o:
+	$(CC) $(CFLAGS) $< -o $@
+
+$(NAME): $(OBJECTS)
+	@ar rc $(NAME) $(OBJECTS)
 	@ranlib $(NAME)
-	@rm __.SYMDEF\ SORTED
-	@mv $(NAME) ../../$(NAME)
-	@echo \*\*\* COMPLETE!
+	@mv $(NAME) ../lib/$(NAME)
 
-fclean:
+fclean: 
+	@rm ../lib/$(NAME)
 	@rm *.o
