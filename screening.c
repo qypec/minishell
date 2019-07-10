@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   screening.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:45:43 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/11 01:06:20 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/11 01:42:46 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static char				**list_to_matr(t_list **head)
 	char				**matr;
 	int					i;
 
+	if (*head == NULL)
+		return (NULL);
 	len = ft_listsize(*head);
 	if ((matr = (char **)malloc(sizeof(char *) * (len + 1))) == NULL)
 		exit(-1);
@@ -63,6 +65,7 @@ static void				work_with_call_stack(t_buff *buff, t_list **oper, const char *str
 		tmp = *oper;
 		*oper = (*oper)->next;
 		default_lstdel(tmp);
+		(*i)++;
 		return ;
 	}
 	if ((tmp = (t_list *)malloc(sizeof(t_list))) == NULL)
@@ -120,7 +123,7 @@ static t_list			*space_processing(t_buff **buff, t_list *oper, const char *str, 
 	return (new);
 }
 
-static void				end_of_string(t_buff **buff, t_list **oper, t_list *result)
+static void				end_of_string(t_buff **buff, t_list **oper, t_list **result)
 {
 	t_list				*tmp;
 	t_list				*new;
@@ -141,9 +144,9 @@ static void				end_of_string(t_buff **buff, t_list **oper, t_list *result)
 	new->next = NULL;
 	if ((new->content = (char *)ft_memalloc(sizeof(char) * ((*buff)->i + 1))) == NULL)
 		exit(-1);
-	ft_strncpy(new->content, (*buff)->str, ((*buff)->i - 1));
+	ft_strncpy(new->content, (*buff)->str, (*buff)->i);
 	ft_buffdel(buff);
-	ft_lstpushback(&result, new);
+	ft_lstpushback(result, new);
 }
 
 char					**screening(const char *str)
@@ -173,6 +176,6 @@ char					**screening(const char *str)
 			buff->str[(buff->i)++] = str[i++];
 		}
 	}
-	end_of_string(&buff, &oper, result);
+	end_of_string(&buff, &oper, &result);
 	return (list_to_matr(&result));
 }
