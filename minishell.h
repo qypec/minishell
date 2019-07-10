@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/09 14:06:48 by qypec            ###   ########.fr       */
+/*   Updated: 2019/07/11 01:05:45 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,10 @@ int						is_builtin_launch(const char **cmd);
 void					check_envpath(const char **cmd);
 int						find_(const char **envv, const char *envvname);
 
-char					**manage_expansions(char **cmd);
-int						is_nonscreening_sign(const char *cmd, int i, char sign);
 char					**screening(const char *str);
+void					preprocessoring(t_buff *buff, const char *str, int *i);
+int						is_nonscreening_sign(const char *cmd, int i, char sign);
+void					wait_quote_from_input(t_buff *buff, char c);
 
 void					cmd_cd(const char **cmd);
 void					cmd_exit(char *line, char **level, char **cmd);

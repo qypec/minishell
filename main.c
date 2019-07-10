@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/09 14:06:43 by qypec            ###   ########.fr       */
+/*   Updated: 2019/07/11 01:14:42 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ void					parse_command(char *line)
 	i = 0;
 	while (level[i] != NULL)
 	{
-		// cmd = screening((const char *)level[i]);
-		cmd = ft_strsplit(level[i], ' ');
-		cmd = manage_expansions(cmd);
+		cmd = screening((const char *)level[i]);
 		if ((flag = is_builtin_launch((const char **)cmd)) == 0)
 			check_envpath((const char **)cmd);
 		else if (flag == -1)

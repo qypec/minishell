@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:18:47 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/07 06:32:37 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/11 01:11:20 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void					add_gitdirpath_to_envv(const char **envv)
 	if (gitdir_exist() == 1)
 	{
 		if ((i = find_((const char **)envv, "PWD=")) == -1)
-			exit(-1);
+			return ;
 		g_envv[0] = (char *)ft_memalloc(sizeof(char) * \
 				(ft_strlen(envv[i] + 4) + ft_strlen(NAME_GIT_ENVVAR) + 1));
 		ft_strglue(&g_envv[0], NAME_GIT_ENVVAR, envv[i] + 4);
