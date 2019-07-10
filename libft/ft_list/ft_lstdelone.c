@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 21:36:46 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/07 06:28:23 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/09 15:50:31 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_list.h"
-
-static void				default_del(t_list *list)
-{
-	list->next = NULL;
-	ft_strdel(&(list->content));
-	free(list);
-	list = NULL;
-}
 
 t_list					*ft_lstdelone(t_list *head, t_list *dellist)
 {
@@ -32,7 +24,7 @@ t_list					*ft_lstdelone(t_list *head, t_list *dellist)
 	if (tmp == lst)
 	{
 		head = head->next;
-		default_del(lst);
+		default_lstdel(lst);
 		lst = head;
 		return (lst);
 	}
@@ -42,6 +34,6 @@ t_list					*ft_lstdelone(t_list *head, t_list *dellist)
 			tmp = tmp->next;
 		tmp->next = lst->next;
 	}
-	default_del(lst);
+	default_lstdel(lst);
 	return (head);
 }

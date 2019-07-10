@@ -3,34 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   screening.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:45:43 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/07 06:56:13 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/09 17:04:27 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int						is_nonscreening_sign(const char *cmd, int i, char sign)
-{
-	if (i != 0)
-	{
-		if (cmd[i] == sign && cmd[i - 1] != '\\')
-			return (1);
-		else
-			return (0);
-	}
-	else if (cmd[i] == sign)
-		return (1);
-	return (0);
-}
 
 static int				is_quotes(char c)
 {
 	if (c == '\'' || c == '\"')
 		return (1);
 	return (0);
+}
+
+static int				is_expansion_sign(char c)
+{
+	if (c == '$' || c == '~')
+		return (1);
+	return (0);	
 }
 
 static char				**list_to_matr(t_list **head)
@@ -55,61 +48,105 @@ static char				**list_to_matr(t_list **head)
 	return (matr);
 }
 
-static void				parse_quotes(const char *str, int *i, t_list **head)
+static void				work_with_call_stack(t_buff *buff, t_list **oper, const char *str, int *i)
 {
-	t_buff				*buff;
+	t_list				*tmp;
 
-	*i += 1;
-	buff = NULL;
-	buff = init_buff(buff, SCREENING_BUFF_SIZE);
-	while ((!is_quotes(str[*i])) && str[*i] != '\0')
+	if (*oper != NULL && str[*i] != (*oper)->content[0]))
 	{
-		if (buff->i == buff->counter - 1)
-			buff = buff_reload(buff, SCREENING_BUFF_SIZE);
-		buff->str[buff->i] = str[*i];
-		buff->i += 1;
-		*i += 1;
+		ft_buffreload(buff);
+		buff->str[(buff->i)++] = str[(*i)++];
+		return ;
 	}
-	if (is_quotes(str[*i]))
-		*i += 1;
-	ft_lstpushback(head, ft_lstnew(buff->str));
-	buff_del(&buff);
+	else if (*oper != NULL && str[*i] == (*oper)->content[0])
+	{
+		tmp = *oper;
+		*oper = (*oper)->next;
+		default_lstdel(tmp);
+		return ;
+	}
+	if ((tmp = (t_list *)malloc(sizeof(t_list))) == NULL)
+		exit(-1);
+	tmp->next = NULL;
+	if ((tmp->content = (char *)ft_memalloc(sizeof(char) * 2)) == NULL)
+		exit(-1);
+	tmp->content[0] = str[*i];
+	tmp->content[1] = '\0';
+	ft_lstadd(oper, tmp);
+	(*i)++;
+}
+
+static void				slash_processing(t_buff	*buff, const char *str, int *i)
+{
+	if (str[*i + 1] != '\0')
+	{
+		ft_buffreload(buff);
+		buff->str[(buff->i)++] = str[*i + 1];
+		(*i)++;
+	}
+	else
+	{
+		ft_buffreload(buff);
+		buff->str[(buff->i)++] = str[(*i)++];
+	}
+}
+
+static t_list			*space_processing(t_buff **buff, t_list *oper, const char *str, int *i)
+{
+	t_list				*new;
+
+	if (oper != NULL && is_quotes(oper->content[0]))
+	{
+		while (ft_isspace(str[*i]))
+		{
+			ft_buffreload(*buff);
+			(*buff)->str[((*buff)->i)++] = str[(*i)++];
+		}
+		return (NULL);
+	}
+	if (!ft_isempty(str))
+	{
+		if ((new = (t_list *)malloc(sizeof(t_list))) == NULL)
+			exit(-1);
+		new->next = NULL;
+		if ((new->content = (char *)ft_memalloc(sizeof(char) * (*i + 1))) == NULL)
+			exit(-1);
+		ft_strncpy(new->content, str, *i);
+	}
+	ft_buffdel(buff);
+	*buff = ft_buffinit(SCREENING_BUFF_SIZE);
+	while (ft_isspace(str[*i]))
+		(*i)++;
+	return (new);
 }
 
 char					**screening(const char *str)
 {
-	int					i;
 	t_buff				*buff;
-	t_list				*head;
+	t_list				*oper;
+	t_list				*result;
+	int					i;
 
+	buff = ft_buffinit(SCREENING_BUFF_SIZE);
+	oper = NULL;
+	result = NULL;
 	i = 0;
-	head = NULL;
-	buff = NULL;
-	buff = init_buff(buff, SCREENING_BUFF_SIZE);
 	while (str[i] != '\0')
 	{
 		if (is_quotes(str[i]))
-			parse_quotes(str, &i, &head);
-		if (str[i] == ' ')
+			work_with_call_stack(buff, &oper, str, &i);
+		else if (str[i] == '\\')
+			slash_processing(buff, str, &i);
+		else if (is_expansion_sign(str[i]))
+			preprocessoring(&buff, str, &i);
+		else if (ft_isspace(str[i]))
+			ft_lstpushback(&result, space_processing(&buff, oper, str, &i));
+		else
 		{
-			if (!ft_isempty(buff->str))
-				ft_lstpushback(&head, ft_lstnew(buff->str));
-			buff_del(&buff);
-			buff = init_buff(buff, SCREENING_BUFF_SIZE);
-			i++;
-			continue ;
-		}
-		if (buff->i == buff->counter - 1)
-			buff = buff_reload(buff, SCREENING_BUFF_SIZE);
-		if (str[i] != '\0')
-		{
-			buff->str[buff->i] = str[i++];
-			buff->i += 1;
+			ft_buffreload(buff);
+			buff->str[(buff->i)++] = str[i++];
 		}
 	}
-	if (!ft_isempty(buff->str))
-		ft_lstpushback(&head, ft_lstnew(buff->str));
-	if (buff != NULL)
-		buff_del(&buff);
-	return (list_to_matr(&head));
+	// нет обработки конца
+	return (list_to_matr(&result));
 }

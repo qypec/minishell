@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 21:38:19 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/07 06:28:21 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/09 15:50:38 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_list.h"
 
-static void				default_del(t_list *list)
+void				default_lstdel(t_list *list)
 {
 	list->next = NULL;
 	ft_strdel(&(list->content));
@@ -33,5 +33,5 @@ void					ft_lstdel(t_list **head)
 			return ;
 		tmp = (*head);
 	}
-	default_del(*head);
+	default_lstdel(*head);
 }

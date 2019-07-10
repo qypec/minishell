@@ -6,123 +6,64 @@
 /*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 02:12:32 by qypec             #+#    #+#             */
-/*   Updated: 2019/07/09 14:01:28 by qypec            ###   ########.fr       */
+/*   Updated: 2019/07/09 16:59:00 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int						is_nonscreening_sign(const char *cmd, int i, char sign)
-{
-	if (i != 0)
-	{
-		if (cmd[i] == sign && cmd[i - 1] != '\\')
-			return (1);
-		else
-			return (0);
-	}
-	else if (cmd[i] == sign)
-		return (1);
-	return (0);
-}
-
-static char				*manage_tildesign(char *result, size_t *size)
+void					manage_tildesign(t_buff *buff)
 {
 	int					home_number;
+	const char			*tmp;
+	int					i;
 
+	i = 0;
 	home_number = find_((const char **)g_envv, "HOME=");
-	*size += ft_strlen(g_envv[home_number] + ft_strlen("HOME="));
-	if ((result = ft_realloc((void *)result, *size)) == NULL)
-		exit(-1);
-	ft_strglue(&result, (const char *)(g_envv[home_number] + \
-		ft_strlen("HOME=")), "\0");
-	return (result);
+	tmp = (const char *)(g_envv[home_number] + ft_strlen("HOME="));
+	while (tmp[i] != '\0')
+	{
+		ft_buffreload(buff);
+		buff->str[(buff->i)++] = tmp[i++];
+	}
 }
 
-static char				*manage_dollarsign(const char *cmd, char *result, \
-											int *i, size_t *size)
+void					manage_dollarsign(t_buff *buff, const char *str, int *i)
 {
-	int					len;
-	char				*envvar;
+	t_buff				*expan;
 	int					var_number;
-	int					tmp_i;
-
-	*i += 1;
-	tmp_i = *i;
-	while (cmd[*i] != ' ' && cmd[*i] != '\0')
-		*i += 1;
-	len = *i - (tmp_i - 1);
-	envvar = (char *)malloc(sizeof(char) * (len + 1));
-	ft_strncpy(envvar, cmd + tmp_i, len);
-	ft_strglue(&envvar, "=", "\0");
-	if ((var_number = find_((const char **)g_envv, envvar)) == -1)
-	{
-		ft_strdel(&envvar);
-		if (ft_strlen(result) == 0)
-			return (NULL);
-		return (result);
-	}
-	*size += ft_strlen(g_envv[var_number] + len + 1);
-	result = ft_realloc((void *)result, *size);
-	ft_strglue(&result, (const char *)(g_envv[var_number] + len), "\0");
-	ft_strdel(&envvar);
-	return (result);
-}
-
-static char				*preprocessoring(char *cmd)
-{
-	char				*result;
-	size_t				size;
-	int					i;
 	int					j;
+	const char			*tmp;
 
-	size = ft_strlen(cmd) + 1;
-	result = (char *)ft_memalloc(sizeof(char) * size);
+	expan = ft_buffinit(15);
+	while (ft_isalnum(str[++(*i)]))
+	{
+		ft_buffreload(expan);
+		expan->str[(expan->i)++] = str[*i];
+	}
+	var_number = find_((const char **)g_envv, expan->str);
+	ft_buffdel(&expan);
+	if (var_number == -1)
+		return ;
 	j = 0;
-	if (cmd[0] == '~')
+	while (g_envv[var_number][j] != '=')
+		j++;
+	tmp = (const char *)(g_envv[var_number] + (j + 1));
+	j = 0;
+	while (tmp[j] != '\0')
 	{
-		result = manage_tildesign(result, &size);
-		j = size;
+		ft_buffreload(buff);
+		buff->str[(buff->i)++] = tmp[j++];
 	}
-	i = 0;
-	while (cmd[i] != '\0')
-		if (is_nonscreening_sign((const char *)cmd, i, '$'))
-		{
-			result = manage_dollarsign((const char *)cmd, result, &i, &size);
-			j = ft_strlen(result);
-		}
-		else if (cmd[i] != '\\')
-			result[j++] = cmd[i++];
-		else
-			i++;
-	ft_strdel(&cmd);
-	return (result);
 }
 
-static int				contains_expansions(const char *cmd)
+void				preprocessoring(t_buff *buff, const char *str, int *i)
 {
-	int					i;
-
-	i = 0;
-	while (cmd[i] != '\0')
+	if (str[*i] == '~')
 	{
-		if (cmd[i] == '$' || cmd[i] == '~')
-			return (1);
-		i++;
+		manage_tildesign(buff);
+		(*i)++;
 	}
-	return (0);
-}
-
-char					**manage_expansions(char **cmd)
-{
-	int					i;
-
-	i = 1;
-	while (cmd[i] != NULL)
-	{
-		if (contains_expansions((const char *)cmd[i]))
-			cmd[i] = preprocessoring(cmd[i]);
-		i++;
-	}
-	return (cmd);
+	else if (str[*i] == '$')
+		manage_dollarsign(buff, str, i);
 }
