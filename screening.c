@@ -6,7 +6,7 @@
 /*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:45:43 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/09 17:04:27 by qypec            ###   ########.fr       */
+/*   Updated: 2019/07/11 00:21:53 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,35 @@ static t_list			*space_processing(t_buff **buff, t_list *oper, const char *str, 
 	return (new);
 }
 
+static void				end_of_string(t_buff **buff, t_list **oper, t_list *result)
+{
+	t_list				*tmp;
+	t_list				*new;
+
+	tmp = *oper;
+	if (tmp != NULL && is_quotes(tmp->content[0]))
+	{
+		ft_buffreload(*buff);
+		(*buff)->str[(*buff)->i] = '\n';
+		wait_quote_from_input(*buff, tmp->content[0]);
+		ft_lstdel(oper);
+	}
+	if (ft_isempty((*buff)->str));
+	{
+		ft_lstdel(oper);
+		return ;
+	}
+	if ((new = (t_list *)malloc(sizeof(t_list))) == NULL)
+		exit(-1);
+	new->next = NULL;
+	if ((new->content = (char *)ft_memalloc(sizeof(char) * ((*buff)->i + 1))) == NULL)
+		exit(-1);
+	ft_strncpy(new->content, (*buff)->str, *(buff)->i);
+	ft_buffdel(buff);
+	ft_lstpushback(&result, new);
+
+}
+
 char					**screening(const char *str)
 {
 	t_buff				*buff;
@@ -147,6 +176,6 @@ char					**screening(const char *str)
 			buff->str[(buff->i)++] = str[i++];
 		}
 	}
-	// нет обработки конца
+	end_of_string(&buff, &oper, result);
 	return (list_to_matr(&result));
 }
