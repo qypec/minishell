@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/11 01:05:45 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/11 03:46:08 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ void					check_envpath(const char **cmd);
 int						find_(const char **envv, const char *envvname);
 
 char					**screening(const char *str);
+void					screening_loop(const char *str, t_buff *buff, t_list **result, t_list *oper);
 void					preprocessoring(t_buff *buff, const char *str, int *i);
 int						is_nonscreening_sign(const char *cmd, int i, char sign);
-void					wait_quote_from_input(t_buff *buff, char c);
+void					wait_quote_from_input(t_buff *buff, t_list *oper, t_list **result);
 
 void					cmd_cd(const char **cmd);
 void					cmd_exit(char *line, char **level, char **cmd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   screening.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:45:43 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/11 01:42:46 by qypec            ###   ########.fr       */
+/*   Updated: 2019/07/11 04:10:48 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,7 @@ static t_list			*space_processing(t_buff **buff, t_list *oper, const char *str, 
 		if ((new = (t_list *)malloc(sizeof(t_list))) == NULL)
 			exit(-1);
 		new->next = NULL;
-		if ((new->content = (char *)ft_memalloc(sizeof(char) * (*i + 1))) == NULL)
-			exit(-1);
-		ft_strncpy(new->content, str, *i);
+		new->content = ft_strdup((*buff)->str);
 	}
 	ft_buffdel(buff);
 	*buff = ft_buffinit(SCREENING_BUFF_SIZE);
@@ -131,14 +129,11 @@ static void				end_of_string(t_buff **buff, t_list **oper, t_list **result)
 	tmp = *oper;
 	if (tmp != NULL && is_quotes(tmp->content[0]))
 	{
-		ft_buffreload(*buff);
-		(*buff)->str[((*buff)->i)++] = '\n';
-		wait_quote_from_input(*buff, tmp->content[0]);
+		wait_quote_from_input(*buff, *oper, result);
+		return ;
 	}
 	if (*oper != NULL)
 		ft_lstdel(oper);
-	if (ft_isempty((*buff)->str))
-		return ;
 	if ((new = (t_list *)malloc(sizeof(t_list))) == NULL)
 		exit(-1);
 	new->next = NULL;
@@ -149,16 +144,10 @@ static void				end_of_string(t_buff **buff, t_list **oper, t_list **result)
 	ft_lstpushback(result, new);
 }
 
-char					**screening(const char *str)
+void				screening_loop(const char *str, t_buff *buff, t_list **result, t_list *oper)
 {
-	t_buff				*buff;
-	t_list				*oper;
-	t_list				*result;
 	int					i;
 
-	buff = ft_buffinit(SCREENING_BUFF_SIZE);
-	oper = NULL;
-	result = NULL;
 	i = 0;
 	while (str[i] != '\0')
 	{
@@ -169,13 +158,29 @@ char					**screening(const char *str)
 		else if (is_expansion_sign(str[i]))
 			preprocessoring(buff, str, &i);
 		else if (ft_isspace(str[i]))
-			ft_lstpushback(&result, space_processing(&buff, oper, str, &i));
+			ft_lstpushback(result, space_processing(&buff, oper, str, &i));
 		else
 		{
 			ft_buffreload(buff);
 			buff->str[(buff->i)++] = str[i++];
 		}
 	}
-	end_of_string(&buff, &oper, &result);
+	end_of_string(&buff, &oper, result);
+}
+
+char					**screening(const char *str)
+{
+	t_list				*result;
+	t_buff				*buff;
+	t_list				*oper;
+
+	buff = ft_buffinit(SCREENING_BUFF_SIZE);
+	oper = NULL;
+	result = NULL;
+	screening_loop(str, buff, &result, oper);
+	// if (buff != NULL)
+	// 	ft_buffdel(&buff);
+	// if (oper != NULL)
+	// 	ft_lstdel(&oper);
 	return (list_to_matr(&result));
 }
