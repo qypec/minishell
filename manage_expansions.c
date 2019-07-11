@@ -6,13 +6,20 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 02:12:32 by qypec             #+#    #+#             */
-/*   Updated: 2019/07/11 00:50:18 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/11 05:15:20 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void					manage_tildesign(t_buff *buff)
+int						is_expansion_sign(char c)
+{
+	if (c == '$' || c == '~')
+		return (1);
+	return (0);	
+}
+
+static void				manage_tildesign(t_buff *buff)
 {
 	int					home_number;
 	const char			*tmp;
@@ -28,7 +35,7 @@ void					manage_tildesign(t_buff *buff)
 	}
 }
 
-void					manage_dollarsign(t_buff *buff, const char *str, int *i)
+static void				manage_dollarsign(t_buff *buff, const char *str, int *i)
 {
 	t_buff				*expan;
 	int					var_number;
