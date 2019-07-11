@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/11 01:14:42 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/11 05:19:59 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void					get_input(void)
 		ft_putendl("exit");
 		exit(0);
 	}
-	buff->str[buff->i] = '\0';
 	parse_command(buff->str);
 	ft_buffdel(&buff);
 }

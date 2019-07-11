@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 22:43:03 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/07 06:55:27 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/11 05:33:55 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void					cmd_unsetenv(const char *varname)
 	{
 		ft_putstr("The variable ");
 		ft_putstr(varname);
-		ft_putendl("can not be unset");
+		ft_putendl(" can not be unset");
 		return ;
 	}
 	tmp = ft_matrdup((const char **)g_envv);
