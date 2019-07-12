@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 06:09:04 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/11 01:00:39 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/12 19:02:59 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,8 @@ void					display_prompt(void)
 {
 	char				*branch_name;
 
-	if (!is_gitzone())
-	{
+	if ((branch_name = is_gitzone()) != NULL)
+		display_git_prompt(&branch_name);
+	else
 		display_default_prompt();
-		return ;
-	}
-	branch_name = get_git_branch_name();
-	if (branch_name == NULL)
-	{
-		display_default_prompt();
-		return ;
-	}
-	display_git_prompt(branch_name);
-	ft_strdel(&branch_name);
 }

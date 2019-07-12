@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:23:35 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/07 06:40:28 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/12 18:53:33 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,20 @@ void					init_envv(const char **envv)
 {
 	int					len;
 	int					i;
-	int					j;
-	int					envvlen;
 
-	envvlen = ft_matrlen(envv);
-	len = envvlen + 1 + 1;
+	len = ft_matrlen(envv) + 1;
 	if ((g_envv = (char **)malloc(sizeof(char *) * len)) == NULL)
 		exit(-1);
-	add_gitdirpath_to_envv(envv);
 	i = 0;
-	j = 1;
 	while (envv[i] != NULL)
 	{
 		if (ft_strncmp("SHELL", envv[i], ft_strlen("SHELL")) == 0)
 		{
-			set_shellvar(j++);
-			i++;
+			set_shellvar(i++);
 			continue ;
 		}
-		g_envv[j++] = ft_strdup(envv[i++]);
+		g_envv[i] = ft_strdup(envv[i]);
+		i++;
 	}
-	while (j < len)
-		g_envv[j++] = NULL;
+	g_envv[i] = NULL;
 }
