@@ -6,39 +6,11 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 08:16:12 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/13 09:56:54 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/13 11:19:16 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char				*get_current_path(void)
-{
-	int					indexofpwd;
-	char				*current_path;
-	char				dir[PATH_MAX];
-
-	if ((indexofpwd = find_((const char **)g_envv, "PWD=")) == -1)
-	{
-		getcwd(dir, PATH_MAX);
-		current_path = ft_strdup(dir);
-	}
-	else
-		current_path = ft_strdup(g_envv[indexofpwd] + ft_strlen("PWD="));
-	return (current_path);
-}
-
-static char				*get_stop_path(void)
-{
-	int					indexofhome;
-	char				*stop_path;
-
-	if ((indexofhome = find_((const char **)g_envv, "HOME=")) == -1)
-		stop_path = ft_strdup("/");
-	else
-		stop_path = ft_strdup(g_envv[indexofhome] + ft_strlen("HOME="));
-	return (stop_path);
-}
 
 static char				*get_path(char *current_path)
 {
@@ -52,6 +24,26 @@ static char				*get_path(char *current_path)
 	ft_strglue(&path_to_branch_name_file, current_path, "/");
 	ft_strglue(&path_to_branch_name_file, GIT_BRANCH_NAME_FILE, "\0");
 	return (path_to_branch_name_file);
+}
+
+static char				*cut_off_branch_name(const char *buff)
+{
+	int					counter;
+	int					i;
+	char				*result;
+
+	i = 0;
+	counter = ft_strlen(buff);
+	while (buff[counter--] != '/')
+		i++;
+	if ((result = (char *)ft_memalloc(sizeof(char) * (i - 1))) == NULL)
+		exit(1);
+	i = 0;
+	counter++;
+	while (buff[++counter] != '\n' && buff[counter] != '\0')
+		result[i++] = buff[counter];
+	result[i] = '\0';
+	return (result);
 }
 
 static char				*get_branch_name(char *path)
@@ -86,33 +78,24 @@ static void				move_to_lower_level(char *current_path)
 		current_path[i] = '\0';
 }
 
-static int				is_home_or_root_dir(char *current_path, char *stop_path)
-{
-	if (ft_strcmp(current_path, stop_path) == 0)
-		return (1);
-	return (0);
-}
-
 char					*gitdir_search(void)
 {
 	char				*current_path;
 	char				*stop_path;
 	char				*path_to_branch_name_file;
 	char				*branch_name;
+	char				dir[PATH_MAX];
 
 	branch_name = NULL;
-	stop_path = get_stop_path();
-	current_path = get_current_path();
-	// printf("stop = %s\n", stop_path);
-	// printf("current = %s\n", current_path);
-	while (!is_home_or_root_dir(current_path, stop_path))
+	stop_path = ft_strdup("/");
+	getcwd(dir, PATH_MAX);
+	current_path = ft_strdup(dir);
+	while (ft_strcmp(current_path, stop_path) != 0)
 	{
 		path_to_branch_name_file = get_path(current_path);
-		// printf("path = %s\n", path_to_branch_name_file);
 		if (access(path_to_branch_name_file, 0) == 0)
 		{
 			branch_name = get_branch_name(path_to_branch_name_file);
-			// printf("after get_branch_name = %s\n", branch_name);
 			ft_strdel(&path_to_branch_name_file);
 			break ;
 		}

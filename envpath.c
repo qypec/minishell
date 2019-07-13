@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:25:48 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/11 01:16:00 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/13 10:22:30 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,15 @@ static void				collect_executables_to_hashtable(const char **path)
 	}
 }
 
-static int				find_path(const char **envv)
-{
-	int					i;
-
-	i = 0;
-	while (envv[i] != NULL)
-	{
-		if (ft_strncmp("PATH", envv[i], 4) == 0)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
 void					init_htab_envpath(void)
 {
 	char				**tmp;
-	int					pathnumber;
+	int					indexofpath;
 
 	g_envvpath = ft_mapnew(NULL, 2000);
-	if ((pathnumber = find_path((const char **)g_envv)) == -1)
-		exit(-1);
-	tmp = ft_strsplit(g_envv[pathnumber] + 5, ':');
+	if ((indexofpath = find_((const char **)g_envv, "PATH=")) == -1)
+		return ;
+	tmp = ft_strsplit(g_envv[indexofpath] + ft_strlen("PATH="), ':');
 	collect_executables_to_hashtable((const char **)tmp);
 	ft_matrixfree(&tmp);
 }

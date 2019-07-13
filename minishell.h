@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/13 09:07:46 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/13 11:16:27 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,10 @@
 
 char					**g_envv;
 t_map					*g_envvpath;
+char					*g_gitpath;
 
 void					display_prompt(void);
-char					*is_gitzone(void);
 char					*gitdir_search(void);
-char					*cut_off_branch_name(const char *buff);
 
 void					init_envv(const char **envv);
 void					init_htab_envpath();
