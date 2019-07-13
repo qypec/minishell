@@ -6,17 +6,18 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 06:09:04 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/12 19:02:59 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/13 08:18:51 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void					display_git_prompt(char *branch_name)
+void					display_git_prompt(char **branch_name)
 {
 	write(1, "\033[0;32m(mini)\x1b[35m -> (", 23);
-	write(1, branch_name, ft_strlen(branch_name));
+	write(1, *branch_name, ft_strlen(*branch_name));
 	write(1, ")\x1b[0m ", 6);
+	ft_strdel(branch_name);
 }
 
 void					display_default_prompt(void)
