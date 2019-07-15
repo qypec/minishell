@@ -8,7 +8,7 @@
             "name": "(lldb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/Users/yquaro/Documents/minishell/minishell",
+            "program": "/Users/qypec/CODE/school21/minishell/minishell",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

@@ -3,35 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:03:05 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/15 21:28:10 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/16 02:14:08 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void				display_cd_dash(const char *newdir)
+static void				display_cd_dash(void)
 {
+	const char			current_dir[PATH_MAX];
 	const char			*value;
 	char				*display;
 	int					len;
 
+	getcwd((char *)current_dir, PATH_MAX);
 	if ((value = getvalue_envv("HOME")) == NULL)
 		value = DEFAULT_HOME_DIR;
-	len = ft_strlen(newdir + ft_strlen(value)) + 1 + 1;
+	len = ft_strlen(current_dir + ft_strlen(value)) + 1 + 1;
 	if ((display = (char *)ft_memalloc(sizeof(char) * len)) == NULL)
 		exit(-1);
-	display[0] = '~';
-	ft_strglue(&display, newdir + ft_strlen(value), "\0");
+	if (ft_strncmp(value, current_dir, ft_strlen(value)) == 0)
+	{
+		display[0] = '~';
+		ft_strglue(&display, current_dir + ft_strlen(value), "\0");
+	}
+	else
+		ft_strglue(&display, current_dir, "\0");
 	ft_putendl(display);
 	ft_strdel(&display);
 }
 
-static void				update_pwd_and_oldpwd_variables(const char *newpwd, \
-											const char *new_oldpwd)
+static void				update_pwd_and_oldpwd_variables(const char *new_oldpwd)
 {
+	const char			current_dir[PATH_MAX];
 	int					indexofpwd;
 	int					indexof_oldpwd;
 	int					len;
@@ -39,10 +46,11 @@ static void				update_pwd_and_oldpwd_variables(const char *newpwd, \
 	if ((indexofpwd = find_((const char **)g_envv, "PWD=")) != -1)
 	{
 		ft_strdel(&g_envv[indexofpwd]);
-		len = ft_strlen(newpwd) + ft_strlen("PWD=") + 1;
+		getcwd((char *)current_dir, PATH_MAX);
+		len = ft_strlen("PWD=") + ft_strlen(current_dir) + 1;
 		if ((g_envv[indexofpwd] = (char *)ft_memalloc(sizeof(char) * len)) == NULL)
 			exit(-1);
-		ft_strglue(&g_envv[indexofpwd], "PWD=", newpwd);
+		ft_strglue(&g_envv[indexofpwd], "PWD=", current_dir);
 	}
 	if ((indexof_oldpwd = find_((const char **)g_envv, "OLDPWD=")) != -1)
 	{
@@ -107,8 +115,8 @@ void					cmd_cd(const char **cmd)
 		bust(cmd[1], NO_SUCH_DIR);
 		return ;
 	}
-	if (cmd[1][0] == '-')
-		display_cd_dash(newdir);
-	update_pwd_and_oldpwd_variables(newdir, current_dir);
+	if (cmd[1] != NULL && cmd[1][0] == '-')
+		display_cd_dash();
+	update_pwd_and_oldpwd_variables(current_dir);
 	ft_strdel(&newdir);
 }
