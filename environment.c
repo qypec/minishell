@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:23:35 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/13 09:06:31 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/15 21:26:05 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,29 @@ static void				set_shellvar(int i)
 		exit(-1);
 	ft_strglue(&g_envv[i], "SHELL=", dir);
 	ft_strglue(&g_envv[i], "/minishell", "\0");
+}
+
+const char				*getvalue_envv(const char *key)
+{
+	char				*tmp;
+	int					indexofkey;
+	const char			*result;
+	size_t				len;
+
+	if (key == NULL)
+		return (NULL);
+	len = ft_strlen(key) + 2;
+	if ((tmp = (char *)ft_memalloc(sizeof(char) * len)) == NULL)
+		exit(-1);
+	ft_strglue((char **)&tmp, key, "=");
+	if ((indexofkey = find_((const char **)g_envv, tmp)) == -1)
+	{
+		ft_strdel(&tmp);
+		return (NULL);
+	}
+	result = g_envv[indexofkey] + (len - 1);
+	ft_strdel(&tmp);
+	return (result);
 }
 
 int						find_(const char **envv, const char *envvname)
