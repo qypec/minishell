@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envpath.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:25:48 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/13 10:22:30 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/16 14:44:33 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,30 @@ void					init_htab_envpath(void)
 	ft_matrixfree(&tmp);
 }
 
-static char				*get_name(const char *str)
+static char				*get_absolute_bultins_path(const char *str)
 {
-	int					len;
 	int					i;
 	char				*buff;
+	int					hash;
 
 	i = ft_strlen(str);
-	len = 0;
-	while (str[--i] != '/')
-		len++;
-	if ((buff = (char *)ft_memalloc(sizeof(char) * (len + 1))) == NULL)
+	while (str[i] != '/')
+		i--;
+	if ((buff = (char *)ft_memalloc(sizeof(char) * (i + 1))) == NULL)
 		exit(-1);
-	len = 0;
-	while (str[++i] != '\0')
-		buff[len++] = str[i];
-	buff[len] = '\0';
+	ft_strncpy(buff, str, i);
+	printf("buff = %s\n", buff);
+	if ((hash = ft_ismapitem(g_envvpath, (const char *)buff)) == -1)
+		return ((char *)str);
+	else
+	{
+		printf("key = %s\n", g_envvpath->head[hash]->key);
+		printf("value = %s\n", g_envvpath->head[hash]->value);
+		if (ft_strcmp(g_envvpath->head[hash]->value, buff) == 0)
+			return (buff);
+		else
+			return ((char *)str);
+	}
 	return (buff);
 }
 
@@ -77,7 +85,7 @@ void					check_envpath(const char **cmd)
 	{
 		buff = ft_strdup((char *)cmd[0]);
 		if (cmd[0][0] == '/')
-			buff = get_name(cmd[0]);
+			buff = get_absolute_bultins_path(cmd[0]);
 		if (ft_ismapitem(g_envvpath, (const char *)buff) == -1)
 		{
 			bust(cmd[0], COMMAND_NOT_FOUND);
