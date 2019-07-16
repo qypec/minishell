@@ -6,25 +6,11 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 13:21:48 by qypec             #+#    #+#             */
-/*   Updated: 2019/07/07 06:39:11 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/16 18:21:46 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int				check_alphanumeric_characters(const char *varname)
-{
-	int					i;
-
-	i = 0;
-	while (varname[i] != '\0')
-	{
-		if (!ft_isalnum(varname[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 static void				new_genvv(char **tmp, const char *name, \
 										const char *value)
@@ -46,7 +32,7 @@ static void				new_genvv(char **tmp, const char *name, \
 	g_envv[i + 1] = NULL;
 }
 
-static char				*change(const char *name, const char *value, \
+static char				*change_envvalue(const char *name, const char *value, \
 										int var_number)
 {
 	int					len;
@@ -61,29 +47,36 @@ static char				*change(const char *name, const char *value, \
 	return (result);
 }
 
+static int				error_processing(cosnt char **cmd)
+{
+	if (cmd[1] != NULL && cmd[2] != NULL && cmd[3] != NULL)
+	{
+		ft_putendl("setenv: Too many arguments.");
+		return (0);
+	}
+	if (cmd[1] == NULL)
+	{
+		cmd_env();
+		return (0);
+	}
+	if (ft_alnumstr(cmd[1]) == 0)
+	{
+		ft_putendl("setenv: Variable name must contain alphanumeric characters.");
+		return (0);
+	}
+	return (1);
+}
+
 void					cmd_setenv(const char **cmd)
 {
 	char				**tmp;
 	int					var_number;
 
-	if (cmd[1] != NULL && cmd[2] != NULL && cmd[3] != NULL)
-	{
-		ft_putendl("setenv: Too many arguments.");
+	if (error_processing(cmd) == 0)
 		return ;
-	}
-	if (cmd[1] == NULL)
-	{
-		cmd_env();
-		return ;
-	}
-	if (check_alphanumeric_characters(cmd[1]) == 0)
-	{
-		ft_putendl("setenv: Variable name must contain alphanumeric characters.");
-		return ;
-	}
 	if ((var_number = find_((const char **)g_envv, cmd[1])) != -1)
 	{
-		g_envv[var_number] = change(cmd[1], cmd[2], var_number);
+		g_envv[var_number] = change_envvalue(cmd[1], cmd[2], var_number);
 		return ;
 	}
 	tmp = ft_matrdup((const char **)g_envv);

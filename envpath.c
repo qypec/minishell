@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:25:48 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/16 17:11:43 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/16 18:01:48 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,22 @@ const char				*get_builtin_with_absolute_path(const char *cmd)
 	builtin = cmd + i + 1;
 	if ((hash = ft_ismapitem(g_envvpath, builtin)) == -1)
 		return (NULL);
-	if (ft_strncmp(cmd, g_envvpath->head[hash]->value, i - 1) == 0)
+	if (ft_strncmp(cmd, ft_getvalue(g_envvpath, builtin), i - 1) == 0)
 		return (builtin);
 	return (NULL);
 }
 
-char					*get_fullname(int hash, const char *builtin)
+static char				*get_fullname(const char *builtin)
 {
 	int					len;
 	char				*fullname;
+	const char			*value;
 
-	len = ft_strlen(g_envvpath->head[hash]->value) + \
-			ft_strlen("/") + ft_strlen(builtin) + 1;
+	value = ft_getvalue(g_envvpath, builtin);
+	len = ft_strlen(value) + ft_strlen("/") + ft_strlen(builtin) + 1;
 	if ((fullname = (char *)ft_memalloc(sizeof(char) * len)) == NULL)
 		exit(-1);
-	ft_strglue(&fullname, g_envvpath->head[hash]->value, "/");
+	ft_strglue(&fullname, value, "/");
 	ft_strglue(&fullname, builtin, "\0");
 	return (fullname);
 }
@@ -94,7 +95,7 @@ void					check_envpath(const char **cmd)
 		bust(cmd[0], COMMAND_NOT_FOUND);
 		return ;
 	}
-	fullname = get_fullname(hash, builtin);
+	fullname = get_fullname(builtin);
 	if ((pid = fork()) == 0)
 		execve(fullname, (char **)cmd, g_envv);
 	else

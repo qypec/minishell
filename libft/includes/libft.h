@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 12:05:21 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/09 13:15:39 by qypec            ###   ########.fr       */
+/*   Updated: 2019/07/16 18:10:36 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ char				*ft_strnadd(char *str, char c, size_t n);
 char				**ft_matrdup(const char **matr);
 size_t				ft_matrlen(const char **matr);
 int					ft_isempty(const char *str);
+int					ft_alnumstr(const char *str);
 
 #endif

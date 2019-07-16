@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qypec <qypec@student.42.fr>                +#+  +:+       +#+         #
+#    By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/20 19:26:56 by yquaro            #+#    #+#              #
-#    Updated: 2019/07/09 13:15:12 by qypec            ###   ########.fr        #
+#    Updated: 2019/07/16 18:10:57 by yquaro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SOURCES = ft_addsymb.c ft_addsymbend.c ft_atoi.c ft_bzero.c ft_matrdup.c \
 			ft_strncmp.c ft_strncpy.c ft_strncut.c ft_strnequ.c ft_strnew.c \
 			ft_strnglue.c ft_strnstr.c ft_strrchr.c ft_strsplit.c ft_strstr.c \
 			ft_strsub.c ft_strswap.c ft_strtrim.c ft_tolower.c ft_toupper.c \
-			ft_matrlen.c ft_isempty.c
+			ft_matrlen.c ft_isempty.c ft_alnumstr.c
 OBJECTS = ft_addsymb.o ft_addsymbend.o ft_atoi.o ft_bzero.o ft_matrdup.o \
 			ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o ft_isprint.o \
 			ft_isspace.o ft_itoa.o ft_matrixfree.o ft_memccpy.o \
@@ -46,7 +46,7 @@ OBJECTS = ft_addsymb.o ft_addsymbend.o ft_atoi.o ft_bzero.o ft_matrdup.o \
 			ft_strncmp.o ft_strncpy.o ft_strncut.o ft_strnequ.o ft_strnew.o \
 			ft_strnglue.o ft_strnstr.o ft_strrchr.o ft_strsplit.o ft_strstr.o \
 			ft_strsub.o ft_strswap.o ft_strtrim.o ft_tolower.o ft_toupper.o \
-			ft_matrlen.o ft_isempty.o
+			ft_matrlen.o ft_isempty.o ft_alnumstr.o
 
 NAME = libft.a
 
