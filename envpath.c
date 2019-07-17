@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:25:48 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/16 18:01:48 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/17 20:10:17 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void				push_executables_to_hashtable(const char **path)
 	}
 }
 
-void					init_htab_envpath(void)
+void					init_htab_envvpath(void)
 {
 	char				**tmp;
 	const char			*envv_path;
@@ -47,21 +47,13 @@ void					init_htab_envpath(void)
 	ft_matrixfree(&tmp);
 }
 
-const char				*get_builtin_with_absolute_path(const char *cmd)
+void					update_envvar_path(const char *cmd)
 {
-	int					i;
-	const char			*builtin;
-	int					hash;
-
-	i = ft_strlen(cmd);
-	while (cmd[i] != '/')
-		i--;
-	builtin = cmd + i + 1;
-	if ((hash = ft_ismapitem(g_envvpath, builtin)) == -1)
-		return (NULL);
-	if (ft_strncmp(cmd, ft_getvalue(g_envvpath, builtin), i - 1) == 0)
-		return (builtin);
-	return (NULL);
+	if (ft_strcmp(cmd, "PATH") == 0)
+	{
+		ft_mapdel(&g_envvpath);
+		init_htab_envvpath();
+	}
 }
 
 static char				*get_fullname(const char *builtin)
@@ -79,26 +71,35 @@ static char				*get_fullname(const char *builtin)
 	return (fullname);
 }
 
-void					check_envpath(const char **cmd)
+static void				execution(char *fullname, const char **cmd)
 {
-	pid_t			pid;
-	int				hash;
-	char			*fullname;
-	const char		*builtin;
+	pid_t				pid;
 
-	if (IS_ABSOLUTE_PATH(cmd[0][0]))
-		builtin = get_builtin_with_absolute_path(cmd[0]);
-	else
-		builtin = cmd[0];
-	if ((hash = ft_ismapitem(g_envvpath, builtin)) == -1)
-	{
-		bust(cmd[0], COMMAND_NOT_FOUND);
-		return ;
-	}
-	fullname = get_fullname(builtin);
 	if ((pid = fork()) == 0)
-		execve(fullname, (char **)cmd, g_envv);
+	{
+		if (execve(fullname, (char **)cmd, g_envv) == -1)
+			bust(cmd[0], COMMAND_NOT_FOUND);
+	}
 	else
 		wait(&pid);
-	ft_strdel(&fullname);
+}
+
+void					check_envpath(const char **cmd)
+{
+	int					hash;
+	char				*fullname;
+
+	if (IS_ABSOLUTE_PATH(cmd[0][0]))
+		execution((char *)cmd[0], cmd);
+	else
+	{
+		if ((hash = ft_ismapitem(g_envvpath, cmd[0])) == -1)
+		{
+			bust(cmd[0], COMMAND_NOT_FOUND);
+			return ;
+		}
+		fullname = get_fullname(cmd[0]);
+		execution(fullname, cmd);
+		ft_strdel(&fullname);
+	}
 }

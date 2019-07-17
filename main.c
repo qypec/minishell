@@ -71,7 +71,7 @@ int						main(int argc, char **argv, char **envv)
 	argc = 0;
 	argv = NULL;
 	init_envv((const char **)envv);
-	init_htab_envpath();
+	init_htab_envvpath();
 	display_prompt();
 	while (1)
 	{

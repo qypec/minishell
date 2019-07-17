@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/16 18:03:39 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/17 20:12:04 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void					display_prompt(void);
 char					*gitdir_search(void);
 
 void					init_envv(const char **envv);
-void					init_htab_envpath();
+void					init_htab_envvpath();
+void					update_envvar_path(const char *cmd);
 void					bust(const char *cmd_name, int flag);
 
 int						is_builtin_launch(const char **cmd);
@@ -66,7 +67,7 @@ void					wait_quote_from_input(t_buff *buff, t_list *oper, t_list **result);
 void					cmd_cd(const char **cmd);
 void					cmd_exit(char *line, char **level, char **cmd);
 void					cmd_env(void);
-void					cmd_unsetenv(const char *varname);
+void					cmd_unsetenv(const char **cmd);
 void					cmd_setenv(const char **cmd);
 void					cmd_echo(const char **cmd);
 

@@ -6,11 +6,11 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 18:08:52 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/16 18:09:46 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/17 17:26:41 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft"
+#include "includes/libft.h"
 
 int						ft_alnumstr(const char *str)
 {

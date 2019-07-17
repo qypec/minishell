@@ -6,18 +6,20 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 13:21:48 by qypec             #+#    #+#             */
-/*   Updated: 2019/07/16 18:21:46 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/07/17 20:09:57 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void				new_genvv(char **tmp, const char *name, \
-										const char *value)
+static void				new_genvv(const char *name, const char *value)
 {
 	int					i;
 	int					len;
+	char				**tmp;
 
+	tmp = ft_matrdup((const char **)g_envv);
+	ft_matrixfree(&g_envv);
 	if ((g_envv = (char **)malloc(sizeof(char *) * \
 			(ft_matrlen((const char **)tmp) + 1 + 1))) == NULL)
 		exit(-1);
@@ -30,6 +32,7 @@ static void				new_genvv(char **tmp, const char *name, \
 	ft_strglue(&g_envv[i], name, "=");
 	ft_strglue(&g_envv[i], value, "\0");
 	g_envv[i + 1] = NULL;
+	ft_matrixfree(&tmp);
 }
 
 static char				*change_envvalue(const char *name, const char *value, \
@@ -47,7 +50,7 @@ static char				*change_envvalue(const char *name, const char *value, \
 	return (result);
 }
 
-static int				error_processing(cosnt char **cmd)
+static int				error_processing(const char **cmd)
 {
 	if (cmd[1] != NULL && cmd[2] != NULL && cmd[3] != NULL)
 	{
@@ -67,9 +70,10 @@ static int				error_processing(cosnt char **cmd)
 	return (1);
 }
 
+
+
 void					cmd_setenv(const char **cmd)
 {
-	char				**tmp;
 	int					var_number;
 
 	if (error_processing(cmd) == 0)
@@ -77,10 +81,9 @@ void					cmd_setenv(const char **cmd)
 	if ((var_number = find_((const char **)g_envv, cmd[1])) != -1)
 	{
 		g_envv[var_number] = change_envvalue(cmd[1], cmd[2], var_number);
+		update_envvar_path(cmd[1]);
 		return ;
 	}
-	tmp = ft_matrdup((const char **)g_envv);
-	ft_matrixfree(&g_envv);
-	new_genvv(tmp, cmd[1], cmd[2]);
-	ft_matrixfree(&tmp);
+	new_genvv(cmd[1], cmd[2]);
+	update_envvar_path(cmd[1]);
 }
