@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pow.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 13:55:46 by yquaro            #+#    #+#             */
-/*   Updated: 2019/06/12 10:58:47 by qypec            ###   ########.fr       */
+/*   Updated: 2019/08/07 12:35:38 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_math.h"
+#include "libft.h"
 
 int		ft_pow(int num, int power)
 {

@@ -3,29 +3,23 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qypec <qypec@student.42.fr>                +#+  +:+       +#+         #
+#    By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/18 01:54:46 by yquaro            #+#    #+#              #
-#    Updated: 2019/07/09 13:13:10 by qypec            ###   ########.fr        #
+#    Updated: 2019/08/07 15:15:22 by yquaro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
 all:
-	@echo \*\*\* Reassemblage 
-	@ar -x libft.a
-	@ar -x liballoc.a
-	@ar -x libctime.a
-	@ar -x libhashtab.a
-	@ar -x libmath.a
-	@ar -x liblist.a
-	@ar -x libbuff.a
 	@ar rc $(NAME) *.o
 	@ranlib $(NAME)
-	@rm __.SYMDEF\ SORTED
-	@mv $(NAME) ../../$(NAME)
-	@echo \*\*\* COMPLETE!
+	@mv $(NAME) ../$(NAME)
+	@echo \*\*\* LIBFT COMPILED!
 
-fclean:
-	@rm *.o
+clean:
+	@rm -f *.o
+
+fclean: clean
+	@rm -f $(NAME)

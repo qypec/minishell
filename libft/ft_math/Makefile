@@ -5,31 +5,25 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/06/12 09:44:11 by qypec             #+#    #+#              #
-#    Updated: 2019/06/18 02:27:55 by yquaro           ###   ########.fr        #
+#    Created: 2019/08/02 12:36:22 by yquaro            #+#    #+#              #
+#    Updated: 2019/08/07 14:19:58 by yquaro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
-CFLAGS = -g -c -Wall -Wextra -Werror
+include ../includes/libft.mk
+
 SOURCES = ft_abs.c ft_pow.c
-OBJECTS = ft_abs.o ft_pow.o
+OBJECTS = $(addprefix $(DIR_O)/,$(patsubst %.c,%.o,$(SOURCES)))
 
-NAME = libmath.a
-
-all: $(SOURCES) print_echo $(NAME)
+all: print $(OBJECTS)
 	
-print_echo:
+print:
 	@echo \*\*\* Compiling ft_math
 
-.c.o:
-	$(CC) $(CFLAGS) $< -o $@
+$(DIR_O)/%.o: %.c
+	$(COMPILING) $< -o $@
 
-$(NAME): $(OBJECTS)
-	@ar rc $(NAME) $(OBJECTS)
-	@ranlib $(NAME)
-	@mv $(NAME) ../lib/$(NAME)
+clean:
+	@rm -f ../lib/$(OBJECTS)
 
-fclean: 
-	@rm ../lib/$(NAME)
-	@rm *.o
+fclean: clean

@@ -3,33 +3,28 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qypec <qypec@student.42.fr>                +#+  +:+       +#+         #
+#    By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/07/09 13:11:11 by qypec             #+#    #+#              #
-#    Updated: 2019/07/09 13:55:19 by qypec            ###   ########.fr        #
+#    Created: 2019/08/02 12:44:31 by yquaro            #+#    #+#              #
+#    Updated: 2019/08/07 14:17:18 by yquaro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
-CFLAGS = -g -c -Wall -Wextra -Werror
-SOURCES = ft_buffinit.c ft_buffdel.c ft_buffreload.c
-OBJECTS = ft_buffinit.o ft_buffdel.o ft_buffreload.o
+include ../includes/libft.mk
 
-NAME = libbuff.a
+SOURCES = ft_buffinit.c ft_buffdel.c ft_buffadd.c ft_buffaddsymb.c
+OBJECTS = $(addprefix $(DIR_O)/,$(patsubst %.c,%.o,$(SOURCES)))
 
-all: $(SOURCES) print_echo $(NAME)
+all: print $(OBJECTS)
 	
-print_echo:
+print:
 	@echo \*\*\* Compiling ft_buffer
 
-.c.o:
-	$(CC) $(CFLAGS) $< -o $@
+$(DIR_O)/%.o: %.c
+	$(COMPILING) $< -o $@
 
-$(NAME): $(OBJECTS)
-	@ar rc $(NAME) $(OBJECTS)
-	@ranlib $(NAME)
-	@mv $(NAME) ../lib/$(NAME)
+clean:
+	@rm -f ../lib/$(OBJECTS)
 
-fclean: 
-	@rm ../lib/$(NAME)
-	@rm *.o
+fclean: clean
+	

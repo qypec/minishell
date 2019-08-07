@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_buffdel.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/09 13:51:26 by qypec             #+#    #+#             */
-/*   Updated: 2019/07/09 14:00:20 by qypec            ###   ########.fr       */
+/*   Created: 2019/08/02 12:36:22 by yquaro            #+#    #+#             */
+/*   Updated: 2019/08/07 13:44:57 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_buffer.h"
+#include "libft.h"
 
 void					ft_buffdel(t_buff **buff)
 {

@@ -6,32 +6,29 @@
 #    By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/14 13:54:33 by yquaro            #+#    #+#              #
-#    Updated: 2019/07/02 21:27:34 by yquaro           ###   ########.fr        #
+#    Updated: 2019/08/07 15:46:07 by yquaro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
-CFLAGS = -g -c -Wall -Wextra -Werror
-SOURCES = ft_hashfunc.c ft_mapinsert.c ft_mapnew.c ft_putmap.c ht_list.c \
-			ft_mapdelone.c ft_ismapitem.c ft_getvalue.c ft_mapdel.c
-OBJECTS = ft_hashfunc.o ft_mapinsert.o ft_mapnew.o ft_putmap.o ht_list.o \
-			ft_mapdelone.o ft_ismapitem.o ft_getvalue.o ft_mapdel.o
+include ../includes/libft.mk
 
-NAME = libhashtab.a
+SOURCES = ft_mapinsert.c ft_mapnew.c ft_mapdelone.c ft_ismapitem.c ft_mapvalue.c \
+			ft_mapdel.c
+OBJECTS = $(addprefix $(DIR_O)/,$(patsubst %.c,%.o,$(SOURCES)))
 
-all: $(SOURCES) print_echo $(NAME)
+all: print compile_src $(OBJECTS)
 	
-print_echo:
-	@echo \*\*\* Compiling ft_hashtab
+print:
+	@echo \*\*\* Compiling ft_map
 
-.c.o:
-	$(CC) $(CFLAGS) $< -o $@
+compile_src:
+	@make -C src/ all
 
-$(NAME): $(OBJECTS)
-	@ar rc $(NAME) $(OBJECTS)
-	@ranlib $(NAME)
-	@mv $(NAME) ../lib/$(NAME)
+$(DIR_O)/%.o: %.c
+	$(COMPILING) $< -o $@
 
-fclean: 
-	@rm ../lib/$(NAME)
-	@rm *.o
+clean:
+	@rm -f ../lib/$(OBJECTS)
+	@make -C src/ clean
+
+fclean: clean

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/02 21:30:23 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/09 15:48:56 by qypec            ###   ########.fr       */
+/*   Created: 2019/07/24 15:42:42 by yquaro            #+#    #+#             */
+/*   Updated: 2019/08/07 12:16:07 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_list.h"
+#include "libft.h"
 
 t_list				*ft_lstnew(const char *content)
 {
