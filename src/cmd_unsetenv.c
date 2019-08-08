@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 22:43:03 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/07 15:43:00 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/08 19:16:46 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,6 @@ static int				error_processing(const char **cmd)
 		ft_putendl("unsetenv: Too few arguments.");
 		return (0);
 	}
-	if (cmd[1] != NULL && cmd[2] != NULL)
-	{
-		ft_putendl("unsetenv: Too many arguments.");
-		return (0);
-	}
 	if (is_forbidden_variable(cmd[1]))
 	{
 		ft_putstr("The variable ");
@@ -70,11 +65,20 @@ static int				error_processing(const char **cmd)
 void					cmd_unsetenv(const char **cmd)
 {
 	int					var_number;
+	int					i;
 
 	if (error_processing(cmd) == 0)
 		return ;
-	if ((var_number = find_((const char **)g_envv, cmd[1])) == -1)
-		return ;
-	new_genvv(var_number);
-	update_envvar_path(cmd[1]);
+	i = 1;
+	while (cmd[i] != NULL)
+	{
+		if ((var_number = find_((const char **)g_envv, cmd[i])) == -1)
+		{
+			i++;
+			continue ;
+		}
+		new_genvv(var_number);
+		update_envvar_path(cmd[i]);
+		i++;
+	}
 }

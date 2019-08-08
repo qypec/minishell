@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:03:05 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/07 15:39:27 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/08 19:45:48 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void				update_pwd_and_oldpwd_variables(const char *new_oldpwd)
 	int					indexof_oldpwd;
 	int					len;
 
-	if ((indexofpwd = find_((const char **)g_envv, "PWD=")) != -1)
+	if ((indexofpwd = find_((const char **)g_envv, "PWD")) != -1)
 	{
 		ft_strdel(&g_envv[indexofpwd]);
 		getcwd((char *)current_dir, PATH_MAX);
@@ -52,7 +52,7 @@ static void				update_pwd_and_oldpwd_variables(const char *new_oldpwd)
 			exit(-1);
 		ft_strglue(g_envv[indexofpwd], "PWD=", current_dir, NULL);
 	}
-	if ((indexof_oldpwd = find_((const char **)g_envv, "OLDPWD=")) != -1)
+	if ((indexof_oldpwd = find_((const char **)g_envv, "OLDPWD")) != -1)
 	{
 		ft_strdel(&g_envv[indexof_oldpwd]);
 		len = ft_strlen(new_oldpwd) + ft_strlen("OLDPWD=") + 1;

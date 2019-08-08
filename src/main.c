@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/07 15:48:20 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/08 19:50:13 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void					get_input(void)
 	if (ret == 0)
 	{
 		ft_buffdel(&buff);
+		ft_mapdel(&g_envvpath);
+		ft_matrdel(&g_envv);
 		ft_putendl("exit");
 		exit(0);
 	}

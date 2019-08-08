@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 13:21:48 by qypec             #+#    #+#             */
-/*   Updated: 2019/07/17 20:09:57 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/08 19:27:04 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ static int				error_processing(const char **cmd)
 	}
 	return (1);
 }
-
-
 
 void					cmd_setenv(const char **cmd)
 {

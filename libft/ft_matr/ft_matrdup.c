@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 16:42:23 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/07 16:47:11 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/08 18:35:21 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ char				**ft_matrdup(const char **matr)
 	if ((newmatr = (char **)malloc(sizeof(char *) * (matr_size + 1))) == NULL)
 		return (NULL);
 	i = 0;
-	while (i++ < (int)matr_size)
+	while (i < (int)matr_size)
+	{
 		newmatr[i] = ft_strdup(matr[i]);
+		i++;
+	}
 	newmatr[i] = NULL;
 	return (newmatr);
 }

@@ -29,7 +29,7 @@ void					wait_quote_from_input(t_buff *buff, t_list *oper, t_list **result)
 	{
 		if (symb == '\n')
 			break ;
-		ft_buffaddsymb(buff, symb);
+		ft_buffaddsymb(new, symb);
 	}
 	screening_loop((const char *)new->str, buff, result, oper);
 	ft_buffdel(&new);

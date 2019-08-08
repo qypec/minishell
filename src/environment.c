@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:23:35 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/07 15:37:54 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/08 19:34:23 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,37 +26,33 @@ static void				set_shellvar(int i)
 
 const char				*getvalue_envv(const char *key)
 {
-	char				*tmp;
 	int					indexofkey;
 	const char			*result;
 	size_t				len;
 
 	if (key == NULL)
 		return (NULL);
-	len = ft_strlen(key) + 2;
-	if ((tmp = (char *)ft_memalloc(sizeof(char) * len)) == NULL)
-		exit(-1);
-	ft_strglue(tmp, key, "=", NULL);
-	if ((indexofkey = find_((const char **)g_envv, tmp)) == -1)
-	{
-		ft_strdel(&tmp);
+	len = ft_strlen(key);
+	if ((indexofkey = find_((const char **)g_envv, key)) == -1)
 		return (NULL);
-	}
-	result = g_envv[indexofkey] + (len - 1);
-	ft_strdel(&tmp);
+	result = g_envv[indexofkey] + len + 1;
 	return (result);
 }
 
 int						find_(const char **envv, const char *envvname)
 {
 	int					i;
+	int					j;
 	int					len;
 
 	i = 0;
-	len = ft_strlen(envvname);
 	while (envv[i] != NULL)
 	{
-		if (ft_strncmp(envv[i], envvname, len) == 0)
+		j = 0;
+		len = 0;
+		while (envv[i][j++] != '=')
+			len++;
+		if (ft_strncmp(envv[i], envvname, len) == 0 && envvname[len] == '\0')
 			return (i);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 22:44:52 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/07 15:47:25 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/08 18:33:05 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,9 @@
 
 void					cmd_env(void)
 {
-	ft_printf("%w", g_envv);
+	int					i;
+
+	i = 0;
+	while (g_envv[i] != NULL)
+		ft_printf("%s\n", g_envv[i++]);
 }
