@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 12:05:21 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/07 16:46:52 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/08 21:21:38 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void					ft_mapinsert(t_map *map, const char *key, \
 										const void *value);
 void					ft_mapdelone(t_map *map, const char *key);
 void					ft_mapdel(t_map **map);
-void					ft_putmap(t_map *map);
 
 /*
 ** ft_math
