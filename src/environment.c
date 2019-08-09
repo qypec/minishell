@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:23:35 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/08 19:34:23 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/09 17:09:17 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@ static void				set_shellvar(int i)
 	ft_strglue(g_envv[i], "SHELL=", dir, "/minishell", NULL);
 }
 
-const char				*getvalue_envv(const char *key)
+const char				*getvalue_envv(const char *var_name)
 {
 	int					indexofkey;
 	const char			*result;
 	size_t				len;
 
-	if (key == NULL)
+	if (var_name == NULL)
 		return (NULL);
-	len = ft_strlen(key);
-	if ((indexofkey = find_((const char **)g_envv, key)) == -1)
+	len = ft_strlen(var_name);
+	if ((indexofkey = find_((const char **)g_envv, var_name)) == -1)
 		return (NULL);
 	result = g_envv[indexofkey] + len + 1;
 	return (result);

@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:03:05 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/08 19:45:48 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/09 13:14:50 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static char				*get_path(const char **cmd)
 			return (ft_strdup(DEFAULT_HOME_DIR));
 		return (ft_strdup(value));
 	}
-	else if (cmd[1][0] == '-')
+	else if (cmd[1][0] == '-' && cmd[1][1] == '\0')
 	{
 		if ((value = getvalue_envv("OLDPWD")) == NULL)
 			return (NULL);

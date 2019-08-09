@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstdelfirst.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/24 15:42:42 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/09 15:57:53 by yquaro           ###   ########.fr       */
+/*   Created: 2019/08/09 16:30:22 by yquaro            #+#    #+#             */
+/*   Updated: 2019/08/09 16:38:09 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list				*ft_lstnew(const char *content)
+void				ft_lstdelfirst(t_list **head)
 {
-	t_list				*list;
+	t_list			*tmp;
 
-	if ((list = (t_list *)malloc(sizeof(t_list))) == NULL)
-		return (NULL);
-	list->content = ft_strdup(content);
-	list->next = NULL;
-	return (list);
+	if (head == NULL)
+		return ;
+	tmp = *head;
+	(*head) = (*head)->next;
+	default_lstdel(tmp);
 }

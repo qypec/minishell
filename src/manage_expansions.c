@@ -6,62 +6,42 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 02:12:32 by qypec             #+#    #+#             */
-/*   Updated: 2019/08/07 15:51:08 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/09 19:48:36 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int						is_expansion_sign(char c)
+static void				manage_tildesign(t_buff *token)
 {
-	if (c == '$' || c == '~')
-		return (1);
-	return (0);	
+	const char			*home_value;
+
+	if ((home_value = getvalue_envv("HOME")) == NULL)
+		ft_buffadd(token, DEFAULT_HOME_DIR);
+	ft_buffadd(token, home_value);
 }
 
-static void				manage_tildesign(t_buff *buff)
+static void				manage_dollarsign(t_buff *token, const char *input_line, int *i)
 {
-	int					home_number;
-	const char			*tmp;
-	int					i;
+	t_buff				*var_name;
 
-	i = 0;
-	home_number = find_((const char **)g_envv, "HOME=");
-	tmp = (const char *)(g_envv[home_number] + ft_strlen("HOME="));
-	while (tmp[i] != '\0')
-		ft_buffaddsymb(buff, tmp[i++]);
+	var_name = ft_buffinit(15);
+	while (ft_isalnum(input_line[++(*i)]))
+		ft_buffaddsymb(var_name, input_line[*i]);
+	if (!ft_isspace(input_line[(*i)]) && input_line[(*i)] != '\0')
+		ft_buffaddsymb(token, '$');
+	ft_buffadd(token, getvalue_envv(var_name->str));
+	ft_buffdel(&var_name);
 }
 
-static void				manage_dollarsign(t_buff *buff, const char *str, int *i)
+void					preprocessing_extension_characters(t_buff *token, \
+										const char *input_line, int *i)
 {
-	t_buff				*expan;
-	int					var_number;
-	int					j;
-	const char			*tmp;
-
-	expan = ft_buffinit(15);
-	while (ft_isalnum(str[++(*i)]))
-		ft_buffaddsymb(expan, str[*i]);
-	var_number = find_((const char **)g_envv, expan->str);
-	ft_buffdel(&expan);
-	if (var_number == -1)
-		return ;
-	j = 0;
-	while (g_envv[var_number][j] != '=')
-		j++;
-	tmp = (const char *)(g_envv[var_number] + (j + 1));
-	j = 0;
-	while (tmp[j] != '\0')
-		ft_buffaddsymb(buff, tmp[j++]);
-}
-
-void				preprocessoring(t_buff *buff, const char *str, int *i)
-{
-	if (str[*i] == '~')
+	if (input_line[*i] == '~')
 	{
-		manage_tildesign(buff);
+		manage_tildesign(token);
 		(*i)++;
 	}
-	else if (str[*i] == '$')
-		manage_dollarsign(buff, str, i);
+	else if (input_line[*i] == '$')
+		manage_dollarsign(token, input_line, i);
 }

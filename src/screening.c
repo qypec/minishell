@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:45:43 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/15 21:02:00 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/09 16:16:07 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ static char				**list_to_matr(t_list **head)
 	return (matr);
 }
 
-char					**screening(const char *str)
+char					**screening(const char *input_line)
 {
 	t_list				*result;
-	t_buff				*buff;
-	t_list				*oper;
+	t_buff				*token;
+	t_list				*operator;
 
-	buff = ft_buffinit(SCREENING_BUFF_SIZE);
-	oper = NULL;
+	operator = NULL;
 	result = NULL;
-	screening_loop(str, buff, &result, oper);
+	token = ft_buffinit(SCREENING_BUFF_SIZE);
+	screening_loop(input_line, token, &result, operator);
 	return (list_to_matr(&result));
 }

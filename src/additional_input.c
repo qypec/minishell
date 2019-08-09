@@ -17,7 +17,7 @@ static void				display_quote_prompt(void)
 	write(1, "\x1b[31mquote ->\x1b[0m ", 18);
 }
 
-void					wait_quote_from_input(t_buff *buff, t_list *oper, t_list **result)
+void					wait_quotes_from_input(t_buff *buff, t_list *oper, t_list **result)
 {
 	char				symb;
 	t_buff				*new;

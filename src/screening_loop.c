@@ -6,121 +6,90 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 05:03:02 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/07 16:50:47 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/09 17:02:30 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void				work_with_call_stack(t_buff *buff, t_list **oper, const char *str, int *i)
+static void				add_quotes_to_stack(t_buff *token, t_list **operator, const char *input_line, int *i)
 {
 	t_list				*tmp;
 
-	if (*oper != NULL && str[*i] != (*oper)->content[0])
+	if (*operator != NULL && input_line[*i] != (*operator)->content[0])
+		ft_buffaddsymb(token, input_line[(*i)++]);
+	else if (*operator != NULL && input_line[*i] == (*operator)->content[0])
 	{
-		ft_buffaddsymb(buff, str[(*i)++]);
-		return ;
-	}
-	else if (*oper != NULL && str[*i] == (*oper)->content[0])
-	{
-		tmp = *oper;
-		*oper = (*oper)->next;
-		default_lstdel(tmp);
+		ft_lstdelfirst(operator);
 		(*i)++;
-		return ;
 	}
-	if ((tmp = (t_list *)malloc(sizeof(t_list))) == NULL)
-		exit(-1);
-	tmp->next = NULL;
-	if ((tmp->content = (char *)ft_memalloc(sizeof(char) * 2)) == NULL)
-		exit(-1);
-	tmp->content[0] = str[*i];
-	tmp->content[1] = '\0';
-	ft_lstadd(oper, tmp);
-	(*i)++;
+	else
+	{
+		ft_lstadd(operator, ft_lstnew(input_line + (*i)));
+		(*i)++;
+	}
 }
 
-static void				slash_processing(t_buff	*buff, const char *str, int *i)
+static void				slash_processing(t_buff	*token, const char *input_line, int *i)
 {
-	if (str[*i + 1] != '\0')
+	if (input_line[*i + 1] != '\0')
 	{
-		ft_buffaddsymb(buff, str[*i + 1]);
+		ft_buffaddsymb(token, input_line[*i + 1]);
 		(*i) += 2;
 	}
 	else
-		ft_buffaddsymb(buff, str[(*i)++]);
+		ft_buffaddsymb(token, input_line[(*i)++]);
 }
 
-static t_list			*space_processing(t_buff **buff, t_list *oper, const char *str, int *i)
+static t_list			*space_processing(t_buff **token, t_list *operator, const char *input_line, int *i)
 {
-	t_list				*new;
+	t_list				*new_token_to_result;
 
-	if (oper != NULL && is_quotes(oper->content[0]))
+	if (operator != NULL && is_quotes(operator->content[0]))
 	{
-		while (ft_isspace(str[*i]))
-			ft_buffaddsymb(*buff, str[(*i)++]);
+		while (ft_isspace(input_line[*i]))
+			ft_buffaddsymb(*token, input_line[(*i)++]);
 		return (NULL);
 	}
-	if (!ft_isempty(str))
-	{
-		if ((new = (t_list *)malloc(sizeof(t_list))) == NULL)
-			exit(-1);
-		new->next = NULL;
-		new->content = ft_strdup((*buff)->str);
-	}
-	ft_buffdel(buff);
-	*buff = ft_buffinit(SCREENING_BUFF_SIZE);
-	while (ft_isspace(str[*i]))
+	new_token_to_result = ft_lstnew((*token)->str);
+	ft_buffdel(token);
+	*token = ft_buffinit(SCREENING_BUFF_SIZE);
+	while (ft_isspace(input_line[*i]))
 		(*i)++;
-	return (new);
+	return (new_token_to_result);
 }
 
-static void				end_of_string(t_buff **buff, t_list **oper, t_list **result)
+static void				end_of_line_processing(t_buff **token, t_list **operator, t_list **result)
 {
-	t_list				*tmp;
-	t_list				*new;
-
-	tmp = *oper;
-	new = NULL;
-	if (tmp != NULL && is_quotes(tmp->content[0]))
+	if (*operator != NULL && is_quotes((*operator)->content[0]))
+		wait_quotes_from_input(*token, *operator, result);
+	else
 	{
-		wait_quote_from_input(*buff, *oper, result);
-		return ;
+		ft_lstpushback(result, ft_lstnew((*token)->str));
+		ft_lstdel(operator);
+		ft_buffdel(token);
 	}
-	if (*oper != NULL)
-		ft_lstdel(oper);
-	if (!ft_isempty((*buff)->str))
-	{
-		if ((new = (t_list *)malloc(sizeof(t_list))) == NULL)
-			exit(-1);
-		new->next = NULL;
-		if ((new->content = (char *)ft_memalloc(sizeof(char) * ((*buff)->i + 1))) == NULL)
-			exit(-1);
-		ft_strncpy(new->content, (*buff)->str, (*buff)->i);
-		ft_lstpushback(result, new);
-	}
-	ft_buffdel(buff);
 }
 
-void				screening_loop(const char *str, t_buff *buff, t_list **result, t_list *oper)
+void				screening_loop(const char *input_line, t_buff *token, t_list **result, t_list *operator)
 {
 	int					i;
 
 	i = 0;
-	while (ft_isspace(str[i]))
+	while (ft_isspace(input_line[i]))
 		i++;
-	while (str[i] != '\0')
+	while (input_line[i] != '\0')
 	{
-		if (is_quotes(str[i]))
-			work_with_call_stack(buff, &oper, str, &i);
-		else if (str[i] == '\\')
-			slash_processing(buff, str, &i);
-		else if (is_expansion_sign(str[i]))
-			preprocessoring(buff, str, &i);
-		else if (ft_isspace(str[i]))
-			ft_lstpushback(result, space_processing(&buff, oper, str, &i));
+		if (is_quotes(input_line[i]))
+			add_quotes_to_stack(token, &operator, input_line, &i);
+		else if (input_line[i] == '\\')
+			slash_processing(token, input_line, &i);
+		else if (input_line[i] == '$' || input_line[i] == '~')
+			preprocessing_extension_characters(token, input_line, &i);
+		else if (ft_isspace(input_line[i]))
+			ft_lstpushback(result, space_processing(&token, operator, input_line, &i));
 		else
-			ft_buffaddsymb(buff, str[i++]);
+			ft_buffaddsymb(token, input_line[i++]);
 	}
-	end_of_string(&buff, &oper, result);
+	end_of_line_processing(&token, &operator, result);
 }

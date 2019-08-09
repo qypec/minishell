@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/07 15:36:46 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/09 19:52:31 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@
 # include <sys/stat.h>
 
 # define MAIN_BUFF_SIZE 9
-
-# define YES 1
-# define NO 0
+# define END_OF_FILE 0
 
 # define DEFAULT_HOME_DIR "/Users/yquaro"
 # define GIT_BRANCH_NAME_FILE ".git/HEAD"
@@ -53,16 +51,16 @@ void					bust(const char *cmd_name, int flag);
 
 int						is_builtin_launch(const char **cmd);
 void					check_envpath(const char **cmd);
-const char				*getvalue_envv(const char *key);
+const char				*getvalue_envv(const char *var_name);
 int						find_(const char **envv, const char *envvname);
 
 char					**screening(const char *str);
 int						is_quotes(char c);
-int						is_expansion_sign(char c);
 int						is_nonscreening_sign(const char *cmd, int i, char sign);
-void					screening_loop(const char *str, t_buff *buff, t_list **result, t_list *oper);
-void					preprocessoring(t_buff *buff, const char *str, int *i);
-void					wait_quote_from_input(t_buff *buff, t_list *oper, t_list **result);
+void					screening_loop(const char *input_line, t_buff *token, t_list **result, t_list *operator);
+void					preprocessing_extension_characters(t_buff *buff, \
+										const char *str, int *i);
+void					wait_quotes_from_input(t_buff *buff, t_list *oper, t_list **result);
 
 void					cmd_cd(const char **cmd);
 void					cmd_exit(char *line, char **level, char **cmd);
@@ -70,5 +68,7 @@ void					cmd_env(void);
 void					cmd_unsetenv(const char **cmd);
 void					cmd_setenv(const char **cmd);
 void					cmd_echo(const char **cmd);
+
+void					execution(char *fullname, const char **cmd);
 
 #endif

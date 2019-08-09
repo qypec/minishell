@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:25:48 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/08 20:45:27 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/09 19:51:55 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static char				*get_fullname(const char *builtin)
 	return (fullname);
 }
 
-static void				execution(char *fullname, const char **cmd)
+void				execution(char *fullname, const char **cmd)
 {
 	pid_t				pid;
 
