@@ -6,55 +6,18 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:25:48 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/10 13:13:37 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/10 13:55:49 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void				push_executables_to_hashtable(const char **path)
-{
-	DIR					*dir;
-	struct dirent		*entry;
-	int					i;
-
-	i = 0;
-	while (path[i] != NULL)
-	{
-		if ((dir = opendir(path[i])) == NULL)
-			exit(-1);
-		while ((entry = readdir(dir)) != NULL)
-		{
-			if (ft_strcmp((const char *)entry->d_name, ".") == 0 || \
-				ft_strcmp((const char *)entry->d_name, "..") == 0)
-				continue;
-			ft_mapinsert(g_envvpath, (const char *)ft_strdup(entry->d_name), \
-								ft_strdup(path[i]));
-		}
-		closedir(dir);
-		i++;
-	}
-}
-
-void					init_htab_envvpath(void)
-{
-	char				**tmp;
-	const char			*envv_path;
-
-	g_envvpath = ft_mapnew(NULL, 2000);
-	if ((envv_path = getvalue_envv("PATH")) == NULL)
-		return ;
-	tmp = ft_strsplit(envv_path, ':');
-	push_executables_to_hashtable((const char **)tmp);
-	ft_matrdel(&tmp);
-}
 
 void					update_envvar_path(const char *cmd)
 {
 	if (ft_strcmp(cmd, "PATH") == 0)
 	{
 		ft_mapdel(&g_envvpath);
-		init_htab_envvpath();
+		init_hashtable_from_envvpath();
 	}
 }
 

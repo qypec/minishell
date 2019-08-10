@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/10 13:21:36 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/10 13:31:30 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ int						main(int argc, char **argv, char **envv)
 {
 	argc = 0;
 	argv = NULL;
-	init_envv((const char **)envv);
-	init_htab_envvpath();
+	init_global_envv((const char **)envv);
+	init_hashtable_from_envvpath();
 	display_prompt();
 	while (1)
 	{

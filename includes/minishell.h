@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/10 13:21:47 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/10 13:49:04 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ t_map					*g_envvpath;
 void					display_prompt(void);
 char					*gitdir_search(void);
 
-void					init_envv(const char **envv);
-void					init_htab_envvpath();
+void					init_global_envv(const char **envv);
+void					init_hashtable_from_envvpath(void);
 void					update_envvar_path(const char *cmd);
 void					bust(const char *cmd_name, int flag);
 
