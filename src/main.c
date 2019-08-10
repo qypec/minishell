@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/09 15:40:14 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/10 13:21:36 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void				commands_interpretation(char *input_line)
 {
 	char				**commands_set;
 	char				**command;
-	int					exit_code;
+	void				(*launch_builtin)(const char **);
 	int					i;
 
 	i = 0;
@@ -24,10 +24,13 @@ static void				commands_interpretation(char *input_line)
 	while (commands_set[i] != NULL)
 	{
 		command = screening((const char *)commands_set[i]);
-		if ((exit_code = is_builtin_launch((const char **)command)) == 0)
-			check_envpath((const char **)command);
-		else if (exit_code == -1)
+		if (ft_strcmp("exit", command[0]) == 0)
 			cmd_exit(input_line, commands_set, command);
+		if ((launch_builtin = is_builtin(command[0])) != NULL)
+			launch_builtin((const char **)command);
+		else
+			check_envpath((const char **)command);
+			// launch_executable(); // check_envpath
 		i++;
 		ft_matrdel(&command);
 	}

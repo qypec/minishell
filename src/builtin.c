@@ -6,29 +6,25 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 03:51:36 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/09 19:59:17 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/10 13:22:02 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int						is_builtin_launch(const char **cmd)
+void					*is_builtin(const char *builtin_name)
 {
-	if (cmd == NULL)
-		return (1);
-	if (ft_strcmp("cd", cmd[0]) == 0)
-		cmd_cd(cmd);
-	else if (ft_strcmp("exit", cmd[0]) == 0)
-		return (-1);
-	else if (ft_strcmp("echo", cmd[0]) == 0)
-		cmd_echo(cmd);
-	else if (ft_strcmp("env", cmd[0]) == 0)
-		cmd_env();
-	else if (ft_strcmp("setenv", cmd[0]) == 0)
-		cmd_setenv(cmd);
-	else if (ft_strcmp("unsetenv", cmd[0]) == 0)
-		cmd_unsetenv(cmd);
-	else
-		return (0);
-	return (1);
+	if (builtin_name == NULL)
+		return (NULL);
+	else if (ft_strcmp("cd", builtin_name) == 0)
+		return (&cmd_cd);
+	else if (ft_strcmp("echo", builtin_name) == 0)
+		return (&cmd_echo);
+	else if (ft_strcmp("env", builtin_name) == 0)
+		return (&cmd_env);
+	else if (ft_strcmp("setenv", builtin_name) == 0)
+		return (&cmd_setenv);
+	else if (ft_strcmp("unsetenv", builtin_name) == 0)
+		return (&cmd_unsetenv);
+	return (NULL);
 }
