@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 13:29:40 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/10 13:43:16 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/12 16:30:15 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void					init_hashtable_from_envvpath(void)
 static void				setvar_shell(int indexof_shell)
 {
 	char				dir[PATH_MAX];
-	int					size_of_shellvar;
+	size_t				size_of_shellvar;
 
 	getcwd(dir, PATH_MAX);
 	size_of_shellvar = ft_strlen("SHELL=") + ft_strlen(dir) + ft_strlen("/minishell");
@@ -60,6 +60,22 @@ static void				setvar_shell(int indexof_shell)
 							(size_of_shellvar + 1))) == NULL)
 		exit(-1);
 	ft_strglue(g_envv[indexof_shell], "SHELL=", dir, "/minishell", NULL);
+}
+
+static void				setvar_shlvl(const char *shlvl_var, int indexof_shlvl)
+{
+	int					lvl;
+	char				*next_lvl;
+	size_t				size_of_shlvl_var;
+
+	lvl = ft_atoi(shlvl_var + ft_strlen("SHLVL="));
+	next_lvl = ft_itoa(lvl + 1);
+	size_of_shlvl_var = ft_strlen("SHLVL=") + ft_strlen(next_lvl);
+	if ((g_envv[indexof_shlvl] = (char *)ft_memalloc(sizeof(char) * \
+						(size_of_shlvl_var + 1))) == NULL)
+	exit(-1);
+	ft_strglue(g_envv[indexof_shlvl], "SHLVL=", next_lvl, NULL);
+	ft_strdel(&next_lvl);
 }
 
 void					init_global_envv(const char **envv)
@@ -72,12 +88,17 @@ void					init_global_envv(const char **envv)
 	while (envv[i] != NULL)
 	{
 		if (ft_strncmp("SHELL", envv[i], ft_strlen("SHELL")) == 0)
-		{
 			setvar_shell(i++);
-			continue ;
+		else if (ft_strncmp("SHLVL", envv[i], ft_strlen("SHLVL")) == 0)
+		{
+			setvar_shlvl(envv[i], i);
+			i++;
 		}
-		g_envv[i] = ft_strdup(envv[i]);
-		i++;
+		else
+		{
+			g_envv[i] = ft_strdup(envv[i]);
+			i++;
+		}
 	}
 	g_envv[i] = NULL;
 }

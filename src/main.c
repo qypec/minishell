@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/12 15:50:25 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/12 16:04:19 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void				commands_interpretation(char *input_line)
 		if ((launch_builtin = is_builtin(command[0])) != NULL)
 			launch_builtin((const char **)command);
 		else
-			check_envpath((const char **)command);
+			launch_executable((const char **)command);
 		i++;
 		ft_matrdel(&command);
 	}

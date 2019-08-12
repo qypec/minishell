@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/12 15:40:35 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/12 16:11:22 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void					update_envvar_path(const char *cmd);
 void					bust(const char *cmd_name, int flag);
 
 void					*is_builtin(const char *builtin_name);
-void					check_envpath(const char **cmd);
+void					launch_executable(const char **cmd);
 const char				*getvalue_envv(const char *var_name);
 int						find_(const char **envv, const char *envvname);
 
@@ -73,7 +73,7 @@ void					cmd_unsetenv(const char **cmd);
 void					cmd_setenv(const char **cmd);
 void					cmd_echo(const char **cmd);
 
-void					execution(char *fullname, const char **cmd);
+void					execution(const char *fullname, const char **cmd);
 
 void					handle_ctrl_c(int sig);
 void					ctrl_c_tracking(void);
