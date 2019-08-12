@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:03:05 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/09 13:14:50 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/10 16:46:06 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void					cmd_cd(const char **cmd)
 	if (chdir(newdir) == -1)
 	{
 		bust(cmd[1], NO_SUCH_DIR);
+		ft_strdel(&newdir);
 		return ;
 	}
 	if (cmd[1] != NULL && cmd[1][0] == '-')

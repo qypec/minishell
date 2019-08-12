@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:25:48 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/10 13:55:49 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/10 17:36:23 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ void				execution(char *fullname, const char **cmd)
 
 	if ((pid = fork()) == 0)
 	{
+		// signal(SIGINT, handle_ctrl_c);
 		if (execve(fullname, (char **)cmd, g_envv) == -1)
 			bust(cmd[0], COMMAND_NOT_FOUND);
+		g_signalflag = 1;
 	}
 	else
 		wait(&pid);

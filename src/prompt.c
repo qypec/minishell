@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 06:09:04 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/08 21:20:28 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/12 15:27:29 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,26 @@
 
 void					display_git_prompt(char **branch_name)
 {
-	write(1, "\033[0;32m(mini)\x1b[35m -> (", 23);
-	write(1, *branch_name, ft_strlen(*branch_name));
-	write(1, ")\x1b[0m ", 6);
+	ft_printf("{green}(mini){magenta} -> (%s){reset} ", *branch_name);
 	ft_strdel(branch_name);
 }
 
 void					display_default_prompt(void)
 {
-	write(1, "\033[0;32m(mini)\033[0m ", 19);
+	ft_printf("{green}(mini){reset} ");
 }
 
 void					display_prompt(void)
 {
 	char				*branch_name;
 
-	if ((branch_name = gitdir_search()) != NULL)
-		display_git_prompt(&branch_name);
+	if (g_signalflag == 0)
+	{
+		if ((branch_name = gitdir_search()) != NULL)
+			display_git_prompt(&branch_name);
+		else
+			display_default_prompt();
+	}
 	else
-		display_default_prompt();
+		g_signalflag = 0;
 }

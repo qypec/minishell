@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/10 13:31:30 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/12 15:50:25 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void				commands_interpretation(char *input_line)
 			launch_builtin((const char **)command);
 		else
 			check_envpath((const char **)command);
-			// launch_executable(); // check_envpath
 		i++;
 		ft_matrdel(&command);
 	}
@@ -49,23 +48,16 @@ static void				ctrl_d_tracking(int ret, t_buff **buff)
 	}
 }
 
-void					handle_ctrl_c(int sig)
-{
-	sig = 0;
-	write(1, "\n", 1);
-	display_prompt();
-}
-
 static void				user_input_loop(void)
 {
 	t_buff		*buff;
 	char		symb;
 	int			ret;
 
-	signal(SIGINT, handle_ctrl_c);
 	buff = ft_buffinit(MAIN_BUFF_SIZE);
 	while ((ret = read(0, &symb, 1)) > 0 && symb != '\n')
 		ft_buffaddsymb(buff, symb);
+	ctrl_c_tracking();
 	ctrl_d_tracking(ret, &buff);
 	commands_interpretation(buff->str);
 	ft_buffdel(&buff);
@@ -75,13 +67,14 @@ int						main(int argc, char **argv, char **envv)
 {
 	argc = 0;
 	argv = NULL;
+	g_signalflag = 0;
+	signal(SIGINT, handle_ctrl_c);
 	init_global_envv((const char **)envv);
 	init_hashtable_from_envvpath();
-	display_prompt();
 	while (1)
 	{
-		user_input_loop();
 		display_prompt();
+		user_input_loop();
 	}
 	return (0);
 }

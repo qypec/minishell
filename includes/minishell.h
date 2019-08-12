@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/10 13:49:04 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/12 15:40:35 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@
 
 char					**g_envv;
 t_map					*g_envvpath;
+int						g_signalflag;
 
 void					display_prompt(void);
+void					display_prompt_with_flag_tracking(void);
 char					*gitdir_search(void);
 
 void					init_global_envv(const char **envv);
@@ -72,5 +74,8 @@ void					cmd_setenv(const char **cmd);
 void					cmd_echo(const char **cmd);
 
 void					execution(char *fullname, const char **cmd);
+
+void					handle_ctrl_c(int sig);
+void					ctrl_c_tracking(void);
 
 #endif
