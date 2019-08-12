@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/12 16:11:22 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/12 17:08:05 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,13 @@
 # define DEFAULT_HOME_DIR "/Users/yquaro"
 # define GIT_BRANCH_NAME_FILE ".git/HEAD"
 # define BUFF_BRANCH_NAME_SIZE 30
+
+# define EXISTENCE 0
+# define IMPLEMENTABILITY 1
+
 # define COMMAND_NOT_FOUND 1
 # define NO_SUCH_DIR 2
+# define PERMISIION_DENIED 3
 # define NAME_GIT_ENVVAR "GITDIR="
 # define SCREENING_BUFF_SIZE 30
 
@@ -49,7 +54,9 @@ char					*gitdir_search(void);
 void					init_global_envv(const char **envv);
 void					init_hashtable_from_envvpath(void);
 void					update_envvar_path(const char *cmd);
-void					bust(const char *cmd_name, int flag);
+
+int						bust(const char *cmd_name, int error_code);
+int						get_errorcode(const char *fullname);
 
 void					*is_builtin(const char *builtin_name);
 void					launch_executable(const char **cmd);

@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:25:48 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/12 16:30:51 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/12 17:22:49 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,14 @@ void					update_envvar_path(const char *cmd)
 	}
 }
 
-void				execution(const char *fullname, const char **cmd)
+void				execution(const char *fullname, const char **command)
 {
 	pid_t				pid;
 
+	if (bust(command[0], get_errorcode(fullname)) != 0)
+		return ;
 	if ((pid = fork()) == 0)
-	{
-		if (execve(fullname, (char **)cmd, g_envv) == -1)
-			bust(cmd[0], COMMAND_NOT_FOUND);
-	}
+		execve(fullname, (char **)command, g_envv);
 	else
 		wait(&pid);
 }
@@ -70,11 +69,6 @@ void					launch_executable(const char **command)
 		execution(command[0], command);
 	else
 	{
-		if ((hash = ft_ismapitem(g_envvpath, command[0])) == -1)
-		{
-			bust(command[0], COMMAND_NOT_FOUND);
-			return ;
-		}
 		fullname = get_fullname(command[0]);
 		execution(fullname, command);
 		ft_strdel(&fullname);
