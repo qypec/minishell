@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/12 17:08:05 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/12 21:49:14 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int						get_errorcode(const char *fullname);
 
 void					*is_builtin(const char *builtin_name);
 void					launch_executable(const char **cmd);
+
+void					add_environment_variable(char *variable);
 const char				*getvalue_envv(const char *var_name);
 int						find_(const char **envv, const char *envvname);
 
