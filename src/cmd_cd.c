@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:03:05 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/12 21:44:01 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 02:07:31 by qypec            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int				error_processing(const char **command)
 {
-	if (command[2] != NULL)
+	if (command[1] != NULL && command[2] != NULL)
 	{
 		ft_printf("cd: string not in pwd: %s\n", command[1]);
 		return (1);
@@ -29,14 +29,14 @@ static void				change_pwd_and_oldpwd_variables(const char *oldpwd_location)
 	int					indexof_oldpwd;
 
 	getcwd((char *)current_location, PATH_MAX);
-	if ((indexof_pwd = find_(g_envv, "PWD")) == -1)
+	if ((indexof_pwd = find_((const char **)g_envv, "PWD")) == -1)
 		add_environment_variable(ft_strjoin("PWD", current_location));
 	else
 	{
 		ft_strdel(&g_envv[indexof_pwd]);
 		g_envv[indexof_pwd] = ft_strjoin("PWD=", current_location);
 	}
-	if ((indexof_oldpwd = find_(g_envv, "OLDPWD")) == -1)
+	if ((indexof_oldpwd = find_((const char **)g_envv, "OLDPWD")) == -1)
 		add_environment_variable(ft_strjoin("OLDPWD", oldpwd_location));
 	else
 	{
@@ -49,26 +49,16 @@ static char				*display_cd_dash(void)
 {
 	const char			*oldpwd_location;
 	const char			*home_path;
-	char				*displayed_string;
-	size_t				size_of_displayed_string;
 
-	if ((oldpwd_location == getvalue_envv("OLDPWD")) == NULL)
+	if ((oldpwd_location = getvalue_envv("OLDPWD")) == NULL)
 		return (NULL);
-	if ((home_path == getvalue_envv("HOME")) == NULL)
+	if ((home_path = getvalue_envv("HOME")) == NULL)
 		home_path = DEFAULT_HOME_DIR;
 	if (ft_strncmp(oldpwd_location, home_path, ft_strlen(home_path)) == 0)
-	{
-		size_of_displayed_string = ft_strlen("~") + \
-						ft_strlen(oldpwd_location + ft_strlen(home_path));
-		if ((displayed_string = (char *)ft_memalloc(sizeof(char) * \
-						(size_of_displayed_string + 1))) == NULL)
-			exit(-1);
-		ft_strglue(displayed_string, "~", oldpwd_location + ft_strlen(home_path), NULL);
-	}
+		ft_printf("~%s\n", oldpwd_location + ft_strlen(home_path));
 	else
-		displayed_string = ft_strdup(oldpwd_location);
-	ft_printf("%s\n", displayed_string);
-	return (displayed_string);
+		ft_printf("%s\n", oldpwd_location);
+	return (ft_strdup(oldpwd_location));
 }
 
 static char				*get_newpath(const char *path)
@@ -76,16 +66,16 @@ static char				*get_newpath(const char *path)
 	char				*newlocation;
 	const char			*value_of_home;
 
-	if (ft_strcmp("-", path) == 0)
-		return (display_cd_dash());
-	else if (ft_strcmp(".", path) == 0)
-		return (NULL);
-	else if (path == NULL)
+	if (ft_isempty(path))
 	{
 		if ((value_of_home = getvalue_envv("HOME")) == NULL)
 			return (ft_strdup(DEFAULT_HOME_DIR));
 		return (ft_strdup(value_of_home));
 	}
+	else if (ft_strcmp("-", path) == 0)
+		return (display_cd_dash());
+	else if (ft_strcmp(".", path) == 0)
+		return (NULL);
 	else
 		return (ft_strdup(path));
 }
