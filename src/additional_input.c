@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 00:52:03 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 14:04:59 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 18:42:45 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static void				read_loop(t_buff *buff)
 		read_loop(buff);
 }
 
-void					wait_quotes_from_input(t_buff *token, t_list *operator, t_list **result)
+void					wait_quotes_from_input(t_buff *token, \
+									t_list *operator, t_list **result)
 {
 	t_buff				*new;
 

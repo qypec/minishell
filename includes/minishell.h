@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 17:33:38 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 18:38:30 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ int						get_errorcode(const char *fullname);
 
 void					launch_executable(const char **cmd);
 
-void					add_environment_variable(const char *key, const char *value);
+void					add_environment_variable(const char *key, \
+										const char *value);
 void					delete_environment_variable(const char *variable);
 const char				*getvalue_envv(const char *var_name);
 int						find_(const char **envv, const char *envvname);

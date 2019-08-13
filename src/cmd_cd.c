@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:03:05 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 16:31:24 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 18:52:38 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int				error_processing(const char **command)
 	return (0);
 }
 
-static void				change_pwd_and_oldpwd_variables(const char *oldpwd_location)
+static void				change_pwd_and_oldpwd_variables(const char *oldpwd)
 {
 	const char			current_location[PATH_MAX];
 	int					indexof_pwd;
@@ -37,11 +37,11 @@ static void				change_pwd_and_oldpwd_variables(const char *oldpwd_location)
 		g_envv[indexof_pwd] = ft_strjoin("PWD=", current_location);
 	}
 	if ((indexof_oldpwd = find_((const char **)g_envv, "OLDPWD")) == -1)
-		add_environment_variable("OLDPWD", oldpwd_location);
+		add_environment_variable("OLDPWD", oldpwd);
 	else
 	{
 		ft_strdel(&g_envv[indexof_oldpwd]);
-		g_envv[indexof_oldpwd] = ft_strjoin("OLDPWD=", oldpwd_location);
+		g_envv[indexof_oldpwd] = ft_strjoin("OLDPWD=", oldpwd);
 	}
 }
 
@@ -63,7 +63,6 @@ static char				*display_cd_dash(void)
 
 static char				*get_newpath(const char *path)
 {
-	char				*newlocation;
 	const char			*value_of_home;
 
 	if (ft_isempty(path))

@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:23:35 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 16:32:07 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 18:45:49 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,14 @@ void					delete_environment_variable(const char *variable)
 	update_envvar_path(variable);
 }
 
-void					add_environment_variable(const char *key, const char *value)
+void					add_environment_variable(const char *key, \
+													const char *value)
 {
 	char				**new_matr;
 	size_t				size_of_new_environment;
 	int					i;
 
-	size_of_new_environment = ft_matrlen((const char **)g_envv) + 1; 
+	size_of_new_environment = ft_matrlen((const char **)g_envv) + 1;
 	if ((new_matr = (char **)malloc(sizeof(char *) * \
 					(size_of_new_environment + 1))) == NULL)
 		exit(-1);

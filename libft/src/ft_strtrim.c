@@ -6,16 +6,27 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 12:33:27 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 17:11:30 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 18:56:04 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+static char				*returned(t_buff **buff)
+{
+	char				*returned_str;
+
+	if (ft_isempty((*buff)->str))
+		returned_str = NULL;
+	else
+		returned_str = ft_strdup((*buff)->str);
+	ft_buffdel(buff);
+	return (returned_str);
+}
+
 char					*ft_strtrim(char const *s)
 {
 	t_buff				*new_str;
-	char				*returned_str;
 	int					i;
 
 	new_str = ft_buffinit(50);
@@ -37,10 +48,5 @@ char					*ft_strtrim(char const *s)
 			i++;
 		}
 	}
-	if (ft_isempty(new_str->str))
-		returned_str = NULL;
-	else
-		returned_str = ft_strdup(new_str->str);
-	ft_buffdel(&new_str);
-	return (returned_str);
+	return (returned(&new_str));
 }

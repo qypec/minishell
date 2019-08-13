@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:30:01 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/07 16:41:57 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 18:38:53 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ char					**ft_matrnew(const char *first_str, ...)
 	while (va_arg(arg, char*) != NULL)
 		number_of_elements++;
 	va_end(arg);
-	if ((matr = (char **)malloc(sizeof(char *) * (number_of_elements + 1))) == NULL)
+	if ((matr = (char **)malloc(sizeof(char *) * \
+							(number_of_elements + 1))) == NULL)
 		return (NULL);
 	matr[number_of_elements] = NULL;
 	va_start(arg, first_str);

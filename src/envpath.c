@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:25:48 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 18:08:51 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 18:53:59 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void					update_envvar_path(const char *variable)
 	}
 }
 
-void				execution(const char *fullname, const char **command)
+void					execution(const char *fullname, const char **command)
 {
 	pid_t				pid;
 
@@ -37,7 +37,8 @@ void				execution(const char *fullname, const char **command)
 		wait(&pid);
 }
 
-void					launch_executable_from_this_directory(const char **command)
+void					launch_executable_from_this_directory(\
+													const char **command)
 {
 	const char			current_dir[PATH_MAX];
 	const char			*fullname;
@@ -64,7 +65,6 @@ static char				*get_fullname(const char *builtin)
 
 void					launch_executable(const char **command)
 {
-	int					hash;
 	char				*fullname;
 
 	if (command[0][0] == '.')

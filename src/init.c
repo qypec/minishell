@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 13:29:40 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 15:21:33 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 18:46:52 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static void				setvar_shell(int indexof_shell)
 	size_t				size_of_shellvar;
 
 	getcwd(dir, PATH_MAX);
-	size_of_shellvar = ft_strlen("SHELL=") + ft_strlen(dir) + ft_strlen("/minishell");
+	size_of_shellvar = ft_strlen("SHELL=") + ft_strlen(dir) + \
+						ft_strlen("/minishell");
 	if ((g_envv[indexof_shell] = (char *)ft_memalloc(sizeof(char) * \
 							(size_of_shellvar + 1))) == NULL)
 		exit(-1);
@@ -73,7 +74,7 @@ static void				setvar_shlvl(const char *shlvl_var, int indexof_shlvl)
 	size_of_shlvl_var = ft_strlen("SHLVL=") + ft_strlen(next_lvl);
 	if ((g_envv[indexof_shlvl] = (char *)ft_memalloc(sizeof(char) * \
 						(size_of_shlvl_var + 1))) == NULL)
-	exit(-1);
+		exit(-1);
 	ft_strglue(g_envv[indexof_shlvl], "SHLVL=", next_lvl, NULL);
 	ft_strdel(&next_lvl);
 }
@@ -82,7 +83,8 @@ void					init_global_envv(const char **envv)
 {
 	int					i;
 
-	if ((g_envv = (char **)malloc(sizeof(char *) * (ft_matrlen(envv) + 1))) == NULL)
+	if ((g_envv = (char **)malloc(sizeof(char *) * \
+								(ft_matrlen(envv) + 1))) == NULL)
 		exit(-1);
 	i = 0;
 	while (envv[i] != NULL)

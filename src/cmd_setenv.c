@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 13:21:48 by qypec             #+#    #+#             */
-/*   Updated: 2019/08/13 18:06:21 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 18:57:21 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static int				error_processing(const char **cmd)
 	}
 	if (ft_alnumstr(cmd[1]) == 0)
 	{
-		ft_putendl("setenv: Variable name must contain alphanumeric characters.");
+		ft_putendl("setenv: Variable name must contain
+		 alphanumeric characters.");
 		return (0);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 15:38:46 by qypec             #+#    #+#             */
-/*   Updated: 2019/08/07 16:41:19 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 18:39:06 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ char				**ft_matrsnew(size_t matr_size, ...)
 	while (i < (int)matr_size)
 	{
 		str_size = va_arg(arg, size_t);
-		if ((matr[i++] = (char *)ft_memalloc(sizeof(char) * (str_size + 1))) == NULL)
+		if ((matr[i++] = (char *)ft_memalloc(sizeof(char) * \
+												(str_size + 1))) == NULL)
 		{
 			ft_matrdel(&matr);
 			return (NULL);

@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 02:12:32 by qypec             #+#    #+#             */
-/*   Updated: 2019/08/09 19:48:36 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 18:54:20 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void				manage_tildesign(t_buff *token)
 	ft_buffadd(token, home_value);
 }
 
-static void				manage_dollarsign(t_buff *token, const char *input_line, int *i)
+static void				manage_dollarsign(t_buff *token, \
+									const char *input_line, int *i)
 {
 	t_buff				*var_name;
 

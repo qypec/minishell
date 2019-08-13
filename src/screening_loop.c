@@ -6,16 +6,15 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 05:03:02 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 17:29:17 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 18:54:37 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void				add_quotes_to_stack(t_buff *token, t_list **operator, const char *input_line, int *i)
+static void				add_quotes_to_stack(t_buff *token, t_list **operator, \
+								const char *input_line, int *i)
 {
-	t_list				*tmp;
-
 	if (*operator != NULL && input_line[*i] != (*operator)->content[0])
 		ft_buffaddsymb(token, input_line[(*i)++]);
 	else if (*operator != NULL && input_line[*i] == (*operator)->content[0])
@@ -30,7 +29,8 @@ static void				add_quotes_to_stack(t_buff *token, t_list **operator, const char 
 	}
 }
 
-static void				slash_processing(t_buff	*token, const char *input_line, int *i)
+static void				slash_processing(t_buff *token, \
+								const char *input_line, int *i)
 {
 	if (input_line[*i + 1] != '\0')
 	{
@@ -41,7 +41,8 @@ static void				slash_processing(t_buff	*token, const char *input_line, int *i)
 		ft_buffaddsymb(token, input_line[(*i)++]);
 }
 
-static t_list			*space_processing(t_buff **token, t_list *operator, const char *input_line, int *i)
+static t_list			*space_processing(t_buff **token, t_list *operator, \
+								const char *input_line, int *i)
 {
 	t_list				*new_token_to_result;
 
@@ -59,7 +60,8 @@ static t_list			*space_processing(t_buff **token, t_list *operator, const char *
 	return (new_token_to_result);
 }
 
-static void				end_of_line_processing(t_buff **token, t_list **operator, t_list **result)
+static void				end_of_line_processing(t_buff **token, \
+								t_list **operator, t_list **result)
 {
 	if (*operator != NULL && is_quotes((*operator)->content[0]))
 		wait_quotes_from_input(*token, *operator, result);
@@ -71,8 +73,8 @@ static void				end_of_line_processing(t_buff **token, t_list **operator, t_list 
 	}
 }
 
-void				screening_loop(const char *input_line, t_buff *token, \
-							t_list **result, t_list *operator)
+void					screening_loop(const char *input_line, t_buff *token, \
+								t_list **result, t_list *operator)
 {
 	int					i;
 
@@ -91,7 +93,8 @@ void				screening_loop(const char *input_line, t_buff *token, \
 		else if (input_line[i] == '$' || input_line[i] == '~')
 			preprocessing_extension_characters(token, input_line, &i);
 		else if (ft_isspace(input_line[i]))
-			ft_lstpushback(result, space_processing(&token, operator, input_line, &i));
+			ft_lstpushback(result, \
+					space_processing(&token, operator, input_line, &i));
 		else
 			ft_buffaddsymb(token, input_line[i++]);
 	}
