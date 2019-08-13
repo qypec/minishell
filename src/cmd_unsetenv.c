@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 22:43:03 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/09 19:48:38 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 14:40:16 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,66 +19,35 @@ static int				is_forbidden_variable(const char *varname)
 	return (0);
 }
 
-static void				new_genvv(int var_number)
+static int				error_processing(const char **command)
 {
 	int					i;
-	int					j;
-	char				**tmp;
 
-	tmp = ft_matrdup((const char **)g_envv);
-	ft_matrdel(&g_envv);
-	if ((g_envv = (char **)malloc(sizeof(char *) * \
-				ft_matrlen((const char **)tmp))) == NULL)
-		exit(-1);
-	i = 0;
-	j = 0;
-	while (tmp[i] != NULL)
-	{
-		if (i == var_number)
-		{
-			i++;
-			continue ;
-		}
-		g_envv[j++] = ft_strdup(tmp[i++]);
-	}
-	g_envv[j] = NULL;
-	ft_matrdel(&tmp);
-}
-
-static int				error_processing(const char **cmd)
-{
-	if (cmd[1] == NULL)
+	if (command[1] == NULL)
 	{
 		ft_putendl("unsetenv: Too few arguments.");
 		return (0);
 	}
-	if (is_forbidden_variable(cmd[1]))
+	i = 1;
+	while (command[i] != NULL)
 	{
-		ft_putstr("The variable ");
-		ft_putstr(cmd[1]);
-		ft_putendl(" can not be unset");
-		return (0);
+		if (is_forbidden_variable(command[i]))
+		{
+			ft_printf("The variable %s can not be unset", command[i]);
+			return (0);
+		}
+		i++;
 	}
 	return (1);
 }
 
-void					cmd_unsetenv(const char **cmd)
+void					cmd_unsetenv(const char **command)
 {
-	int					var_number;
 	int					i;
 
-	if (error_processing(cmd) == 0)
+	if (error_processing(command) == 0)
 		return ;
 	i = 1;
-	while (cmd[i] != NULL)
-	{
-		if ((var_number = find_((const char **)g_envv, cmd[i])) == -1)
-		{
-			i++;
-			continue ;
-		}
-		new_genvv(var_number);
-		update_envvar_path(cmd[i]);
-		i++;
-	}
+	while (command[i] != NULL)
+		delete_environment_variable(command[i++]);
 }

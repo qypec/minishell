@@ -6,33 +6,11 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 13:21:48 by qypec             #+#    #+#             */
-/*   Updated: 2019/08/10 13:10:54 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 18:06:21 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void				new_genvv(const char *name, const char *value)
-{
-	int					i;
-	int					len;
-	char				**tmp;
-
-	tmp = ft_matrdup((const char **)g_envv);
-	ft_matrdel(&g_envv);
-	if ((g_envv = (char **)malloc(sizeof(char *) * \
-			(ft_matrlen((const char **)tmp) + 1 + 1))) == NULL)
-		exit(-1);
-	i = -1;
-	while (tmp[++i] != NULL)
-		g_envv[i] = ft_strdup(tmp[i]);
-	len = ft_strlen(name) + ft_strlen("=") + ft_strlen(value) + 1;
-	if ((g_envv[i] = (char *)ft_memalloc(sizeof(char *) * len)) == NULL)
-		exit(-1);
-	ft_strglue(g_envv[i], name, "=", value, NULL);
-	g_envv[i + 1] = NULL;
-	ft_matrdel(&tmp);
-}
 
 static char				*change_envvalue(const char *name, const char *value, \
 										int var_number)
@@ -78,8 +56,7 @@ void					cmd_setenv(const char **cmd)
 	{
 		g_envv[var_number] = change_envvalue(cmd[1], cmd[2], var_number);
 		update_envvar_path(cmd[1]);
-		return ;
 	}
-	new_genvv(cmd[1], cmd[2]);
-	update_envvar_path(cmd[1]);
+	else
+		add_environment_variable(cmd[1], cmd[2]);
 }

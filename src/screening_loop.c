@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 05:03:02 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/10 11:32:20 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 17:29:17 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,17 @@ static void				end_of_line_processing(t_buff **token, t_list **operator, t_list 
 	}
 }
 
-void				screening_loop(const char *input_line, t_buff *token, t_list **result, t_list *operator)
+void				screening_loop(const char *input_line, t_buff *token, \
+							t_list **result, t_list *operator)
 {
 	int					i;
 
 	i = 0;
-	while (ft_isspace(input_line[i]))
-		i++;
+	if (input_line == NULL)
+	{
+		ft_buffdel(&token);
+		return ;
+	}
 	while (input_line[i] != '\0')
 	{
 		if (is_quotes(input_line[i]))

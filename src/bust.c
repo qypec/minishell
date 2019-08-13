@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 17:52:10 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/12 17:24:59 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 18:27:07 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 
 int						get_errorcode(const char *fullname)
 {
+	struct stat		buff;
+
 	if (access(fullname, EXISTENCE) == -1)
 		return (COMMAND_NOT_FOUND);
-	else if (access(fullname, IMPLEMENTABILITY) == -1)
+	if (access(fullname, IMPLEMENTABILITY) == -1)
 		return (PERMISIION_DENIED);
+	stat(fullname, &buff);
+	if (S_ISDIR(buff.st_mode))
+		return (COMMAND_NOT_FOUND);
 	return (0);
 }
 

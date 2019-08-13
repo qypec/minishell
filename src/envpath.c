@@ -6,15 +6,19 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:25:48 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/12 17:22:49 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 18:08:51 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void					update_envvar_path(const char *cmd)
+void					update_envvar_path(const char *variable)
 {
-	if (ft_strcmp(cmd, "PATH") == 0)
+	int					size;
+
+	size = ft_strlen("PATH");
+	if (ft_strncmp(variable, "PATH", size) == 0 && \
+		(variable[size] == '\0' || variable[size] == '='))
 	{
 		ft_mapdel(&g_envvpath);
 		init_hashtable_from_envvpath();

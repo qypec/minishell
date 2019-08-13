@@ -6,11 +6,28 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/12 21:06:39 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 17:14:18 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void				*is_builtin(const char *builtin_name)
+{
+	if (builtin_name == NULL)
+		return (NULL);
+	else if (ft_strcmp("cd", builtin_name) == 0)
+		return (&cmd_cd);
+	else if (ft_strcmp("echo", builtin_name) == 0)
+		return (&cmd_echo);
+	else if (ft_strcmp("env", builtin_name) == 0)
+		return (&cmd_env);
+	else if (ft_strcmp("setenv", builtin_name) == 0)
+		return (&cmd_setenv);
+	else if (ft_strcmp("unsetenv", builtin_name) == 0)
+		return (&cmd_unsetenv);
+	return (NULL);
+}
 
 static void				commands_interpretation(char *input_line)
 {
@@ -23,7 +40,11 @@ static void				commands_interpretation(char *input_line)
 	commands_set = ft_strsplit(input_line, ';');
 	while (commands_set[i] != NULL)
 	{
-		command = screening((const char *)commands_set[i]);
+		if ((command = screening((const char *)commands_set[i])) == NULL)
+		{
+			i++;
+			continue ;
+		}
 		if (ft_strcmp("exit", command[0]) == 0)
 			cmd_exit(input_line, commands_set, command);
 		if ((launch_builtin = is_builtin(command[0])) != NULL)

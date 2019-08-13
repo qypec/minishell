@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 20:29:38 by yquaro            #+#    #+#             */
-/*   Updated: 2019/07/07 06:43:45 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 14:07:12 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int				check_arguments(const char **cmd)
 		ft_putstr("\n");
 		return (1);
 	}
-	if (ft_strcmp(cmd[1], "-n") == 0 && cmd[2] == NULL)
+	else if (ft_strcmp(cmd[1], "-n") == 0 && cmd[2] == NULL)
 		return (1);
 	return (0);
 }

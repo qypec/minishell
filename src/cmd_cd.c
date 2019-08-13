@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qypec <qypec@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:03:05 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 02:07:31 by qypec            ###   ########.fr       */
+/*   Updated: 2019/08/13 16:31:24 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ static void				change_pwd_and_oldpwd_variables(const char *oldpwd_location)
 
 	getcwd((char *)current_location, PATH_MAX);
 	if ((indexof_pwd = find_((const char **)g_envv, "PWD")) == -1)
-		add_environment_variable(ft_strjoin("PWD", current_location));
+		add_environment_variable("PWD", current_location);
 	else
 	{
 		ft_strdel(&g_envv[indexof_pwd]);
 		g_envv[indexof_pwd] = ft_strjoin("PWD=", current_location);
 	}
 	if ((indexof_oldpwd = find_((const char **)g_envv, "OLDPWD")) == -1)
-		add_environment_variable(ft_strjoin("OLDPWD", oldpwd_location));
+		add_environment_variable("OLDPWD", oldpwd_location);
 	else
 	{
 		ft_strdel(&g_envv[indexof_oldpwd]);

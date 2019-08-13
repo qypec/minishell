@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:57 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/12 21:49:14 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/08/13 17:33:38 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,23 @@ char					*gitdir_search(void);
 
 void					init_global_envv(const char **envv);
 void					init_hashtable_from_envvpath(void);
-void					update_envvar_path(const char *cmd);
+void					update_envvar_path(const char *variable);
 
 int						bust(const char *cmd_name, int error_code);
 int						get_errorcode(const char *fullname);
 
-void					*is_builtin(const char *builtin_name);
 void					launch_executable(const char **cmd);
 
-void					add_environment_variable(char *variable);
+void					add_environment_variable(const char *key, const char *value);
+void					delete_environment_variable(const char *variable);
 const char				*getvalue_envv(const char *var_name);
 int						find_(const char **envv, const char *envvname);
 
 char					**screening(const char *input_line);
 int						is_quotes(char c);
 int						is_nonscreening_sign(const char *cmd, int i, char sign);
-void					screening_loop(const char *input_line, \
-					t_buff *token, t_list **result, t_list *operator);
+void					screening_loop(const char *input_line, t_buff *token, \
+							t_list **result, t_list *operator);
 void					preprocessing_extension_characters(t_buff *token, \
 										const char *input_line, int *i);
 void					wait_quotes_from_input(t_buff *buff, t_list *oper, \
