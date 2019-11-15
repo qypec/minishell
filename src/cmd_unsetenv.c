@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 22:43:03 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 14:40:16 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/11/15 19:41:29 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ static int				is_forbidden_variable(const char *varname)
 		return (1);
 	return (0);
 }
+
+/*
+** Error processing for unsetenv
+**
+** @param 		command		set of command and flags
+** @return		execution code
+*/
 
 static int				error_processing(const char **command)
 {
@@ -40,6 +47,13 @@ static int				error_processing(const char **command)
 	}
 	return (1);
 }
+
+/*
+** Removes a variable from a set of environment variables.
+**
+** @param 		command		set of command and flags
+** @return		N/A
+*/
 
 void					cmd_unsetenv(const char **command)
 {

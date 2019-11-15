@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:45:43 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 17:34:39 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/11/15 18:40:00 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@ int						is_quotes(char c)
 		return (1);
 	return (0);
 }
+
+/*
+** Moves data from a linked list to an array of strings
+**
+** @param 		head	Linked list containing a command with arguments.
+**						The first element of the list is the name of the command, 
+**						each next is the argument or flag of the command.
+** @return		strings array of preprocessed command
+*/
 
 static char				**list_to_matr(t_list **head)
 {
@@ -42,6 +51,13 @@ static char				**list_to_matr(t_list **head)
 	ft_lstdel(head);
 	return (matr);
 }
+
+/*
+** Process quotes and slash characters. Preprocess environment variables.
+**
+** @param 		user_input_line		input line between separator characters ';'
+** @return		strings array of preprocessed command
+*/
 
 char					**screening(const char *user_input_line)
 {

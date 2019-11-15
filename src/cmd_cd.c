@@ -6,11 +6,18 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:03:05 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 18:52:38 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/11/15 20:01:55 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Error processing for cd
+**
+** @param 		command		set of command and flags
+** @return		execution code
+*/
 
 static int				error_processing(const char **command)
 {
@@ -21,6 +28,13 @@ static int				error_processing(const char **command)
 	}
 	return (0);
 }
+
+/*
+** Updates pwd and oldpwd veriables
+**
+** @param 		oldpwd		previous location
+** @return		N/A
+*/
 
 static void				change_pwd_and_oldpwd_variables(const char *oldpwd)
 {
@@ -45,6 +59,13 @@ static void				change_pwd_and_oldpwd_variables(const char *oldpwd)
 	}
 }
 
+/*
+** Prints current position if users command: "cd -"
+**
+** @param 		N/A
+** @return		previous location
+*/
+
 static char				*display_cd_dash(void)
 {
 	const char			*oldpwd_location;
@@ -60,6 +81,13 @@ static char				*display_cd_dash(void)
 		ft_printf("%s\n", oldpwd_location);
 	return (ft_strdup(oldpwd_location));
 }
+
+/*
+** Formation of a new location.
+**
+** @param 		path		users output
+** @return		new location
+*/
 
 static char				*get_newpath(const char *path)
 {
@@ -78,6 +106,13 @@ static char				*get_newpath(const char *path)
 	else
 		return (ft_strdup(path));
 }
+
+/*
+** A utility that allows you to navigate between directoriesю
+**
+** @param 		command		set of command and flags
+** @return		N/A
+*/
 
 void					cmd_cd(const char **command)
 {

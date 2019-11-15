@@ -6,11 +6,19 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 08:16:12 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/10 14:06:44 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/11/15 19:45:40 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Glues the current position and 
+** default location of the file with the name of the branch
+**
+** @param 		current_path				current location
+** @return		path_to_branch_name_file	full path
+*/
 
 static char				*get_path(char *current_path)
 {
@@ -25,6 +33,13 @@ static char				*get_path(char *current_path)
 						GIT_BRANCH_NAME_FILE, NULL);
 	return (path_to_branch_name_file);
 }
+
+/*
+** Cuts a branch name from a line read from a file
+**
+** @param 		buff	buffer containing lines from file
+** @return		result	branch name
+*/
 
 static char				*cut_off_branch_name(const char *buff)
 {
@@ -46,14 +61,21 @@ static char				*cut_off_branch_name(const char *buff)
 	return (result);
 }
 
-static char				*get_branch_name(char *path)
+/*
+** Opens a file and take the name of the branch-
+**
+** @param 		path_to_branch_name_file
+** @return		branch_name
+*/
+
+static char				*get_branch_name(char *path_to_branch_name_file)
 {
 	int					fd;
 	t_buff				*buff;
 	char				*branch_name;
 	char				symb;
 
-	if ((fd = open(path, O_RDONLY)) == -1)
+	if ((fd = open(path_to_branch_name_file, O_RDONLY)) == -1)
 		return (NULL);
 	buff = ft_buffinit(BUFF_BRANCH_NAME_SIZE);
 	while (read(fd, &symb, 1) > 0)
@@ -63,6 +85,14 @@ static char				*get_branch_name(char *path)
 	ft_buffdel(&buff);
 	return (branch_name);
 }
+
+/*
+** Cuts a step from the current path.
+** The current path goes down one level.
+**
+** @param 		current_path
+** @return		N/A
+*/
 
 static void				move_to_lower_level(char *current_path)
 {
@@ -74,6 +104,13 @@ static void				move_to_lower_level(char *current_path)
 	if (i != 0)
 		current_path[i] = '\0';
 }
+
+/*
+** Looks for a git folder until it reaches the root folder
+**
+** @param 		N/A
+** @return		branch_name
+*/
 
 char					*gitdir_search(void)
 {

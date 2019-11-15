@@ -6,11 +6,20 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 13:29:40 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 18:46:52 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/11/15 18:37:44 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Fill hashtable with:
+**		key		- system builtins name
+**		value	- path to this builtin
+**
+** @param 		path	string array of path from environment variable PATH
+** @return		N/A
+*/
 
 static void				push_executables_to_hashtable(const char **path)
 {
@@ -36,6 +45,15 @@ static void				push_executables_to_hashtable(const char **path)
 	}
 }
 
+/*
+** Fill hashtable with:
+**		key		- system builtins name
+**		value	- path to this builtin
+**
+** @param 		path	string array of path from environment variable PATH
+** @return		N/A
+*/
+
 void					init_hashtable_from_envvpath(void)
 {
 	char				**tmp;
@@ -48,6 +66,13 @@ void					init_hashtable_from_envvpath(void)
 	push_executables_to_hashtable((const char **)tmp);
 	ft_matrdel(&tmp);
 }
+
+/*
+** Assigns the path to the executable file to the environment variable SHELL
+**
+** @param 		indexof_shell	index of shell variable in environment array
+** @return		N/A
+*/
 
 static void				setvar_shell(int indexof_shell)
 {
@@ -62,6 +87,14 @@ static void				setvar_shell(int indexof_shell)
 		exit(-1);
 	ft_strglue(g_envv[indexof_shell], "SHELL=", dir, "/minishell", NULL);
 }
+
+/*
+** Increment SHLVL variable
+**
+** @param 		shlvl_var		string of SHLVL value
+** @param		indexof_shlvl	index of SHLVL
+** @return		N/A
+*/
 
 static void				setvar_shlvl(const char *shlvl_var, int indexof_shlvl)
 {
@@ -78,6 +111,13 @@ static void				setvar_shlvl(const char *shlvl_var, int indexof_shlvl)
 	ft_strglue(g_envv[indexof_shlvl], "SHLVL=", next_lvl, NULL);
 	ft_strdel(&next_lvl);
 }
+
+/*
+** Copy environment to global string array
+**
+** @param 		envv	The string array of environment
+** @return		N/A
+*/
 
 void					init_global_envv(const char **envv)
 {

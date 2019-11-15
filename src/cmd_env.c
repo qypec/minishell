@@ -6,11 +6,18 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 22:44:52 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 15:13:53 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/11/15 19:48:09 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Prints list of environment variables
+**
+** @param 		N/A
+** @return		N/A
+*/
 
 void					cmd_env(void)
 {

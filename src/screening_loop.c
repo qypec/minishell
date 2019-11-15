@@ -6,11 +6,23 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 05:03:02 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 18:54:37 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/11/15 18:40:49 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Add or delete quotes to stack of operator
+**
+** @param 		token		Buffer of string containing a word between
+** 							any service character.
+** @param 		operator	A stack that tracks the current state of an
+**							opening or closing quote (operator).
+** @param 		input_line
+** @param 		i			input lines counter
+** @return		N/A
+*/
 
 static void				add_quotes_to_stack(t_buff *token, t_list **operator, \
 								const char *input_line, int *i)
@@ -29,6 +41,16 @@ static void				add_quotes_to_stack(t_buff *token, t_list **operator, \
 	}
 }
 
+/*
+** The next character after the slash is added to the result line of the command
+**
+** @param 		token		Buffer of string containing a word between
+**							any service character.
+** @param 		input_line
+** @param 		i			input lines counter
+** @return		N/A
+*/
+
 static void				slash_processing(t_buff *token, \
 								const char *input_line, int *i)
 {
@@ -40,6 +62,19 @@ static void				slash_processing(t_buff *token, \
 	else
 		ft_buffaddsymb(token, input_line[(*i)++]);
 }
+
+/*
+** Adds or does not add a space to the result line of the command
+** depending on the current state of the operator stack.
+**
+** @param 		token		Buffer of string containing a word
+**							between any service character.
+** @param 		operator	A stack that tracks the current state
+**							of an opening or closing quote (operator).
+** @param 		input_line
+** @param 		i			input lines counter
+** @return		new element of token list
+*/
 
 static t_list			*space_processing(t_buff **token, t_list *operator, \
 								const char *input_line, int *i)
@@ -60,6 +95,19 @@ static t_list			*space_processing(t_buff **token, t_list *operator, \
 	return (new_token_to_result);
 }
 
+/*
+** It looks at the current state of the operator stack. If there is
+** no closed quotation mark, then it causes the function
+** of additional input.
+**
+** @param 		token		Buffer of string containing a word
+**							between any service character.
+** @param 		operator	A stack that tracks the current
+**							state of an opening	or closing quote (operator).
+** @param 		result		Linked list containing a command with arguments.
+** @return		N/A
+*/
+
 static void				end_of_line_processing(t_buff **token, \
 								t_list **operator, t_list **result)
 {
@@ -72,6 +120,18 @@ static void				end_of_line_processing(t_buff **token, \
 		ft_buffdel(token);
 	}
 }
+
+/*
+** Line screening loop
+**
+** @param 		input_line
+** @param 		token		Buffer of string containing a word
+**							between any service character.
+** @param 		result		Linked list containing a command with arguments.
+** @param 		operator	A stack that tracks the current state of an opening
+**							or closing quote (operator).
+** @return		N/A
+*/
 
 void					screening_loop(const char *input_line, t_buff *token, \
 								t_list **result, t_list *operator)

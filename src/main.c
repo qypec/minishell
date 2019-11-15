@@ -6,11 +6,18 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 20:05:37 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 17:14:18 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/11/15 18:38:38 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Checks the command for compliance with one of our biltins
+**
+** @param 		builtin_name
+** @return		builtin function pointer
+*/
 
 static void				*is_builtin(const char *builtin_name)
 {
@@ -28,6 +35,13 @@ static void				*is_builtin(const char *builtin_name)
 		return (&cmd_unsetenv);
 	return (NULL);
 }
+
+/*
+** Interpretation of commands
+**
+** @param 		input_line	line from input
+** @return		N/A
+*/
 
 static void				commands_interpretation(char *input_line)
 {
@@ -57,6 +71,15 @@ static void				commands_interpretation(char *input_line)
 	ft_matrdel(&commands_set);
 }
 
+/*
+** Keeps track of return value from reading.
+** If the read returned 0, then the user pressed ctrl + D
+**
+** @param 		ret		return code from read
+** @param 		buff	buffer of characters from input 
+** @return		N/A
+*/
+
 static void				ctrl_d_tracking(int ret, t_buff **buff)
 {
 	if (ret == END_OF_FILE)
@@ -68,6 +91,13 @@ static void				ctrl_d_tracking(int ret, t_buff **buff)
 		exit(0);
 	}
 }
+
+/*
+** Loop of read from input
+**
+** @param 		N/A
+** @return		N/A
+*/
 
 static void				user_input_loop(void)
 {

@@ -6,11 +6,19 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 04:25:48 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 18:53:59 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/11/15 19:36:44 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Updates the structure of environment variables 
+** if the PATH variable has changed.
+**
+** @param 		variable
+** @return		N/A
+*/
 
 void					update_envvar_path(const char *variable)
 {
@@ -25,6 +33,14 @@ void					update_envvar_path(const char *variable)
 	}
 }
 
+/*
+** Execution
+**
+** @param 		fullname	fullname from builtin	
+** @param 		command		set of command and flags
+** @return		N/A
+*/
+
 void					execution(const char *fullname, const char **command)
 {
 	pid_t				pid;
@@ -37,6 +53,13 @@ void					execution(const char *fullname, const char **command)
 		wait(&pid);
 }
 
+/*
+** Runs executables located in this directory
+**
+** @param 		command		set of command and flags
+** @return		N/A
+*/
+
 void					launch_executable_from_this_directory(\
 													const char **command)
 {
@@ -48,6 +71,13 @@ void					launch_executable_from_this_directory(\
 	ft_strglue((char *)fullname, command[0] + 1, NULL);
 	execution(fullname, command);
 }
+
+/*
+** Glues the full path to the file and its name
+**
+** @param 		builtin		name of bultin
+** @return		fullname	name and path to it
+*/
 
 static char				*get_fullname(const char *builtin)
 {
@@ -62,6 +92,13 @@ static char				*get_fullname(const char *builtin)
 	ft_strglue(fullname, value, "/", builtin, NULL);
 	return (fullname);
 }
+
+/*
+** Runs executables
+**
+** @param 		command		set of command and flags
+** @return		N/A
+*/
 
 void					launch_executable(const char **command)
 {

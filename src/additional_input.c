@@ -6,11 +6,18 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 00:52:03 by yquaro            #+#    #+#             */
-/*   Updated: 2019/08/13 18:42:45 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/11/15 20:03:36 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Makes screening until a quote is entered by the user.
+**
+** @param 		N/A
+** @return		N/A
+*/
 
 static void				display_quote_prompt(void)
 {
